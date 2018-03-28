@@ -1,0 +1,38 @@
+{
+  "name": "salesforce-live-agent-inbenta-sdk-adapter",
+  "version": "0.0.1",
+  "description": "Salesforce Live Agent adapter for Inbenta Chatbot SDK",
+  "engines": {
+    "node": "8.9.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "@google-cloud/speech": "^1.3.0",
+    "ejs": "^2.5.7",
+    "express-session": "^1.15.6",
+    "hbs": "^4.0.1",
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.2",
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/nextlevel-inbenta.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}
