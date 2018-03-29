@@ -39,7 +39,7 @@ router.get('/', function(req, res) {
 	  	});
 
   	console.log('recognize');
-  	res.send(transcription);
+  	res.send(transcriptionText);
   	res.sendStatus(200);
 });
 
