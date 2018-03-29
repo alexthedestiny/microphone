@@ -20,7 +20,6 @@ router.get('/', function(req, res) {
 	  	audio: audio,
 	  	config: config,
 	};
-  	let transcriptionText = 'nn';
 
 	client
 	  	.recognize(request)
@@ -29,18 +28,16 @@ router.get('/', function(req, res) {
 	    	const transcription = response.results
 	      		.map(result => result.alternatives[0].transcript)
 	      		.join('\n');
-	    	// console.log(`Transcription: ${transcription}`);
-	    	res.send(`Transcription: ${transcription}`);
-	    	transcriptionText = transcription;
+	    	console.log(`Transcription: ${transcription}`);;
+  			res.send(transcription);
+	    	res.sendStatus(200);
 	  	})
 	  		.catch(err => {
-	  		transcriptionText = err;
-	    	console.error('ERROR:', err);
+	    	console.error('ERROR: google', err);
+	    	res.sendStatus(204);
 	  	});
 
   	console.log('recognize');
-  	res.send(transcriptionText);
-  	res.sendStatus(200);
 });
 
 module.exports = router;
