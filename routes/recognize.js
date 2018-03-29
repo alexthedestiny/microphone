@@ -5,10 +5,9 @@ const fs = require('fs');
 const client = new speech.SpeechClient();
 
 router.get('/', function(req, res) {
-	const fileName = '../../someaudio.flac';
+	const fileName = './someaudio.flac';
 	const file = fs.readFileSync(fileName);
 	const audioBytes = file.toString('base64');
-
 	const audio = {
 	  	content: audioBytes,
 	};
@@ -21,7 +20,6 @@ router.get('/', function(req, res) {
 	  	audio: audio,
 	  	config: config,
 	};
-
 	client
 	  	.recognize(request)
 	  	.then(data => {
