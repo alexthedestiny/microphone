@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
 	  	})
 	  		.catch(err => {
 	    	console.error('ERROR: google', err);
-	    	res.sendStatus(204);
+	    	res.sendStatus(500);
 	  	});
 
   	console.log('recognize');
