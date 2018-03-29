@@ -27,7 +27,8 @@ router.get('/', function(req, res) {
 	    	const transcription = response.results
 	      		.map(result => result.alternatives[0].transcript)
 	      		.join('\n');
-	    	console.log(`Transcription: ${transcription}`);
+	    	// console.log(`Transcription: ${transcription}`);
+	    	res.send(`Transcription: ${transcription}`);
 	  	})
 	  		.catch(err => {
 	    	console.error('ERROR:', err);
