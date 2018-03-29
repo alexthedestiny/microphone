@@ -5,7 +5,7 @@ const fs = require('fs');
 const client = new speech.SpeechClient();
 
 router.get('/', function(req, res) {
-	const fileName = '/someaudio.flac';
+	const fileName = '../../someaudio.flac';
 	const file = fs.readFileSync(fileName);
 	const audioBytes = file.toString('base64');
 
