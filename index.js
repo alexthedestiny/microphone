@@ -9,7 +9,6 @@ var app = module.exports = express();
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 app.get('/', function(req, res) {
-  console.log('index');
   res.sendFile('index.html');
   res.sendStatus(200);
 });
