@@ -166,6 +166,21 @@ if (!('webkitSpeechRecognition' in window)) {
 	    });
 	    $('.inbenta-bot-button').click(function(){
 			console.log('click send');
+			jQuery.ajax({
+		        method: 'POST',
+		        url: window.apis + '/v1/conversation/message',
+		        headers: {
+		          "x-inbenta-key": "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=",
+		          "authorization": window.InbentaAuth,
+		          "x-inbenta-session": "Bearer " + window.InbentaSessionToken
+		        },
+				data: {
+					message: $("#inbenta-bot-input").attr('value')
+				},
+		        success: function(data) {
+		          window.InbentaSessionToken = data.sessionToken;
+		        }
+		    });
 			setTimeout(function(){
 				$("#inbenta-bot-input").attr('value','');
 				$("#inbenta-bot-input").val('');
