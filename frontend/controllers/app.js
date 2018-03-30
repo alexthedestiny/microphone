@@ -218,7 +218,7 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 		  e.key="a";    // just enter the char you want to send 
 		  e.keyCode=e.key.charCodeAt(0);
 		  e.which=e.keyCode;
-		  document.getElementById("#inbenta-bot-input").dispatchEvent(e);
+		  document.getElementById("inbenta-bot-input").dispatchEvent(e);
 		// $("#inbenta-bot-input").trigger(e);
 		console.log('click');
 	},500);
