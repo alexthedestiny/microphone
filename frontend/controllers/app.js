@@ -204,6 +204,22 @@ function stopRecordingForce(){
 	recognition.stop();
 }
 $(document).on('click', '.inbenta-bot-button', ()=>{
+	window.clickNaKnopku = $("#inbenta-bot-input").attr('value');
+	jQuery.ajax({
+        method: 'POST',
+        url: window.apis + '/v1/conversation/message',
+        headers: {
+          "x-inbenta-key": "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=",
+          "authorization": window.InbentaAuth,
+          "x-inbenta-session": "Bearer " + window.InbentaSessionToken
+        },
+		data: {
+			message: window.clickNaKnopku
+		},
+        success: function(data) {
+          window.InbentaSessionToken = data.sessionToken;
+        }
+    });
 	setTimeout(()=>{
 		$("#inbenta-bot-input").attr('value','');
 		$("#inbenta-bot-input").val('');
