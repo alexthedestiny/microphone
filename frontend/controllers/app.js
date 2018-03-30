@@ -213,9 +213,10 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 	},500);
 });
 $(document).on('mouseover', '.inbenta-bot-button', ()=>{
-	window.recognizedText = $("#inbenta-bot-input").val();
+	$("#inbenta-bot-input").focus();
+	$("#inbenta-bot-input").val('aaa');
 	console.log('val', $("#inbenta-bot-input").val());
-	$("#inbenta-bot-input").focus().val('aaa');
+	
 });
 //helpers
 var first_char = /\S/;
