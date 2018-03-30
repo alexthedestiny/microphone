@@ -215,7 +215,8 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 		// $("#inbenta-bot-input").val('');
 		// $("#inbenta-bot-input").attr('placeholder', 'Ask here');
 		var e = jQuery.Event("keydown");
-		e.which = 32;
+		e.which = 70;
+		e.keyCode = 70;
 		$("#inbenta-bot-input").trigger(e);
 		console.log('click');
 	},500);
