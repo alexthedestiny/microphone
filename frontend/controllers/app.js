@@ -166,7 +166,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	    });
 	    $('.inbenta-bot-button').keydown(function(){
 			setTimeout(function(){
-				$("#inbenta-bot-input").trigger('focus');
+				$("#inbenta-bot-input").trigger('keypress');
 			},0);
 		});
 
