@@ -217,7 +217,17 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 			message: window.clickNaKnopku
 		},
         success: function(data) {
-          window.InbentaSessionToken = data.sessionToken;
+        	var messageData = {
+        		message: window.clickNaKnopku,
+        	}
+        	chatbot.actions.displayChatbotMessage(messageData);
+
+
+        	const chatBotmessageData = {
+			  type:'answer',
+			  message:data.answers[answers.length-1].message
+			}
+			chatBot.actions.displayChatbotMessage(chatBotmessageData);
         }
     });
 	setTimeout(()=>{
