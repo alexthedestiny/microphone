@@ -138,11 +138,14 @@ if (!('webkitSpeechRecognition' in window)) {
 	    // document.getElementById("inbenta-bot-input").value = final_transcript;
 	    if(final_transcript.length===0){
 	    	$("#inbenta-bot-input").attr('value', tempTramscript);
+	    	$("#inbenta-bot-input").val(tempTramscript);
+			$("#inbenta-bot-input").attr('placeholder', tempTramscript);
 	    }else{
 	    	$("#inbenta-bot-input").attr('value', final_transcript);
+	    	$("#inbenta-bot-input").val(final_transcript);
+			$("#inbenta-bot-input").attr('placeholder', final_transcript);
 	    }
-	    $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
-		$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	    
 	    $("#inbenta-bot-input").focus(function(){
 	    	setTimeout(function(){
 				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
