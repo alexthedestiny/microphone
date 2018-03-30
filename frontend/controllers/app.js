@@ -160,20 +160,24 @@ if (!('webkitSpeechRecognition' in window)) {
 	    	},0);
 	    	$("#inbenta-bot-input").trigger('keypress');
 	    });
-	   //  $("#inbenta-bot-input").keypress(function(){
-	   //  	setTimeout(function(){
-	   //  		$("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
-				// $("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
-	   //  	},0);
-	   //  });
-	 //    $('.inbenta-bot-button').keydown(function(){
-	 //    	console.log('kd');
-		// 	setTimeout(function(){
-		// 		$("#inbenta-bot-input").trigger('keypress');
-		// 	},0);
-		// });
+	    $("#inbenta-bot-input").keypress(function(){
+	    	setTimeout(function(){
+	    		$("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
+				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	    	},0);
+	    });
 
-		$('.inbenta-bot-button').keyup(function(){
+
+	    $('.inbenta-bot-button').keydown(function(){
+	    	console.log('kd');
+			setTimeout(function(){
+				$("#inbenta-bot-input").trigger('focus');
+				var e = jQuery.Event("keydown");
+				e.which = 32;
+				$("#inbenta-bot-input").trigger(e);
+			},0);
+		});
+		$('.inbenta-bot-button').click(function(){
 			console.log('click send');
 			setTimeout(function(){
 				$("#inbenta-bot-input").attr('value','');
