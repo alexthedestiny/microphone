@@ -208,21 +208,22 @@ $(document).on('mouseover', '.inbenta-bot-button', ()=>{
 		// $("#inbenta-bot-input").attr('value','');
 		// $("#inbenta-bot-input").val('');
 		// $("#inbenta-bot-input").attr('placeholder', 'Ask here');
-		// var e = new Event("keydown");
-		// e.key="a";
-		// e.keyCode=e.key.charCodeAt(0);
-		// e.which=e.keyCode;
-		// let element = document.getElementById('test');
-		// element.dispatchEvent(e);
-
-
 		$("#inbenta-bot-input").focus();
-		fireEvent(document.getElementById('inbenta-bot-input'), 'keypress');
+		
+		var e = new Event("keydown");
+		e.key="a";
+		e.keyCode=e.key.charCodeAt(0);
+		e.which=e.keyCode;
+		let element = document.getElementById('inbenta-bot-input');
+		element.dispatchEvent(e);
+
+
+		// fireEvent(document.getElementById('inbenta-bot-input'), 'keypress');
 
 		console.log('click');
 	},500);
 });
-$('#test').keydown(function(event){
+$('#inbenta-bot-input').keydown(function(event){
 	console.log('k',event.key);
 });
 //helpers
