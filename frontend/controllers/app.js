@@ -96,6 +96,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
 });
 var recognizing;
 var final_transcript = '';
+var tempTramscript = '';
 if (!('webkitSpeechRecognition' in window)) {
   alert('Ваш браузер не поддерживает API');
 } else {
@@ -128,6 +129,8 @@ if (!('webkitSpeechRecognition' in window)) {
 	        stopRecording();
 	      } else {
 	        interim_transcript += event.results[i][0].transcript;
+	      	tempTramscript = interim_transcript;
+
 	      }
 	    }
 	    final_transcript = capitalize(final_transcript);
@@ -151,6 +154,9 @@ function stopRecording(){
 	$('#microphone-button').css('display','inline-block');
 	$('#microphone-button-slash').css('display','none');
 	recognition.stop();
+	
+	document.getElementById('final_span').innerHTML = tempTramscript;
+	tempTramscript = '';
 }
 
 var two_line = /\n\n/g;
