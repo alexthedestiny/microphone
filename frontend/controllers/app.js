@@ -137,9 +137,6 @@ if (!('webkitSpeechRecognition' in window)) {
 	    	$("#inbenta-bot-input").attr('value', tempTramscript);
 	    	$("#inbenta-bot-input").val(tempTramscript);
 			$("#inbenta-bot-input").attr('placeholder', tempTramscript);
-			var e = jQuery.Event("keydown");
-			e.which = 32;
-			$("#inbenta-bot-input").trigger(e);
 	    }else{
 	    	$("#inbenta-bot-input").attr('value', final_transcript);
 	    	$("#inbenta-bot-input").val(final_transcript);
@@ -149,25 +146,25 @@ if (!('webkitSpeechRecognition' in window)) {
 			// $("#inbenta-bot-input").focus().trigger(e);
 	    }
 	    
-	    $("#inbenta-bot-input").focus(function(){
-	    	console.log('focus');
-	    	setTimeout(function(){
-				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
-				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
-	    	},0);
-	    });
-	    $("#inbenta-bot-input").blur(function(){
-	    	setTimeout(function(){
-				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
-				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
-	    	},0);
-	    });
-	    $("#inbenta-bot-input").keypress(function(){
-	    	setTimeout(function(){
-	    		$("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
-				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
-	    	},0);
-	    });
+	   //  $("#inbenta-bot-input").focus(function(){
+	   //  	console.log('focus');
+	   //  	setTimeout(function(){
+				// $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+				// $("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	   //  	},0);
+	   //  });
+	   //  $("#inbenta-bot-input").blur(function(){
+	   //  	setTimeout(function(){
+				// $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+				// $("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	   //  	},0);
+	   //  });
+	   //  $("#inbenta-bot-input").keypress(function(){
+	   //  	setTimeout(function(){
+	   //  		$("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
+				// $("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	   //  	},0);
+	   //  });
 
 		// $('.inbenta-bot-button').click(function(){
 		// 	console.log('click send');
@@ -184,7 +181,6 @@ if (!('webkitSpeechRecognition' in window)) {
 	};
 }
 function startRecording(){
-	console.log('start');
 	$('#microphone-button').css('display','none');
 	$('#microphone-button-slash').css('display','inline-block');
 	final_transcript = '';
@@ -192,11 +188,9 @@ function startRecording(){
   	recognition.start();
 }
 function stopRecording(){
-	console.log('stop');
 	$('#microphone-button').css('display','inline-block');
 	$('#microphone-button-slash').css('display','none');
 	recognition.stop();
-	// document.getElementById('final_span').innerHTML = tempTramscript;
 	$("#inbenta-bot-input").attr('value', tempTramscript);
 	setTimeout(function(){
 		$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
@@ -223,7 +217,9 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 		console.log('click');
 	},500);
 });
-
+$('#inbenta-bot-input').keydown(function(event){
+	console.log(event.keyCode);
+});
 //helpers
 var first_char = /\S/;
 function capitalize(s) {
