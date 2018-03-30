@@ -147,6 +147,7 @@ if (!('webkitSpeechRecognition' in window)) {
 			var e = jQuery.Event("keydown");
 			e.which = 32;
 			$("#inbenta-bot-input").trigger(e);
+			console.log('e', $("#inbenta-bot-input").val());
 	    }
 	    
 	    $("#inbenta-bot-input").focus(function(){
