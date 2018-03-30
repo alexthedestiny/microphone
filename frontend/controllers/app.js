@@ -214,10 +214,12 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 		// $("#inbenta-bot-input").attr('value','');
 		// $("#inbenta-bot-input").val('');
 		// $("#inbenta-bot-input").attr('placeholder', 'Ask here');
-		var e = jQuery.Event("keydown");
-		e.which = 70;
-		e.keyCode = 70;
-		$("#inbenta-bot-input").trigger(e);
+		 var e = new Event("keydown");
+		  e.key="a";    // just enter the char you want to send 
+		  e.keyCode=e.key.charCodeAt(0);
+		  e.which=e.keyCode;
+		  document.getElementById("#inbenta-bot-input").dispatchEvent(e);
+		// $("#inbenta-bot-input").trigger(e);
 		console.log('click');
 	},500);
 });
