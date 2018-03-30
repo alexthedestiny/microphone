@@ -208,18 +208,8 @@ $(document).on('mouseover', '.inbenta-bot-button', ()=>{
 		// $("#inbenta-bot-input").attr('value','');
 		// $("#inbenta-bot-input").val('');
 		// $("#inbenta-bot-input").attr('placeholder', 'Ask here');
-		$("#inbenta-bot-input").focus();
-		
-		var e = new Event("keydown");
-		e.key="a";
-		e.keyCode=e.key.charCodeAt(0);
-		e.which=e.keyCode;
-		let element = document.getElementById('inbenta-bot-input');
-		element.dispatchEvent(e);
-
-
-		// fireEvent(document.getElementById('inbenta-bot-input'), 'keypress');
-
+		$('#inbenta-bot-input').trigger('keydown', [{preventDefault:function(){},keyCode:68}]); 
+		// $("#inbenta-bot-input").keydown();
 		console.log('click');
 	},500);
 });
@@ -231,15 +221,3 @@ var first_char = /\S/;
 function capitalize(s) {
   return s.replace(first_char, function(m) { return m.toUpperCase(); });
 }
-
-
-function fireEvent(element,event){
-	if (document.createEventObject){ 
-		var evt = document.createEventObject();
-		return element.fireEvent('on'+event,evt);
-	}else{
-		var evt = document.createEvent("KeyboardEvent");
-		evt.initKeyEvent(event,true, true, null, false, false, false, false, 70, 0); 
-		return !element.dispatchEvent(evt);
-	}
-} 
