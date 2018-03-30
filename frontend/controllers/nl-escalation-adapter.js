@@ -178,6 +178,11 @@ function launchNLEsclationForm(escalateNLForm,rejectedEscalation,noAgentsAvailab
       return next(messageData);
 
     });
+    chatBot.subscriptions.onDisplayUserMessage(function(messageData, next) {
+      
+      return next(messageData);
+
+    });
     /**
      * Subscription to DisplayAgentResponse, to check if the user wants to escalate
      * Check ID to be sure it's our agentMessage and the option selected
