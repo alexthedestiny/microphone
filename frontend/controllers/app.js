@@ -220,9 +220,9 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
         	var messageData = {
         		message: window.clickNaKnopku,
         	}
-        	window.chatbot.actions.displayChatbotMessage(messageData);
+        	window.chatbot.actions.displayUserMessage(messageData);
 
-
+        	console.log(window.chatbot);
    //      	const chatBotmessageData = {
 			//   type:'answer',
 			//   message:data.answers[answers.length-1].message
