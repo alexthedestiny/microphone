@@ -125,7 +125,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	    for (var i = event.resultIndex; i < event.results.length; ++i) {
 	      if (event.results[i].isFinal) {
 	        final_transcript += event.results[i][0].transcript;
-	        console.log('final');
+	        stopRecording();
 	      } else {
 	        interim_transcript += event.results[i][0].transcript;
 	      }
@@ -136,7 +136,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	    if (final_transcript || interim_transcript) {
 	      console.log('ok');
 	    }
-	  };
+	};
 }
 function startRecording(){
 	console.log('start');
