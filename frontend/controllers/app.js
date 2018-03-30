@@ -135,7 +135,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	    final_transcript = capitalize(final_transcript);
 	    document.getElementById("final_span").innerHTML = linebreak(final_transcript);
 	    document.getElementById("interim_span").innerHTML = linebreak(interim_transcript);
-	    document.getElementById("inbenta-bot-input").innerHTML = final_transcript;
+	    document.getElementById("inbenta-bot-input").value = final_transcript;
 	    
 	    if (final_transcript || interim_transcript) {
 	      console.log('ok');
