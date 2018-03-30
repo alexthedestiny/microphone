@@ -146,25 +146,25 @@ if (!('webkitSpeechRecognition' in window)) {
 			// $("#inbenta-bot-input").focus().trigger(e);
 	    }
 	    
-	   //  $("#inbenta-bot-input").focus(function(){
-	   //  	console.log('focus');
-	   //  	setTimeout(function(){
-				// $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
-				// $("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
-	   //  	},0);
-	   //  });
-	   //  $("#inbenta-bot-input").blur(function(){
-	   //  	setTimeout(function(){
-				// $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
-				// $("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
-	   //  	},0);
-	   //  });
-	   //  $("#inbenta-bot-input").keypress(function(){
-	   //  	setTimeout(function(){
-	   //  		$("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
-				// $("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
-	   //  	},0);
-	   //  });
+	    $("#inbenta-bot-input").focus(function(){
+	    	console.log('focus');
+	    	setTimeout(function(){
+				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	    	},0);
+	    });
+	    $("#inbenta-bot-input").blur(function(){
+	    	setTimeout(function(){
+				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	    	},0);
+	    });
+	    $("#inbenta-bot-input").keypress(function(){
+	    	setTimeout(function(){
+	    		$("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
+				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	    	},0);
+	    });
 
 		// $('.inbenta-bot-button').click(function(){
 		// 	console.log('click send');
@@ -205,45 +205,11 @@ function stopRecordingForce(){
 }
 $(document).on('mouseover', '.inbenta-bot-button', ()=>{
 	setTimeout(()=>{
-		// $("#inbenta-bot-input").attr('value','');
-		// $("#inbenta-bot-input").val('');
-		// $("#inbenta-bot-input").attr('placeholder', 'Ask here');
-		// var settingsSendMessage = {
-		//     "async": false,
-		//     "crossDomain": true,
-		//     "url": url,
-		//     "method": "POST",
-		//     "data": {
-		//       "text": dataMessage
-		//     },
-		//     "headers": {
-		//       "X-LIVEAGENT-SESSION-KEY": data.key,
-		//       "X-LIVEAGENT-AFFINITY": data.affinityToken,
-		//       "X-LIVEAGENT-SEQUENCE": window.SEQUENCE
-		//     }
-		// }
-		// $.ajax(settingsSendMessage);
+		$("#inbenta-bot-input").attr('value','');
+		$("#inbenta-bot-input").val('');
+		$("#inbenta-bot-input").attr('placeholder', 'Ask here');
 		console.log('click');
-
-		jQuery.ajax({
-        method: 'POST',
-        url: window.apis + '/v1/conversation/message',
-        headers: {
-          "x-inbenta-key": "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=",
-          "authorization": window.InbentaAuth,
-          "x-inbenta-session": "Bearer " + window.InbentaSessionToken
-        },
-		data: {
-		message: $('#inbenta-bot-input').val()
-		},
-        success: function(data) {
-          window.InbentaSessionToken = data.sessionToken;
-        }
-      });
 	},500);
-});
-$('#inbenta-bot-input').keydown(function(event){
-	console.log('k',event.key);
 });
 //helpers
 var first_char = /\S/;
