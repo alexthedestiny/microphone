@@ -213,7 +213,7 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 	},500);
 });
 $(document).on('mouseover', '.inbenta-bot-button', ()=>{
-	$("#inbenta-bot-input").focus();
+	$("#inbenta-bot-input").focus().keydown().keyup().keypress();
 });
 //helpers
 var first_char = /\S/;
