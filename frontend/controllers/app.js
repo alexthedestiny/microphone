@@ -223,11 +223,11 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
         	window.chatbot.actions.displayChatbotMessage(messageData);
 
 
-        	const chatBotmessageData = {
-			  type:'answer',
-			  message:data.answers[answers.length-1].message
-			}
-			window.chatbot.actions.displayChatbotMessage(chatBotmessageData);
+   //      	const chatBotmessageData = {
+			//   type:'answer',
+			//   message:data.answers[answers.length-1].message
+			// }
+			// window.chatbot.actions.displayChatbotMessage(chatBotmessageData);
         }
     });
 	setTimeout(()=>{
