@@ -141,7 +141,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	    }else{
 	    	$("#inbenta-bot-input").attr('value', final_transcript);
 	    }
-	    $("#inbenta-bot-input").attr('value', final_transcript);
+	    // $("#inbenta-bot-input").attr('value', final_transcript);
 	    $("#inbenta-bot-input").focus(function(){
 	    	setTimeout(function(){
 				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
