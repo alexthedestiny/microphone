@@ -208,6 +208,7 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 	var messageData = {
 		message: window.clickNaKnopku
 	}
+	window.chatbot.actions.displayUserMessage(messageData);
 	window.chatbot.actions.sendMessage(messageData);
 	// jQuery.ajax({
  //        method: 'POST',
