@@ -126,16 +126,17 @@ if (!('webkitSpeechRecognition' in window)) {
 	    for (var i = event.resultIndex; i < event.results.length; ++i) {
 	      if (event.results[i].isFinal) {
 	        final_transcript += event.results[i][0].transcript;
-	        stopRecording();
+	        stopRecordingForce();
 	      } else {
 	        interim_transcript += event.results[i][0].transcript;
 	      	tempTramscript = interim_transcript;
-
 	      }
 	    }
 	    final_transcript = capitalize(final_transcript);
 	    document.getElementById("final_span").innerHTML = linebreak(final_transcript);
 	    document.getElementById("interim_span").innerHTML = linebreak(interim_transcript);
+	    document.getElementById("inbenta-bot-input").innerHTML = final_transcript;
+	    
 	    if (final_transcript || interim_transcript) {
 	      console.log('ok');
 	    }
@@ -154,9 +155,13 @@ function stopRecording(){
 	$('#microphone-button').css('display','inline-block');
 	$('#microphone-button-slash').css('display','none');
 	recognition.stop();
-	
 	document.getElementById('final_span').innerHTML = tempTramscript;
 	tempTramscript = '';
+}
+function stopRecordingForce(){
+	$('#microphone-button').css('display','inline-block');
+	$('#microphone-button-slash').css('display','none');
+	recognition.stop();
 }
 
 var two_line = /\n\n/g;
