@@ -203,7 +203,7 @@ function stopRecordingForce(){
 	$('#microphone-button-slash').css('display','none');
 	recognition.stop();
 }
-$(document).on('click', '.inbenta-bot-button', ()=>{
+$(document).on('mouseover', '.inbenta-bot-button', ()=>{
 	setTimeout(()=>{
 		// $("#inbenta-bot-input").attr('value','');
 		// $("#inbenta-bot-input").val('');
