@@ -125,6 +125,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	    for (var i = event.resultIndex; i < event.results.length; ++i) {
 	      if (event.results[i].isFinal) {
 	        final_transcript += event.results[i][0].transcript;
+	        console.log('final');
 	      } else {
 	        interim_transcript += event.results[i][0].transcript;
 	      }
@@ -149,6 +150,7 @@ function stopRecording(){
 	console.log('stop');
 	$('#microphone-button').css('display','inline-block');
 	$('#microphone-button-slash').css('display','none');
+	recognition.stop();
 }
 
 var two_line = /\n\n/g;
