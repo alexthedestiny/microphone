@@ -97,8 +97,12 @@ InbentaChatbotSDK.build(InbentaAuth, {
 
 function startRecording(){
 	console.log('start');
+	$('#microphone-button').fadeOut();
+	$('#microphone-button-slash').fadeIn();
 }
 function stopRecording(){
 	console.log('stop');
+	$('#microphone-button').fadeIn();
+	$('#microphone-button-slash').fadeOut();
 }
 
