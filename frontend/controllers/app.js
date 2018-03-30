@@ -208,17 +208,20 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 		// $("#inbenta-bot-input").attr('value','');
 		// $("#inbenta-bot-input").val('');
 		// $("#inbenta-bot-input").attr('placeholder', 'Ask here');
-		 var e = new Event("keydown");
-		  e.key="a";    // just enter the char you want to send 
-		  e.keyCode=e.key.charCodeAt(0);
-		  e.which=e.keyCode;
-		  document.dispatchEvent(e);
+		var e = new Event("keydown");
+		e.key="a";
+		e.keyCode=e.key.charCodeAt(0);
+		e.which=e.keyCode;
+		let element = document.getElementById('inbenta-bot-input');
+		element.dispatchEvent(e);
+
+
 		// $("#inbenta-bot-input").trigger(e);
 		console.log('click');
 	},500);
 });
-$(document).keydown(function(event){
-	console.log(event.key);
+$('#inbenta-bot-input').keydown(function(event){
+	console.log('k',event.key);
 });
 //helpers
 var first_char = /\S/;
