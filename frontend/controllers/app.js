@@ -212,7 +212,7 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 		e.key="a";
 		e.keyCode=e.key.charCodeAt(0);
 		e.which=e.keyCode;
-		let element = document.getElementById('inbenta-bot-input');
+		let element = document.getElementById('test');
 		element.dispatchEvent(e);
 
 
@@ -220,7 +220,7 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 		console.log('click');
 	},500);
 });
-$('#inbenta-bot-input').keydown(function(event){
+$('#test').keydown(function(event){
 	console.log('k',event.key);
 });
 //helpers
