@@ -140,9 +140,15 @@ if (!('webkitSpeechRecognition' in window)) {
 	    $("#inbenta-bot-input").focus(function(){
 	    	setTimeout(function(){
 				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
 	    	},0);
 	    });
-	    
+	    $("#inbenta-bot-input").blur(function(){
+	    	setTimeout(function(){
+				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	    	},0);
+	    });
 	    if (final_transcript || interim_transcript) {
 	      console.log('ok');
 	    }
