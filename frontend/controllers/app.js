@@ -146,23 +146,22 @@ if (!('webkitSpeechRecognition' in window)) {
 			$("#inbenta-bot-input").attr('placeholder', final_transcript);
 			var e = jQuery.Event("keydown");
 			e.which = 32;
-			$("#inbenta-bot-input").trigger(e);
+			$("#inbenta-bot-input").focus().trigger(e);
 			console.log('e', $("#inbenta-bot-input").val());
 	    }
 	    
 	    $("#inbenta-bot-input").focus(function(){
+	    	console.log('focus');
 	    	setTimeout(function(){
 				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
 				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
 	    	},0);
-	    	$("#inbenta-bot-input").trigger('keypress');
 	    });
 	    $("#inbenta-bot-input").blur(function(){
 	    	setTimeout(function(){
 				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
 				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
 	    	},0);
-	    	$("#inbenta-bot-input").trigger('keypress');
 	    });
 	    $("#inbenta-bot-input").keypress(function(){
 	    	setTimeout(function(){
