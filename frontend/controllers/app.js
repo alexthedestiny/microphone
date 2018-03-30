@@ -184,7 +184,7 @@ function startRecording(){
 	$('#microphone-button').css('display','none');
 	$('#microphone-button-slash').css('display','inline-block');
 	final_transcript = '';
-	recognition.lang = "ru-RU";
+	recognition.lang = "en-US";
   	recognition.start();
 }
 function stopRecording(){
