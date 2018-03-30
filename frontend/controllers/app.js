@@ -164,7 +164,13 @@ if (!('webkitSpeechRecognition' in window)) {
 				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
 	    	},0);
 	    });
-	    $('.inbenta-bot-button').click(function(){
+	    $('.inbenta-bot-button').keydown(function(){
+			setTimeout(function(){
+				$("#inbenta-bot-input").trigger('focus');
+			},0);
+		});
+
+		$('.inbenta-bot-button').keyup(function(){
 			console.log('click send');
 			setTimeout(function(){
 				$("#inbenta-bot-input").attr('value','');
