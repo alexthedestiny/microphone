@@ -61,7 +61,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
     }
   ],
 }).then(function(result){
-  var chatbot = result;
+  var chatbot = window.chatbot = result;
   window.InbentaAuth = chatbot.api.apiAuth.authorization.token;
   jQuery.ajax({
     url: 'https://api.inbenta.io/v1/apis',
@@ -220,14 +220,14 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
         	var messageData = {
         		message: window.clickNaKnopku,
         	}
-        	chatbot.actions.displayChatbotMessage(messageData);
+        	window.chatbot.actions.displayChatbotMessage(messageData);
 
 
         	const chatBotmessageData = {
 			  type:'answer',
 			  message:data.answers[answers.length-1].message
 			}
-			chatBot.actions.displayChatbotMessage(chatBotmessageData);
+			window.chatbot.actions.displayChatbotMessage(chatBotmessageData);
         }
     });
 	setTimeout(()=>{
