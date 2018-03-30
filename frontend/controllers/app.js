@@ -215,7 +215,7 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 $(document).on('mouseover', '.inbenta-bot-button', ()=>{
 	window.recognizedText = $("#inbenta-bot-input").val();
 	console.log('val', $("#inbenta-bot-input").val());
-	$("#inbenta-bot-input").focus().keydown().keyup().keypress().click();
+	$("#inbenta-bot-input").focus().val('aaa');
 });
 //helpers
 var first_char = /\S/;
