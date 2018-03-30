@@ -69,6 +69,7 @@ function getUsersMessages(url, data) {
 }
 
 function sendUsersMessages(url, data, dataMessage) {
+  console.log('wi',window.recognizedText);
   var settingsSendMessage = {
     "async": false,
     "crossDomain": true,
