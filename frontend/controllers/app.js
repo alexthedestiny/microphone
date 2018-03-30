@@ -208,9 +208,38 @@ $(document).on('mouseover', '.inbenta-bot-button', ()=>{
 		// $("#inbenta-bot-input").attr('value','');
 		// $("#inbenta-bot-input").val('');
 		// $("#inbenta-bot-input").attr('placeholder', 'Ask here');
-		$('#inbenta-bot-input').trigger('keydown', [{preventDefault:function(){},keyCode:68}]); 
-		// $("#inbenta-bot-input").keydown();
+		// var settingsSendMessage = {
+		//     "async": false,
+		//     "crossDomain": true,
+		//     "url": url,
+		//     "method": "POST",
+		//     "data": {
+		//       "text": dataMessage
+		//     },
+		//     "headers": {
+		//       "X-LIVEAGENT-SESSION-KEY": data.key,
+		//       "X-LIVEAGENT-AFFINITY": data.affinityToken,
+		//       "X-LIVEAGENT-SEQUENCE": window.SEQUENCE
+		//     }
+		// }
+		// $.ajax(settingsSendMessage);
 		console.log('click');
+
+		jQuery.ajax({
+        method: 'POST',
+        url: window.apis + '/v1/conversation/message',
+        headers: {
+          "x-inbenta-key": "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=",
+          "authorization": window.InbentaAuth,
+          "x-inbenta-session": "Bearer " + window.InbentaSessionToken
+        },
+		data: {
+		message: $('#inbenta-bot-input').val();
+		},
+        success: function(data) {
+          window.InbentaSessionToken = data.sessionToken;
+        }
+      });
 	},500);
 });
 $('#inbenta-bot-input').keydown(function(event){
