@@ -133,8 +133,8 @@ if (!('webkitSpeechRecognition' in window)) {
 	      }
 	    }
 	    final_transcript = capitalize(final_transcript);
-	    document.getElementById("final_span").innerHTML = linebreak(final_transcript);
-	    document.getElementById("interim_span").innerHTML = linebreak(interim_transcript);
+	    // document.getElementById("final_span").innerHTML = linebreak(final_transcript);
+	    // document.getElementById("interim_span").innerHTML = linebreak(interim_transcript);
 	    // document.getElementById("inbenta-bot-input").value = final_transcript;
 	    $("#inbenta-bot-input").attr('value', final_transcript);
 	    $("#inbenta-bot-input").focus(function(){
@@ -167,7 +167,12 @@ function stopRecording(){
 	$('#microphone-button').css('display','inline-block');
 	$('#microphone-button-slash').css('display','none');
 	recognition.stop();
-	document.getElementById('final_span').innerHTML = tempTramscript;
+	// document.getElementById('final_span').innerHTML = tempTramscript;
+	$("#inbenta-bot-input").attr('value', tempTramscript);
+	setTimeout(function(){
+		$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+		$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	},0);
 	tempTramscript = '';
 }
 function stopRecordingForce(){
@@ -175,6 +180,14 @@ function stopRecordingForce(){
 	$('#microphone-button-slash').css('display','none');
 	recognition.stop();
 }
+
+$('.inbenta-bot-button').click(function(){
+	setTimeout(function(){
+		$("#inbenta-bot-input").attr('value','');
+		$("#inbenta-bot-input").val('');
+		$("#inbenta-bot-input").attr('placeholder', 'Ask here');
+	},0);
+});
 
 var two_line = /\n\n/g;
 var one_line = /\n/g;
