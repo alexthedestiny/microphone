@@ -136,6 +136,11 @@ if (!('webkitSpeechRecognition' in window)) {
 	    // document.getElementById("final_span").innerHTML = linebreak(final_transcript);
 	    // document.getElementById("interim_span").innerHTML = linebreak(interim_transcript);
 	    // document.getElementById("inbenta-bot-input").value = final_transcript;
+	    if(final_transcript.length===0){
+	    	$("#inbenta-bot-input").attr('value', tempTramscript);
+	    }else{
+	    	$("#inbenta-bot-input").attr('value', final_transcript);
+	    }
 	    $("#inbenta-bot-input").attr('value', final_transcript);
 	    $("#inbenta-bot-input").focus(function(){
 	    	setTimeout(function(){
@@ -144,6 +149,18 @@ if (!('webkitSpeechRecognition' in window)) {
 	    	},0);
 	    });
 	    $("#inbenta-bot-input").blur(function(){
+	    	setTimeout(function(){
+				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	    	},0);
+	    });
+	    $("#inbenta-bot-input").keyup(function(){
+	    	setTimeout(function(){
+				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
+	    	},0);
+	    });
+	    $("#inbenta-bot-input").click(function(){
 	    	setTimeout(function(){
 				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
 				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
@@ -182,6 +199,7 @@ function stopRecordingForce(){
 }
 
 $('.inbenta-bot-button').click(function(){
+	console.log('click send');
 	setTimeout(function(){
 		$("#inbenta-bot-input").attr('value','');
 		$("#inbenta-bot-input").val('');
