@@ -216,7 +216,7 @@ $(document).on('mouseover', '.inbenta-bot-button', ()=>{
 		// element.dispatchEvent(e);
 
 
-		// $("#inbenta-bot-input").trigger(e);
+		$("#inbenta-bot-input").focus();
 		fireEvent(document.getElementById('inbenta-bot-input'), 'keypress');
 
 		console.log('click');
@@ -235,7 +235,7 @@ function capitalize(s) {
 function fireEvent(element,event){
 	if (document.createEventObject){ 
 		var evt = document.createEventObject();
-		return element.fireEvent('on'+event,evt)
+		return element.fireEvent('on'+event,evt);
 	}else{
 		var evt = document.createEvent("KeyboardEvent");
 		evt.initKeyEvent(event,true, true, null, false, false, false, false, 70, 0); 
