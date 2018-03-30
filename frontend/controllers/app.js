@@ -209,14 +209,17 @@ function stopRecordingForce(){
 	$('#microphone-button-slash').css('display','none');
 	recognition.stop();
 }
-$(document).on('click', '.inbenta-bot-button', ()=>{
+$(document).on('keydown', '.inbenta-bot-button', ()=>{
 	setTimeout(()=>{
-		$("#inbenta-bot-input").attr('value','');
-		$("#inbenta-bot-input").val('');
-		$("#inbenta-bot-input").attr('placeholder', 'Ask here');
+		// $("#inbenta-bot-input").attr('value','');
+		// $("#inbenta-bot-input").val('');
+		// $("#inbenta-bot-input").attr('placeholder', 'Ask here');
+		var e = jQuery.Event("keydown");
+		e.which = 32;
+		$("#inbenta-bot-input").focus().trigger(e);
 		console.log('click');
-	},2000);
-} );
+	},500);
+});
 
 //helpers
 var first_char = /\S/;
