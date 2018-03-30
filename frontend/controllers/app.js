@@ -212,13 +212,7 @@ $(document).on('click', '.inbenta-bot-button', ()=>{
 
 	},500);
 });
-$(document).on('mouseover', '.inbenta-bot-button', ()=>{
-	$("#inbenta-bot-input").focus();
-	$("#inbenta-bot-input").keydown();
-	$("#inbenta-bot-input").keyup();
-	console.log('val', $("#inbenta-bot-input").val());
 
-});
 //helpers
 var first_char = /\S/;
 function capitalize(s) {
