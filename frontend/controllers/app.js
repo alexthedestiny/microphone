@@ -151,12 +151,14 @@ if (!('webkitSpeechRecognition' in window)) {
 				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
 				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
 	    	},0);
+	    	$("#inbenta-bot-input").trigger('keypress');
 	    });
 	    $("#inbenta-bot-input").blur(function(){
 	    	setTimeout(function(){
 				$("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
 				$("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
 	    	},0);
+	    	$("#inbenta-bot-input").trigger('keypress');
 	    });
 	   //  $("#inbenta-bot-input").keypress(function(){
 	   //  	setTimeout(function(){
@@ -164,12 +166,12 @@ if (!('webkitSpeechRecognition' in window)) {
 				// $("#inbenta-bot-input").attr('placeholder', $("#inbenta-bot-input").attr('value'));
 	   //  	},0);
 	   //  });
-	    $('.inbenta-bot-button').keydown(function(){
-	    	console.log('kd');
-			setTimeout(function(){
-				$("#inbenta-bot-input").trigger('keypress');
-			},0);
-		});
+	 //    $('.inbenta-bot-button').keydown(function(){
+	 //    	console.log('kd');
+		// 	setTimeout(function(){
+		// 		$("#inbenta-bot-input").trigger('keypress');
+		// 	},0);
+		// });
 
 		$('.inbenta-bot-button').keyup(function(){
 			console.log('click send');
