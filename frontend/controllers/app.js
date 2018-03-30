@@ -94,15 +94,70 @@ InbentaChatbotSDK.build(InbentaAuth, {
   // }
   // chatbot.actions.displayChatbotMessage(messageData);
 });
+var recognizing;
+var final_transcript = '';
+if (!('webkitSpeechRecognition' in window)) {
+  alert('Ваш браузер не поддерживает API');
+} else {
+	var recognition = new webkitSpeechRecognition();
+ 	recognition.continuous = true;
+  	recognition.interimResults = true;
 
+  	recognition.onstart = function(){
+  		recognizing = true;
+  		$('#record-status').text('start recognition');
+  	}
+  	
+   	recognition.onerror = function(event){
+   		$('#record-status').text('recognition error');
+   	}
+   	recognition.onend = function(){
+   		recognizing = false;
+   	}
+   	recognition.onresult = function(event) {
+	    var interim_transcript = '';
+	    if (typeof(event.results) == 'undefined') {
+	      recognition.onend = null;
+	      recognition.stop();
+	      upgrade();
+	      return;
+	    }
+	    for (var i = event.resultIndex; i < event.results.length; ++i) {
+	      if (event.results[i].isFinal) {
+	        final_transcript += event.results[i][0].transcript;
+	      } else {
+	        interim_transcript += event.results[i][0].transcript;
+	      }
+	    }
+	    final_transcript = capitalize(final_transcript);
+	    document.getElementById("final_span").innerHTML = linebreak(final_transcript);
+	    document.getElementById("interim_span").innerHTML = linebreak(interim_transcript);
+	    if (final_transcript || interim_transcript) {
+	      console.log('ok');
+	    }
+	  };
+}
 function startRecording(){
 	console.log('start');
-	$('#microphone-button').fadeOut();
-	$('#microphone-button-slash').fadeIn();
+	$('#microphone-button').css('display','none');
+	$('#microphone-button-slash').css('display','inline-block');
+	final_transcript = '';
+	recognition.lang = "ru-RU";
+  	recognition.start();
 }
 function stopRecording(){
 	console.log('stop');
-	$('#microphone-button').fadeIn();
-	$('#microphone-button-slash').fadeOut();
+	$('#microphone-button').css('display','inline-block');
+	$('#microphone-button-slash').css('display','none');
 }
 
+var two_line = /\n\n/g;
+var one_line = /\n/g;
+function linebreak(s) {
+  return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+}
+
+var first_char = /\S/;
+function capitalize(s) {
+  return s.replace(first_char, function(m) { return m.toUpperCase(); });
+}
