@@ -133,17 +133,20 @@ if (!('webkitSpeechRecognition' in window)) {
 	      }
 	    }
 	    final_transcript = capitalize(final_transcript);
-	    // document.getElementById("final_span").innerHTML = linebreak(final_transcript);
-	    // document.getElementById("interim_span").innerHTML = linebreak(interim_transcript);
-	    // document.getElementById("inbenta-bot-input").value = final_transcript;
 	    if(final_transcript.length===0){
 	    	$("#inbenta-bot-input").attr('value', tempTramscript);
 	    	$("#inbenta-bot-input").val(tempTramscript);
 			$("#inbenta-bot-input").attr('placeholder', tempTramscript);
+			var e = jQuery.Event("keydown");
+			e.which = 32;
+			$("#inbenta-bot-input").trigger(e);
 	    }else{
 	    	$("#inbenta-bot-input").attr('value', final_transcript);
 	    	$("#inbenta-bot-input").val(final_transcript);
 			$("#inbenta-bot-input").attr('placeholder', final_transcript);
+			var e = jQuery.Event("keydown");
+			e.which = 32;
+			$("#inbenta-bot-input").trigger(e);
 	    }
 	    
 	    $("#inbenta-bot-input").focus(function(){
@@ -168,15 +171,15 @@ if (!('webkitSpeechRecognition' in window)) {
 	    });
 
 
-	    $('.inbenta-bot-button').keydown(function(){
-	    	console.log('kd');
-			setTimeout(function(){
-				$("#inbenta-bot-input").trigger('focus');
-				var e = jQuery.Event("keydown");
-				e.which = 32;
-				$("#inbenta-bot-input").trigger(e);
-			},0);
-		});
+	 //    $('.inbenta-bot-button').keydown(function(){
+	 //    	console.log('kd');
+		// 	setTimeout(function(){
+		// 		// $("#inbenta-bot-input").trigger('focus');
+		// 		var e = jQuery.Event("keydown");
+		// 		e.which = 32;
+		// 		$("#inbenta-bot-input").trigger(e);
+		// 	},0);
+		// });
 		$('.inbenta-bot-button').click(function(){
 			console.log('click send');
 			setTimeout(function(){
