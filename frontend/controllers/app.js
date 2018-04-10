@@ -160,7 +160,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
       $("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
       $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").attr('data-value') );
       var form = document.querySelector("form.footer__form");
-      console.log('form',form.elements[0].dataset.value);
+      console.log('form',form.elements);
     }
     // setTimeout(function(){
     //   if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('value')) {
