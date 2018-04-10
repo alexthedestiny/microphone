@@ -39,6 +39,7 @@ self.onmessage = function(e) {
 
 		if (WAVFILE){
 			// save as WAV-file
+
             // WAV-FILE
             // create our WAV file header
             var buffer = new ArrayBuffer(44);

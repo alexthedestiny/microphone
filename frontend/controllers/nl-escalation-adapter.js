@@ -2,20 +2,38 @@
  * This adapter creator export an adapter which hides the conversation window when the user types end in the query.
  */
 function getSessionID(url) {
- return fetch(url, {
-   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-   credentials: 'same-origin', // include, same-origin, *omit
-   method: 'GET', // *GET, POST, PUT, DELETE, etc.
-   mode: 'cors', // no-cors, cors, *same-origin
- })
- .then(response => response.json()); // parses response to JSON
+ return $.ajax({
+   "crossDomain": true,
+   "url": url,
+   "method": "GET",
+   "headers": {
+     "Content-Type": "application/json",
+     // "X-LIVEAGENT-SESSION-KEY": data.key,
+     // "X-LIVEAGENT-AFFINITY": data.affinityToken,
+   },
+   "success": function(data) {
+   }
+ });
+ // return fetch(url, {
+ //   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+ //   credentials: 'same-origin', // include, same-origin, *omit
+ //   method: 'GET', // *GET, POST, PUT, DELETE, etc.
+ //   mode: 'cors', // no-cors, cors, *same-origin
+ // })
+ // .then(response => response.json()); // parses response to JSON
 }
 
 function getChasitorInit(url, data) {
-  return fetch(url, {
-    credentials: 'same-origin',
-    cache: 'no-cache',
-    body: JSON.stringify({
+  return $.ajax({
+    "crossDomain": true,
+    "url": url,
+    "method": "POST",
+    "headers": {
+      "X-LIVEAGENT-SESSION-KEY": data.key,
+      "X-LIVEAGENT-AFFINITY": data.affinityToken,
+      "X-LIVEAGENT-SEQUENCE": "1",
+    },
+    "data": {
       "buttonId": "5731r000000kBrT",
       "buttonOverrides": [
       ],
@@ -32,17 +50,40 @@ function getChasitorInit(url, data) {
       "sessionId": data.id,
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36",
       "visitorName": ""
-    }),
-    credentials: 'same-origin',
-    headers: {
-      "X-LIVEAGENT-SESSION-KEY": data.key,
-      "X-LIVEAGENT-AFFINITY": data.affinityToken,
-      "X-LIVEAGENT-SEQUENCE": "1",
     },
-    method: 'POST',
-    mode: 'cors',
-  })
-  .then(response => response.json()); // parses response to JSON
+    "success": function(data) {
+    }
+  });
+  // return fetch(url, {
+  //   credentials: 'same-origin',
+  //   cache: 'no-cache',
+  //   body: JSON.stringify({
+  //     "buttonId": "5731r000000kBrT",
+  //     "buttonOverrides": [
+  //     ],
+  //     "deploymentId": "5721r000000kBJG",
+  //     "screenResolution": "1366x768",
+  //     "isPost": false,
+  //     "language": "ru-RU",
+  //     "organizationId": "00D1r000000qoGS",
+  //     "prechatDetails": [
+  //     ],
+  //     "prechatEntities": [
+  //     ],
+  //     "receiveQueueUpdates": true,
+  //     "sessionId": data.id,
+  //     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36",
+  //     "visitorName": ""
+  //   }),
+  //   headers: {
+  //     "X-LIVEAGENT-SESSION-KEY": data.key,
+  //     "X-LIVEAGENT-AFFINITY": data.affinityToken,
+  //     "X-LIVEAGENT-SEQUENCE": "1",
+  //   },
+  //   method: 'POST',
+  //   mode: 'cors',
+  // })
+  // .then(response => response.json()); // parses response to JSON
 }
 
 function getUsersMessages(url, data) {
@@ -51,6 +92,7 @@ function getUsersMessages(url, data) {
     "crossDomain": true,
     "url": url,
     "method": "GET",
+    "complete": window.poll,
     "headers": {
       "Content-Type": "application/json",
       "X-LIVEAGENT-SESSION-KEY": data.key,
@@ -84,6 +126,24 @@ function sendUsersMessages(url, data, dataMessage) {
     }
   }
   return $.ajax(settingsSendMessage);
+}
+
+function sendPrechatHistory(url, data, dataMessage) {
+  var settingsPrechatHistory = {
+    "async": false,
+    "crossDomain": true,
+    "url": url,
+    "method": "POST",
+    "data": {
+      "nouns": dataMessage
+    },
+    "headers": {
+      "X-LIVEAGENT-SESSION-KEY": data.key,
+      "X-LIVEAGENT-AFFINITY": data.affinityToken,
+      "X-LIVEAGENT-SEQUENCE": window.SEQUENCE
+    }
+  }
+  return $.ajax(settingsPrechatHistory);
 }
 
 function getConversationHistory() {
@@ -130,27 +190,13 @@ function launchNLEsclationForm(escalateNLForm,rejectedEscalation,noAgentsAvailab
       if(window.sessionData && window.intervalIsClear) {
         window.SEQUENCE++;
         sendUsersMessages('https://sfla.nextlevel.ai/Chasitor/ChatMessage', window.sessionData, messageData.message).done(function (response) {
-          // window.SEQUENCE++;
         });
-        // setInterval(function(){
-        //   window.intAck++;
-        //   getUsersMessages('https://sfla.nextlevel.ai/System/Messages?ack='+window.intAck, window.sessionData).done(function (response) {
-        //     for(var i = 0; i < response.messages.length; i++) {
-        //       if(response.messages[i].type == "ChatEstablished") {
-        //         chatBot.actions.displayChatbotMessage({type:'answer',message: "Your agent is " + response.messages[i].message.name});
-        //         return;
-        //       }
-        //       if(response.messages[i].type == "ChatMessage") {
-        //         chatBot.actions.displayChatbotMessage({type:'answer',message: response.messages[i].message.text});
-        //       }
-        //     }
-        //   });
-        // },15000);
       }
       else {
         return next(messageData);
       }
     });
+
     /**
      * Check for escalate and no-results flags, and display a SystemMessage offering escalation.
      * @param  {[Object]}   messageData [The current MessageData to be displayed]
@@ -178,10 +224,33 @@ function launchNLEsclationForm(escalateNLForm,rejectedEscalation,noAgentsAvailab
       return next(messageData);
 
     });
-    chatBot.subscriptions.onDisplayUserMessage(function(messageData, next) {
-      
-      return next(messageData);
 
+
+    chatBot.subscriptions.onShowConversationWindow(function(next) {
+      if(window.neededToShow) {
+        setTimeout(function(){
+          jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
+          jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
+          document.getElementById('microphone-button').addEventListener('click', function() {
+            window.startRecording();
+          });
+
+          $(document).on('click', '.inbenta-bot-button', function(){
+            window.clickNaKnopku = $("#inbenta-bot-input").attr('value');
+            var messageData = {
+              message: window.clickNaKnopku
+            }
+            window.chatbot.actions.displayUserMessage(messageData);
+            window.chatbot.actions.sendMessage(messageData);
+            setTimeout(function(){
+              $("#inbenta-bot-input").attr('value','');
+              $("#inbenta-bot-input").val('');
+              $("#inbenta-bot-input").attr('placeholder', 'Ask here');
+            }, 500);
+          });
+        },0);
+      }
+      return next();
     });
     /**
      * Subscription to DisplayAgentResponse, to check if the user wants to escalate
@@ -194,7 +263,29 @@ function launchNLEsclationForm(escalateNLForm,rejectedEscalation,noAgentsAvailab
           return next(optionData);
       }else{
         if (optionData.option.value == "yes") {
-          getConversationHistory();
+          // console.log(chatBot.actions.getConversationTranscript(conversationTranscriptData));
+          var historyMessagesData = [];
+          for(var i = 0; i < chatBot.actions.getConversationTranscript(optionData).length; i++) {
+              if(chatBot.actions.getConversationTranscript(optionData)[i].type == 'answer') {
+                historyMessagesData.push({
+                  object: {
+                    text: chatBot.actions.getConversationTranscript(optionData)[i].message
+                  },
+                  noun: "ChatMessage",
+                  prefix: "ChatBot",
+                })
+              }
+              else if (chatBot.actions.getConversationTranscript(optionData)[i].type == 'userQuestion') {
+                historyMessagesData.push({
+                  object: {
+                    text: chatBot.actions.getConversationTranscript(optionData)[i].message
+                  },
+                  noun: "ChatMessage",
+                  prefix: "Chasitor",
+                })
+              }
+          }
+          console.log(chatBot.actions.getConversationTranscript(optionData));
           getSessionID('https://sfla.nextlevel.ai/System/SessionId')
             .then(data => { jQuery.get("https://d.la1-c2-frf.salesforceliveagent.com/chat/rest/Visitor/Settings.jsonp?chatted=1&sid="+data.id+"&Settings.prefix=Visitor&Settings.buttonIds=[5731r000000kBrT]&Settings.urlPrefix=undefined&callback=liveagent._.handlePing&deployment_id=5721r000000kBJG&org_id=00D1r000000qoGS&version=42").then(data=>{
               if(JSON.parse(data.match(/\{.+\}/g)).messages[0].message.buttons[0].isAvailable) {
@@ -243,7 +334,8 @@ function launchNLEsclationForm(escalateNLForm,rejectedEscalation,noAgentsAvailab
                      // chatBot.actions.sendMessage(sendEscalateForm);
                      chatBot.actions.displayChatbotMessage({type:'answer',message: "Ok, hold on please. We sent request to agent"});
                      if(window.sessionData) {
-                       var refreshIntervalId = setInterval(function(){
+                       (window.poll = function() {
+                         window.stopTimeout = false;
                          window.pc++;
                          window.intervalIsClear = true;
                          getUsersMessages('https://sfla.nextlevel.ai/System/Messages?ack='+window.intAck+'&pc='+window.pc, window.sessionData).done(function(response) {
@@ -252,6 +344,7 @@ function launchNLEsclationForm(escalateNLForm,rejectedEscalation,noAgentsAvailab
                              for(var i = 0; i < response.messages.length; i++) {
                                if(!window.showed) {
                                  if(response.messages[i].type == "ChatEstablished") {
+                                   sendPrechatHistory('https://sfla.nextlevel.ai/System/MultiNoun', window.sessionData, historyMessagesData);
                                    chatBot.actions.displayChatbotMessage({type:'answer',message: "Your agent is " + response.messages[i].message.name});
                                    window.showed = true;
                                  }
@@ -261,6 +354,7 @@ function launchNLEsclationForm(escalateNLForm,rejectedEscalation,noAgentsAvailab
                                    myMessages.push(response.messages[i].message.text);
                                    chatBot.actions.displayChatbotMessage({type:'answer',message: myMessages[myMessages.length - 1]});
                                  }
+                                 // chatBot.actions.displayChatbotMessage({type:'answer',message: response.messages[i].message.text});
                                }
                                if(response.messages[i].type == "ChatEnded") {
                                  chatBot.actions.displayChatbotMessage({type:'answer',message: "Chat ended by agent. Thanks for your request."});
@@ -271,7 +365,44 @@ function launchNLEsclationForm(escalateNLForm,rejectedEscalation,noAgentsAvailab
                              }
                            }
                          });
-                       },6000);
+                         if(!window.stopTimeout) {
+                           setTimeout(function() {
+                            window.poll();
+                            window.stopTimeout = true;
+                           }, window.sessionData.clientPollTimeout + "000");
+                         }
+                      })();
+                       // var refreshIntervalId = setInterval(function(){
+                       //   window.pc++;
+                       //   window.intervalIsClear = true;
+                       //   getUsersMessages('https://sfla.nextlevel.ai/System/Messages?ack='+window.intAck+'&pc='+window.pc, window.sessionData).done(function(response) {
+                       //     if(response.messages.length) {
+                       //       window.intAck++;
+                       //       for(var i = 0; i < response.messages.length; i++) {
+                       //         if(!window.showed) {
+                       //           if(response.messages[i].type == "ChatEstablished") {
+                       //             sendPrechatHistory('https://sfla.nextlevel.ai/System/MultiNoun', window.sessionData, historyMessagesData);
+                       //             chatBot.actions.displayChatbotMessage({type:'answer',message: "Your agent is " + response.messages[i].message.name});
+                       //             window.showed = true;
+                       //           }
+                       //         }
+                       //         if(response.messages[i].type == "ChatMessage") {
+                       //           // if(myMessages.indexOf(response.messages[i].message.text) == -1) {
+                       //           //   myMessages.push(response.messages[i].message.text);
+                       //           //   chatBot.actions.displayChatbotMessage({type:'answer',message: myMessages[myMessages.length - 1]});
+                       //           // }
+                       //           chatBot.actions.displayChatbotMessage({type:'answer',message: response.messages[i].message.text});
+                       //         }
+                       //         if(response.messages[i].type == "ChatEnded") {
+                       //           chatBot.actions.displayChatbotMessage({type:'answer',message: "Chat ended by agent. Thanks for your request."});
+                       //           clearInterval(refreshIntervalId);
+                       //           window.intervalIsClear = false;
+                       //           return;
+                       //         }
+                       //       }
+                       //     }
+                       //   });
+                       // },6000);
                      }
 
                    });
@@ -279,22 +410,7 @@ function launchNLEsclationForm(escalateNLForm,rejectedEscalation,noAgentsAvailab
               }
               else {
                 chatBot.actions.displayChatbotMessage({type:'answer',message: "No one agent is available"});
-                // console.log('not passed');
               }
-              // else {
-              //   if (result.hasOwnProperty('reason')) {
-              //     if(typeof result.reason=='string'){
-              //       chatBot.actions.displayChatbotMessage({type:'answer',message:result.reason});
-              //       return
-              //     }
-              //   }
-              //   if(noAgentsAvailable.action == "intentMatch"){
-              //     chatBot.actions.sendMessage({message:noAgentsAvailable.value});
-              //   }else if (noAgentsAvailable.action == "displayChatbotMessage"){
-              //     chatBot.actions.displayChatbotMessage({type:'answer',message:noAgentsAvailable.value});
-              //   }
-              //   return
-              // }
             });
           })
         }
