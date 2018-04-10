@@ -137,13 +137,13 @@ InbentaChatbotSDK.build(InbentaAuth, {
   $("#inbenta-bot-input").focus(function(){
     setTimeout(function(){
       console.log($("#inbenta-bot-input").val());
-      if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('value')) {
-        $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
+      if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('data-value')) {
+        $("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
         return;
       }
-      if($("#inbenta-bot-input").attr('value') !== null){
+      if($("#inbenta-bot-input").attr('data-value') !== null){
         if(!$("#inbenta-bot-input").val()) {
-          $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+          $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('data-value'));
         }
       }
     },0);
@@ -151,19 +151,19 @@ InbentaChatbotSDK.build(InbentaAuth, {
   $("#inbenta-bot-input").blur(function(){
     setTimeout(function(){
       console.log($("#inbenta-bot-input").val());
-      if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('value')) {
-        $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
+      if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('data-value')) {
+        $("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
         return;
       }
-      if($("#inbenta-bot-input").attr('value') !== null){
+      if($("#inbenta-bot-input").attr('data-value') !== null){
         if(!$("#inbenta-bot-input").val()) {
-          $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+          $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('data-value'));
         }
       }
     },0);
   });
   $(document).on('click', '.inbenta-bot-button', function(){
-    window.clickNaKnopku = $("#inbenta-bot-input").attr('value');
+    window.clickNaKnopku = $("#inbenta-bot-input").attr('data-value');
     var messageData = {
       message: window.clickNaKnopku
     }
@@ -171,6 +171,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
     window.chatbot.actions.sendMessage(messageData);
     setTimeout(function(){
       $("#inbenta-bot-input").attr('value','');
+      $("#inbenta-bot-input").attr('data-value','');
       $("#inbenta-bot-input").val('');
       $("#inbenta-bot-input").attr('placeholder', 'Ask here');
     }, 500);
@@ -409,6 +410,7 @@ recorderApp.controller('RecorderController', [ '$scope' , function($scope) {
           result = JSON.parse(result);
           jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").attr('value', result.results[0].alternatives[0].transcript);
+          jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
           jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');
         } catch (exc) {
           console.warn('Could not parse result into JSON object: "' + result + '"');
