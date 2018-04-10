@@ -153,8 +153,8 @@ InbentaChatbotSDK.build(InbentaAuth, {
     // },0);
   });
   $("#inbenta-bot-input").blur(function(e){
-    if($("#inbenta-bot-input").attr('data-value')){
-      $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('data-value'));
+    if($("#inbenta-bot-input").val()){
+      $("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
       $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").attr('data-value') );
       return
     }
@@ -171,13 +171,13 @@ InbentaChatbotSDK.build(InbentaAuth, {
     // },0);
   });
 
-  $("#inbenta-bot-input").mousedown(function(e){
-    if($("#inbenta-bot-input").attr('data-value')){
-      $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('data-value'));
-      $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").attr('data-value') );
-      return
-    }
-  });
+  // $("#inbenta-bot-input").mousedown(function(e){
+  //   if($("#inbenta-bot-input").attr('data-value')){
+  //     $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('data-value'));
+  //     $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").attr('data-value') );
+  //     return
+  //   }
+  // });
   $(document).on('click', '.inbenta-bot-button', function(){
     // window.clickNaKnopku = $("#inbenta-bot-input").attr('data-value');
     if($("#inbenta-bot-input").val() && $("#inbenta-bot-input").val().length>0){
