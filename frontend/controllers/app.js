@@ -162,6 +162,9 @@ InbentaChatbotSDK.build(InbentaAuth, {
     //   }
     // },0);
   });
+  $("#inbenta-bot-input").keydown(function(event){
+    console.log('ev',event);
+  });
   $(document).on('click', '.inbenta-bot-button', function(){
     window.clickNaKnopku = $("#inbenta-bot-input").attr('data-value');
     var messageData = {
