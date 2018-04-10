@@ -2,7 +2,7 @@ body{
 	margin: 0px;
 	padding: 0px;
 }
-@media screen and (max-width: 768px){
+@media all and (max-width: 768px){
 	.inbenta .inbenta-bot .ui-draggable{
 		bottom: auto!important;
 		right: auto!important;
