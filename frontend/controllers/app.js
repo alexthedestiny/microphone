@@ -416,6 +416,7 @@ recorderApp.controller('RecorderController', [ '$scope' , function($scope) {
           // jQuery("#inbenta-bot-input").attr('value', result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
           jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');
+          jQuery("#inbenta-bot-input").focus();
         } catch (exc) {
           console.warn('Could not parse result into JSON object: "' + result + '"');
         }
