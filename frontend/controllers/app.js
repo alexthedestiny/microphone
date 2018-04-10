@@ -171,20 +171,24 @@ InbentaChatbotSDK.build(InbentaAuth, {
     // },0);
   });
   $(document).on('click', '.inbenta-bot-button', function(){
-    window.clickNaKnopku = $("#inbenta-bot-input").attr('data-value');
-    var messageData = {
-      message: window.clickNaKnopku
+    // window.clickNaKnopku = $("#inbenta-bot-input").attr('data-value');
+    if($("#inbenta-bot-input").val() && $("#inbenta-bot-input").val().length>0){
+      window.clickNaKnopku = $("#inbenta-bot-input").val();
+      var messageData = {
+        message: window.clickNaKnopku
+      }
+      console.log('dv',window.clickNaKnopku);
+      console.log('v',$("#inbenta-bot-input").val());
+      window.chatbot.actions.displayUserMessage(messageData);
+      window.chatbot.actions.sendMessage(messageData);
+      setTimeout(function(){
+        $("#inbenta-bot-input").attr('value','');
+        $("#inbenta-bot-input").attr('data-value','');
+        $("#inbenta-bot-input").val('');
+        $("#inbenta-bot-input").attr('placeholder', 'Ask here');
+      }, 500);
     }
-    console.log('dv',window.clickNaKnopku);
-    console.log('v',$("#inbenta-bot-input").val());
-    window.chatbot.actions.displayUserMessage(messageData);
-    window.chatbot.actions.sendMessage(messageData);
-    setTimeout(function(){
-      $("#inbenta-bot-input").attr('value','');
-      $("#inbenta-bot-input").attr('data-value','');
-      $("#inbenta-bot-input").val('');
-      $("#inbenta-bot-input").attr('placeholder', 'Ask here');
-    }, 500);
+    
   });
   chatbot.api.addVariable('acme_airlines_en/Name', 'John Doe');
 });
