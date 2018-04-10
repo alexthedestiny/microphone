@@ -149,7 +149,6 @@ InbentaChatbotSDK.build(InbentaAuth, {
     },0);
   });
   $("#inbenta-bot-input").blur(function(){
-    console.log(window);
     setTimeout(function(){
       console.log($("#inbenta-bot-input").val());
       if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('data-value')) {
@@ -412,6 +411,7 @@ recorderApp.controller('RecorderController', [ '$scope' , function($scope) {
           jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").attr('value', result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
+          jQuery("#inbenta-bot-input").trigger('keydown').trigger('keyup').trigger('keypress');
           jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');
         } catch (exc) {
           console.warn('Could not parse result into JSON object: "' + result + '"');
