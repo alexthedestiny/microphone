@@ -134,50 +134,53 @@ InbentaChatbotSDK.build(InbentaAuth, {
       window.startRecording();
     });
   }
-  $("#inbenta-bot-input").focus(function(){
-    setTimeout(function(){
-      console.log($("#inbenta-bot-input").val());
-      if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('value')) {
-        $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
-        return;
-      }
-      if($("#inbenta-bot-input").attr('value') !== null){
-        if(!$("#inbenta-bot-input").val()) {
-          $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
-        }
-      }
-    },0);
-  });
-  $("#inbenta-bot-input").blur(function(e){
-    setTimeout(function(){
-      console.log($("#inbenta-bot-input").val());
-      if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('value')) {
-        $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
-        return;
-      }
-      if($("#inbenta-bot-input").attr('value') !== null){
-        if(!$("#inbenta-bot-input").val()) {
-          $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
-        }
-      }
-    },0);
-  });
+  // $("#inbenta-bot-input").focus(function(){
+  //   setTimeout(function(){
+  //     console.log($("#inbenta-bot-input").val());
+  //     if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('value')) {
+  //       $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
+  //       return;
+  //     }
+  //     if($("#inbenta-bot-input").attr('value') !== null){
+  //       if(!$("#inbenta-bot-input").val()) {
+  //         $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+  //       }
+  //     }
+  //   },0);
+  // });
+  // $("#inbenta-bot-input").blur(function(e){
+  //   setTimeout(function(){
+  //     console.log($("#inbenta-bot-input").val());
+  //     if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('value')) {
+  //       $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
+  //       return;
+  //     }
+  //     if($("#inbenta-bot-input").attr('value') !== null){
+  //       if(!$("#inbenta-bot-input").val()) {
+  //         $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
+  //       }
+  //     }
+  //   },0);
+  // });
   // $("#inbenta-bot-input").keydown(function(event){
   //   console.log('ev',event.key);
   // });
-  $(document).on('click', '.inbenta-bot-button', function(){
-    window.clickNaKnopku = $("#inbenta-bot-input").attr('value');
+  $(document).on('click', '.inbenta-bot-button', function(event){
+    event.preventDefault();
+    window.clickNaKnopku = $("#inbenta-bot-input").attr('data-value');
     var messageData = {
       message: window.clickNaKnopku
     }
-    window.chatbot.actions.displayUserMessage(messageData);
-    window.chatbot.actions.sendMessage(messageData);
-    setTimeout(function(){
-      $("#inbenta-bot-input").attr('value','');
-      $("#inbenta-bot-input").attr('data-value','');
-      $("#inbenta-bot-input").val('');
-      $("#inbenta-bot-input").attr('placeholder', 'Ask here');
-    }, 500);
+    console.log('dv',window.clickNaKnopku);
+    console.log('v',$("#inbenta-bot-input").val());
+    // window.chatbot.actions.displayUserMessage(messageData);
+    // window.chatbot.actions.sendMessage(messageData);
+    // setTimeout(function(){
+    //   $("#inbenta-bot-input").attr('value','');
+    //   $("#inbenta-bot-input").attr('data-value','');
+    //   $("#inbenta-bot-input").val('');
+    //   $("#inbenta-bot-input").attr('placeholder', 'Ask here');
+    // }, 500);
   });
   chatbot.api.addVariable('acme_airlines_en/Name', 'John Doe');
 });
@@ -412,11 +415,10 @@ recorderApp.controller('RecorderController', [ '$scope' , function($scope) {
         console.log("AJAXSubmit - Success!"); //DEBUG
         try {
           result = JSON.parse(result);
-          jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
+          // jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
           // jQuery("#inbenta-bot-input").attr('value', result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
           jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');
-          jQuery("#inbenta-bot-input").focus();
         } catch (exc) {
           console.warn('Could not parse result into JSON object: "' + result + '"');
         }
