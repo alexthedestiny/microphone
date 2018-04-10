@@ -2,7 +2,7 @@ body{
 	margin: 0px;
 	padding: 0px;
 }
-@media all and(max-width: 768px){
+@media screen and (max-width: 768px){
 	.inbenta .inbenta-bot .ui-draggable{
 		bottom: auto!important;
 		right: auto!important;
@@ -11,12 +11,12 @@ body{
 	}
 	.inbenta .inbenta-bot-spacer{
 		margin: 0px!important;
-		width: 100%;
-		height: 100%;
+		width: 100%!important;
+		height: 100%!important;
 	}
 	.inbenta .inbenta-bot__bubble, .inbenta .inbenta-bot__chat{
 		margin: 0px!important;
-		width: 100%;
-		height: 100%;
+		width: 100%!important;
+		height: 100%!important;
 	}
 }
