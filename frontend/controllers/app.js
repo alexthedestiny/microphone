@@ -160,7 +160,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
       $("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
       $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").attr('data-value') );
       var form = document.querySelector("form.footer__form");
-      console.log('form',form.elements);
+      console.log('form',form.elements[0]);
     }
     // setTimeout(function(){
     //   if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('value')) {
@@ -191,6 +191,8 @@ InbentaChatbotSDK.build(InbentaAuth, {
         $("#inbenta-bot-input").attr('data-value','');
         $("#inbenta-bot-input").val('');
         $("#inbenta-bot-input").attr('placeholder', 'Ask here');
+        let form = document.querySelector('form.footer__form');
+        form.elements[0].defaultValue = undefined;
       }, 500);
     }
     
@@ -430,6 +432,8 @@ recorderApp.controller('RecorderController', [ '$scope' , function($scope) {
           result = JSON.parse(result);
           jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
           // jQuery("#inbenta-bot-input").attr('value', result.results[0].alternatives[0].transcript);
+          let form = document.querySelector('form.footer__form');
+          form.elements[0].defaultValue = result.results[0].alternatives[0].transcript;
           jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
           jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');
         } catch (exc) {
