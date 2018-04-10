@@ -136,6 +136,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
   }
   $("#inbenta-bot-input").focus(function(){
     if($("#inbenta-bot-input").attr('data-value')){
+      console.log('v f',$("#inbenta-bot-input").attr('data-value'));
       $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('data-value'));
       $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").attr('data-value') );
       return
@@ -154,6 +155,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
   });
   $("#inbenta-bot-input").blur(function(e){
     if($("#inbenta-bot-input").val()){
+      console.log('v b',$("#inbenta-bot-input").val());
       $("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
       $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").attr('data-value') );
       return
@@ -171,13 +173,10 @@ InbentaChatbotSDK.build(InbentaAuth, {
     // },0);
   });
 
-  // $("#inbenta-bot-input").mousedown(function(e){
-  //   if($("#inbenta-bot-input").attr('data-value')){
-  //     $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('data-value'));
-  //     $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").attr('data-value') );
-  //     return
-  //   }
-  // });
+ $( "form.footer__form" ).on( "submit", function( event ) {
+  event.preventDefault();
+  console.log('form' ,$( this ).serialize() );
+});
   $(document).on('click', '.inbenta-bot-button', function(){
     // window.clickNaKnopku = $("#inbenta-bot-input").attr('data-value');
     if($("#inbenta-bot-input").val() && $("#inbenta-bot-input").val().length>0){
