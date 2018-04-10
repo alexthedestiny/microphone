@@ -134,7 +134,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
       window.startRecording();
     });
     $('#inbenta-bot-input').attr('id','my-own-input');
-    $('#inbenta-bot-input').attr('class','my-own-input');
+    $('#my-own-input').attr('class','my-own-input');
   }
   $("#inbenta-bot-input").focus(function(){
     if($("#inbenta-bot-input").attr('data-value')){
