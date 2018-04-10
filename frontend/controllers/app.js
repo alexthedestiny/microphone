@@ -135,8 +135,9 @@ InbentaChatbotSDK.build(InbentaAuth, {
     });
   }
   $("#inbenta-bot-input").focus(function(){
-     if($("#inbenta-bot-input").attr('data-value')){
+    if($("#inbenta-bot-input").attr('data-value')){
       $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('data-value'));
+      $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").attr('data-value') );
       return
     }
     // setTimeout(function(){
@@ -154,6 +155,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
   $("#inbenta-bot-input").blur(function(e){
     if($("#inbenta-bot-input").attr('data-value')){
       $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('data-value'));
+      $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").attr('data-value') );
       return
     }
     // setTimeout(function(){
