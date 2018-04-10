@@ -149,6 +149,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
     },0);
   });
   $("#inbenta-bot-input").blur(function(){
+    console.log(window);
     setTimeout(function(){
       console.log($("#inbenta-bot-input").val());
       if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('data-value')) {
