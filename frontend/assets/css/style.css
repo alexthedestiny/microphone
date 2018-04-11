@@ -24,20 +24,48 @@ body{
 	transform: scale(1.2);
 }*/
 .control-panel{
-	display: none;
+	display: flex;
+	width: 600px;
+	height: 150px;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+}
+.mic-wrapper{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.microphone-button-taphold{
+	cursor: pointer;
+	width: 100%;
+	height: auto;
+    -webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: url('https://90f4b7f760f6ea9f12f5-1bd96f799ab95cbe70f6de1dca567db6.ssl.cf3.rackcdn.com/Uploads/_resampled/SetWidth800-call-recording.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	min-height: 70%;
+}
+.microphone-button-taphold.holded{
+	animation-name: mic-holded;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-delay: 0s;
+	animation-iteration-count: infinite;
 }
 @keyframes mic-holded {
     0%{
-		width: 80%;
-		height: 80%;
+		transform: scale(1);
     }
     50%{
-		width: 100%;
-		height: 100%;
+		transform: scale(1.4);
     }
     100%{
-		width: 80%;
-		height: 80%;
+		transform: scale(1);
     }
 }
 @media all and (max-width: 768px){
@@ -66,26 +94,6 @@ body{
 		height: 20%;
 		width: 100%;
 	}
-	.mic-wrapper{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	img.microphone-button-taphold{
-		cursor: pointer;
-		width: 70%;
-		height: 70%;
-	    -webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-	}
-	img.microphone-button-taphold.holded{
-		animation-name: mic-holded;
-		animation-duration: 1s;
-		animation-timing-function: linear;
-		animation-delay: 0s;
-		animation-iteration-count: infinite;
-	}
+
 
 }
