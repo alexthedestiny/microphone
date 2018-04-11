@@ -5,16 +5,22 @@
 //     btnDownloadRecording();
 // });
 
-$(function(){
-  $( "#microphone-button-taphold" ).bind( "taphold", tapholdHandler );
+// $(function(){
+//   $( "#microphone-button-taphold" ).bind( "taphold", tapholdHandler );
  
-  function tapholdHandler( event ){
-    // $( event.target ).addClass( "taphold" );
-    console.log('holded');
-  }
-});
-
-
+//   function tapholdHandler( event ){
+//     // $( event.target ).addClass( "taphold" );
+//     console.log('holded');
+//   }
+// });
+document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
+    $('#microphone-button-taphold').addClass('holded');
+    console.log('touch');
+}, false);
+document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
+    $('#microphone-button-taphold').removeClass('holded');
+    console.log('end');
+}, false);
 
 
 // import checkAgents from './checkAgents';
