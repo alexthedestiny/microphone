@@ -31,15 +31,18 @@
     <!-- <script src="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js" crossorigin="anonymous"></script> -->
   </head>
   <body>
-    <button class="click_and_hold">Record a voice</button>
+    <div class="hideMe">
+        <button class="click_and_hold">Record a voice</button>
 
-    <button id="btn-start-recording">Start Recording</button>
-    <button id="btn-stop-recording" disabled>Stop Recording</button>
-    <button id="btn-release-microphone" disabled>Release Microphone</button>
-    <button id="btn-download-recording" disabled>Download</button>
-    <hr>
+        <button id="btn-start-recording">Start Recording</button>
+        <button id="btn-stop-recording" disabled>Stop Recording</button>
+        <button id="btn-release-microphone" disabled>Release Microphone</button>
+        <button id="btn-download-recording" disabled>Download</button>
+        <hr>
 
-    <div><audio controls autoplay></audio></div>
+        <div><audio controls autoplay></audio></div>
+    </div>
+    
     <div class="control-panel row">
         <div class="col-3 timer-wrap">
             <span id="timer"></span>

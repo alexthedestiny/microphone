@@ -2,6 +2,10 @@ body{
 	margin: 0px;
 	padding: 0px;
 }
+.hideMe{
+	display: none;
+	visibility: hidden;
+}
 /*.microphone-button-taphold{
 	transition: 0.3s;
 	width: 50px;
