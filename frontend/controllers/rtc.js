@@ -35,19 +35,34 @@ $(function(){
 
 var timerInterval;
 var mSeconds = 0;
+var audioStart = new Audio('../assets/audio/beep.wav');
+var audioStop = new Audio('../assets/audio/stop.wav');
+var isRecording = false;
 function micHoldDown(){
-  setTimeout(()=>{
-    $('#microphone-button-taphold').addClass('holded');
-    $('.loader-wrapp>img').addClass('visibleLoader');
-      $('#timer').text('');
-      mSeconds = 0;
-      timerInterval = setInterval(()=>{mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
-  }, 500);
+  if(!isRecording){
+    setTimeout(()=>{
+      audioStop.pause();
+      audioStop.currentTime = 0;
+      audioStart.play();
+      $('#microphone-button-taphold').addClass('holded');
+      $('.loader-wrapp>img').addClass('visibleLoader');
+        $('#timer').text('');
+        mSeconds = 0;
+        timerInterval = setInterval(()=>{mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
+        isRecording = true;
+    }, 500);
+  }
 }
 function micHoldUp(){
-  $('#microphone-button-taphold').removeClass('holded');
-  $('.loader-wrapp>img').removeClass('visibleLoader');
-  clearInterval(timerInterval);
+  if(isRecording){
+    isRecording = false;
+    $('#microphone-button-taphold').removeClass('holded');
+    $('.loader-wrapp>img').removeClass('visibleLoader');
+    clearInterval(timerInterval);
+    audioStart.pause();
+    audioStart.currentTime = 0;
+    audioStop.play();
+  }
 }
 
 
