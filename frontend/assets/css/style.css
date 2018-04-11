@@ -2,6 +2,12 @@ body{
 	margin: 0px;
 	padding: 0px;
 }
+.microphone-button{
+	transition: 0.3s;
+}
+.microphone-button.holded{
+	transform: scale(1.2);
+}
 @media all and (max-width: 768px){
 	.inbenta .inbenta-bot .ui-draggable{
 		bottom: auto!important;
