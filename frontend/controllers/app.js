@@ -133,12 +133,13 @@ InbentaChatbotSDK.build(InbentaAuth, {
     jQuery('<div style="cursor: pointer; border: none; background: #fff" id="microphone-button-holder" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
 
     window.neededToShow = true;
-    document.getElementById('microphone-button').addEventListener('click', function() {
-      window.startRecording();
-    });
+    // document.getElementById('microphone-button').addEventListener('click', function() {
+    //   window.startRecording();
+    // });
   }
   $('#microphone-button-holder').bind( "taphold", function(event){
-     $( event.target ).addClass( "holded" );
+     $( '#microphone-button-holder' ).addClass( "holded" );
+     // console.log('hold');
   } );
   $("#inbenta-bot-input").focus(function(){
     setTimeout(function(){
