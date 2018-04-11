@@ -33,13 +33,19 @@ $(function(){
   }, false);
 });
 
+var timerInterval;
+var mSeconds = 0;
 function micHoldDown(){
   setTimeout(()=>{
     $('#microphone-button-taphold').addClass('holded');
+      $('#timer').text('');
+      mSeconds = 0;
+      timerInterval = setInterval(()=>{mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
   }, 750);
 }
 function micHoldUp(){
   $('#microphone-button-taphold').removeClass('holded');
+  clearInterval(timerInterval);
 }
 
 
