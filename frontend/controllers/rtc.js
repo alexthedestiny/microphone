@@ -113,7 +113,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
   // document.getElementById('microphone-button').addEventListener('click', function() {
   //   window.startRecording();
   // });
-  jQuery('<div style="cursor: pointer; border: none; background: #fff" id="microphone-button-taphold" class="microphone-button-taphold"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
+  jQuery('<div style="cursor: pointer; border: none; background: #fff" id="microphone-button-taphold" class="microphone-button-taphold"><i class="fa fa-microphone"></i></div>').insertBefore( ".inbenta-bot-button" );
   $("#inbenta-bot-input").focus(function(){
     setTimeout(function(){
       console.log($("#inbenta-bot-input").val());
