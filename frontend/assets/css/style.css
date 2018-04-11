@@ -32,10 +32,19 @@ body{
 	left: 0px;
 	margin: 0px!important;
 }
-.mic-wrapper, .timer-wrap{
+.mic-wrapper, .timer-wrap, .loader-wrapp{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+.loader-wrapp>img{
+	width: 100%;
+	height: auto;
+	transition: 0.3s;
+	opacity: 0;
+}
+.loader-wrapp>img.visibleLoader{
+	opacity: 1;
 }
 .microphone-button-taphold{
 	cursor: pointer;

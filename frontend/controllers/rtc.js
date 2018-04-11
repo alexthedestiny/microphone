@@ -38,13 +38,15 @@ var mSeconds = 0;
 function micHoldDown(){
   setTimeout(()=>{
     $('#microphone-button-taphold').addClass('holded');
+    $('.loader-wrapp>img').addClass('visibleLoader');
       $('#timer').text('');
       mSeconds = 0;
       timerInterval = setInterval(()=>{mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
-  }, 750);
+  }, 500);
 }
 function micHoldUp(){
   $('#microphone-button-taphold').removeClass('holded');
+  $('.loader-wrapp>img').removeClass('visibleLoader');
   clearInterval(timerInterval);
 }
 
