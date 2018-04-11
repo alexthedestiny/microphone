@@ -311,9 +311,9 @@ function stopRecordingCallback() {
 
     btnDownloadRecording.disabled = false;
 
-    // if(isSafari) {
-    //     click(btnReleaseMicrophone);
-    // }
+    if(isSafari) {
+        click(btnReleaseMicrophone);
+    }
 
     if(!recorder || !recorder.getBlob()) return;
 
@@ -357,11 +357,11 @@ function stopRecordingCallback() {
 var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
 var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-if(isSafari) {
-  setTimeout(function() {
-    jQuery('#btn-start-recording').trigger('click');
-  }, 1000);
-}
+// if(isSafari) {
+//   setTimeout(function() {
+//     jQuery('#btn-start-recording').trigger('click');
+//   }, 1000);
+// }
 
 var recorder; // globally accessible
 var microphone;
@@ -502,9 +502,14 @@ window.sendASRRequest = function(blob) {
       console.log("AJAXSubmit - Success!"); //DEBUG
       try {
         result = JSON.parse(result);
-        jQuery('body').append(result.results[0].alternatives[0].transcript);
-        jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
-        jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
+        if(result && result.results && result.results.length>0 && result.results[0].alternatives[0].transcript ){
+          jQuery('body').append(result.results[0].alternatives[0].transcript);
+          jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
+          jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
+        }else{
+          jQuery('body').append('-EMPTY-');
+        }
+        
         // jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
         // jQuery("#inbenta-bot-input").attr('value', result.results[0].alternatives[0].transcript);
         // jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');
