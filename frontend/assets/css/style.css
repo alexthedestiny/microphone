@@ -13,7 +13,7 @@ body{
 		bottom: auto!important;
 		right: auto!important;
 		width: 100%!important;
-		height: 100%!important;
+		height: 90%!important;
 	}
 	.inbenta .inbenta-bot-spacer{
 		margin: 0px!important;
@@ -23,6 +23,6 @@ body{
 	.inbenta .inbenta-bot__bubble, .inbenta .inbenta-bot__chat{
 		margin: 0px!important;
 		width: 100%!important;
-		height: 100%!important;
+		height: 90%!important;
 	}
 }

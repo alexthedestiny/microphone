@@ -1,11 +1,18 @@
-jQuery('.click_and_hold').on('mousedown', function() {
-  btnStartRecordingClick();
-}).on('mouseup mouseleave', function() {
-    btnStopRecordingClick();
-    btnDownloadRecording();
+// jQuery('.click_and_hold').on('mousedown', function() {
+//   btnStartRecordingClick();
+// }).on('mouseup mouseleave', function() {
+//     btnStopRecordingClick();
+//     btnDownloadRecording();
+// });
+
+$(function(){
+  $( "#microphone-button-taphold" ).bind( "taphold", tapholdHandler );
+ 
+  function tapholdHandler( event ){
+    // $( event.target ).addClass( "taphold" );
+    console.log('holded');
+  }
 });
-
-
 
 
 
@@ -100,12 +107,13 @@ InbentaChatbotSDK.build(InbentaAuth, {
     }
   });
   chatbot.actions.showConversationWindow();
-  jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
-  jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
+  // jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
+  // jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
   window.neededToShow = true;
-  document.getElementById('microphone-button').addEventListener('click', function() {
-    window.startRecording();
-  });
+  // document.getElementById('microphone-button').addEventListener('click', function() {
+  //   window.startRecording();
+  // });
+  jQuery('<div style="cursor: pointer; border: none; background: #fff" id="microphone-button-taphold" class="microphone-button-taphold"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
   $("#inbenta-bot-input").focus(function(){
     setTimeout(function(){
       console.log($("#inbenta-bot-input").val());
