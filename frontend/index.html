@@ -16,6 +16,7 @@
       box-shadow: none !important;
     }
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
     <script src="https://sdk.inbenta.io/chatbot/1/inbenta-chatbot-sdk.js"></script>
     <script type='text/javascript' src='https://c.la1-c2-frf.salesforceliveagent.com/content/g/js/42.0/deployment.js'></script>
@@ -39,9 +40,18 @@
     <hr>
 
     <br>
-    <div style="cursor: pointer; border: none; background: #fff" id="microphone-button-taphold" class="microphone-button-taphold"><i class="fa fa-microphone"></i></div>
+    <!-- <div style="cursor: pointer; border: none; background: #fff" id="microphone-button-taphold" class="microphone-button-taphold"><i class="fa fa-microphone"></i></div> -->
 
     <div><audio controls autoplay></audio></div>
+    <div class="control-panel row">
+        <div class="col-3">
+            <span id="timer"></span>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-3 mic-wrapper">
+            <img src="https://90f4b7f760f6ea9f12f5-1bd96f799ab95cbe70f6de1dca567db6.ssl.cf3.rackcdn.com/Uploads/_resampled/SetWidth800-call-recording.png" alt="mic" class="microphone-button-taphold" id="microphone-button-taphold">
+        </div>
+    </div>
     <script src="./assets/in.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="./controllers/nl-escalation-adapter-babel.js"></script>
