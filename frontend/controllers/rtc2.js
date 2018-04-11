@@ -27,12 +27,49 @@ window.isFocus = false;
 //       micHoldUp();
 //     });
 //   }
-  document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
-      micHoldDown();
-  }, false);
-  document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
-      micHoldUp();
-  }, false);
+window.counter = 0
+var isClicked = false;
+  $('#microphone-button-taphold').click(function(){
+    if(isClicked){
+      isClicked = false;
+      $('#microphone-button-taphold').removeClass('holded');
+      // $('#btn-stop-recording').click();
+      click(btnStopRecording);
+    }else{
+      isClicked = true;
+      // window.counter++;
+      click(btnStartRecording);
+      var count = 0;
+      var myInt = setInterval(function() {
+        count++;
+        $('#timer').text(count);
+        if(window.flag) {
+          // btnStartRecording.addEventListener('click', function() {
+
+          // }, false);
+          // click(btnStartRecording);
+          document.getElementById("btn-start-recording").click();
+          window.flag = false;
+          clearInterval(myInt);
+        }
+      }, 200);
+      // $('#btn-start-recording').click();
+      // if(window.counter !== 1) {
+      //   if(isSafari){
+      //     setTimeout(function(){
+      //       click(btnStartRecording);
+      //     }, 500);
+      //   }
+      // }
+      $('#microphone-button-taphold').addClass('holded');
+    }
+  });
+  // document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
+  //     micHoldDown();
+  // }, false);
+  // document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
+  //     micHoldUp();
+  // }, false);
 // });
 
 var timerInterval;
@@ -40,7 +77,7 @@ var mSeconds = 0;
 // var audioStart = new Audio('../assets/audio/beep.wav');
 // var audioStop = new Audio('../assets/audio/stop.wav');
 var isRecording = false;
-window.counter = 0
+
 function micHoldDown(){
   window.counter++;
   if(!isRecording){
@@ -97,7 +134,7 @@ var noAgentsAvailable={
   action:'intentMatch',
   value:'NoAgentsAvailable'
 }
-InbentaAuth = InbentaChatbotSDK.createFromDomainKey("eyJ0eXBlIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJwcm9qZWN0IjoiemFsYW5kb19jaGF0Ym90X2VuIiwiZG9tYWluX2tleV9pZCI6IkJXZDFmanlKbGQ2MTVIRjl3OG9jTHc6OiJ9.Y_ZnGQtds6cYbuykwo917BRxxMp4JK96bNsup0FWCllwe3FsAxhy4_qD7lpDhV4A0ip6XryaoRkIIelrdJiY3Q", "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=");
+InbentaAuth = InbentaChatbotSDK.createFromDomainKey("eyJ0eXBlIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJwcm9qZWN0IjoiemFsYW5kb19jaGF0Ym90X2VuIiwiZG9tYWluX2tleV9pZCI6IkJXaWMzTGJMdGRtTlE4aVVfcGh6LUE6OiJ9.WR3AfmwVKGU7KQcslnS-lrlcTlD7Jyj2VTTikYGQiEjYzKHq6FwJ2cjadL0UiQk5Wb5m2knHKcti6dDrsmrbwA", "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=");
 InbentaChatbotSDK.build(InbentaAuth, {
   lang:'en',
   answers:{
@@ -317,7 +354,7 @@ function stopRecordingCallback() {
     btnDownloadRecording.disabled = false;
 
     if(isSafari) {
-        click(btnReleaseMicrophone);
+      click(btnReleaseMicrophone);
     }
 
     if(!recorder || !recorder.getBlob()) return;
@@ -393,11 +430,16 @@ btnStartRecording.onclick = function() {
 
                 audio.muted = true;
                 setSrcObject(microphone, audio);
-                audio.play();
+                // audio.play();
 
                 btnStartRecording.disabled = false;
                 btnStartRecording.style.border = '1px solid red';
                 btnStartRecording.style.fontSize = '150%';
+                window.flag = true;
+                // setTimeout(function(){
+                //   click(btnStartRecording);
+                // }, 1500);
+                
                 // alert('Please click startRecording button again. First time we tried to access your microphone. Now we will record it.');
                 return;
             }

@@ -3,8 +3,8 @@ body{
 	padding: 0px;
 }
 .hideMe{
-	/*display: none;*/
-	/*visibility: hidden;*/
+	display: none;
+	visibility: hidden;
 }
 /*.microphone-button-taphold{
 	transition: 0.3s;
