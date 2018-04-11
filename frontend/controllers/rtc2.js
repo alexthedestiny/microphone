@@ -40,18 +40,23 @@ var mSeconds = 0;
 // var audioStart = new Audio('../assets/audio/beep.wav');
 // var audioStop = new Audio('../assets/audio/stop.wav');
 var isRecording = false;
+window.counter = 0
 function micHoldDown(){
+  window.counter++;
   if(!isRecording){
     setTimeout(()=>{
       // audioStop.pause();
       // audioStop.currentTime = 0;
       // audioStart.play();
       $('#btn-start-recording').click();
-      if(isSafari){
-        setTimeout(()=>{
-          $('#btn-start-recording').click();
-        }, 100);
+      if(window.counter !== 1) {
+        if(isSafari){
+          setTimeout(()=>{
+            $('#btn-start-recording').click();
+          }, 3000);
+        }
       }
+      
       $('#microphone-button-taphold').addClass('holded');
       $('.loader-wrapp>img').addClass('visibleLoader');
         $('#timer').text('');
@@ -356,11 +361,11 @@ function stopRecordingCallback() {
 
 var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
 var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-if(isSafari) {
-  setTimeout(function() {
-    jQuery('#btn-start-recording').trigger('click');
-  }, 1000);
-}
+// if(isSafari) {
+//   setTimeout(function() {
+//     jQuery('#btn-start-recording').trigger('click');
+//   }, 1000);
+// }
 
 var recorder; // globally accessible
 var microphone;
