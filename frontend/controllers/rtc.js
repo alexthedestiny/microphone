@@ -35,15 +35,22 @@ $(function(){
 
 var timerInterval;
 var mSeconds = 0;
-var audioStart = new Audio('../assets/audio/beep.wav');
-var audioStop = new Audio('../assets/audio/stop.wav');
+var audioStart;
+var audioStop;
+// if(!isSafari){
+  audioStart = new Audio('../assets/audio/beep.wav');
+  audioStop = new Audio('../assets/audio/stop.wav');
+// }
+
 var isRecording = false;
 function micHoldDown(){
   if(!isRecording){
     setTimeout(()=>{
-      audioStop.pause();
-      audioStop.currentTime = 0;
-      audioStart.play();
+      if(!isSafari){
+        audioStop.pause();
+        audioStop.currentTime = 0;
+        audioStart.play();
+      }
       if(!isEdge){
         $('#microphone-button-taphold').addClass('holded');
       }
@@ -61,9 +68,12 @@ function micHoldUp(){
     $('#microphone-button-taphold').removeClass('holded');
     $('.loader-wrapp>img').removeClass('visibleLoader');
     clearInterval(timerInterval);
-    audioStart.pause();
-    audioStart.currentTime = 0;
-    audioStop.play();
+    if(!isSafari){
+      audioStart.pause();
+      audioStart.currentTime = 0;
+      audioStop.play();
+    }
+    
     // $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
   }
 }
@@ -297,7 +307,7 @@ function stopRecordingCallback() {
 
     var data = new FormData();
     var oReq = new XMLHttpRequest();
-    
+
     $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
     $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
 
