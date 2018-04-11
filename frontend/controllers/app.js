@@ -22,13 +22,6 @@ var isChrome = !!window.chrome && !!window.chrome.webstore;
 // Blink engine detection
 var isBlink = (isChrome || isOpera) && !!window.CSS;
 
-
-
-
-
-
-
-
 // import checkAgents from './checkAgents';
 function getVisitorSetting(url) {
   return fetch(url)
@@ -46,7 +39,7 @@ var noAgentsAvailable={
   action:'intentMatch',
   value:'NoAgentsAvailable'
 }
-InbentaAuth = InbentaChatbotSDK.createFromDomainKey("eyJ0eXBlIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJwcm9qZWN0IjoiemFsYW5kb19jaGF0Ym90X2VuIiwiZG9tYWluX2tleV9pZCI6IkJXaWMzTGJMdGRtTlE4aVVfcGh6LUE6OiJ9.WR3AfmwVKGU7KQcslnS-lrlcTlD7Jyj2VTTikYGQiEjYzKHq6FwJ2cjadL0UiQk5Wb5m2knHKcti6dDrsmrbwA", "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=");
+InbentaAuth = InbentaChatbotSDK.createFromDomainKey("eyJ0eXBlIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJwcm9qZWN0IjoiemFsYW5kb19jaGF0Ym90X2VuIiwiZG9tYWluX2tleV9pZCI6IkJXZDFmanlKbGQ2MTVIRjl3OG9jTHc6OiJ9.Y_ZnGQtds6cYbuykwo917BRxxMp4JK96bNsup0FWCllwe3FsAxhy4_qD7lpDhV4A0ip6XryaoRkIIelrdJiY3Q", "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=");
 InbentaChatbotSDK.build(InbentaAuth, {
   lang:'en',
   answers:{
@@ -114,33 +107,17 @@ InbentaChatbotSDK.build(InbentaAuth, {
         },
         success: function(data) {
           window.InbentaSessionToken = data.sessionToken;
-          showMic();
         }
       });
     }
   });
   chatbot.actions.showConversationWindow();
-  // jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
-  // jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
-  // window.neededToShow = true;
-  // document.getElementById('microphone-button').addEventListener('click', function() {
-  //   window.startRecording();
-  // });
-  function showMic(){
-    // jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
-    // jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
-
-    jQuery('<div style="cursor: pointer; border: none; background: #fff" id="microphone-button-holder" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
-
-    window.neededToShow = true;
-    // document.getElementById('microphone-button').addEventListener('click', function() {
-    //   window.startRecording();
-    // });
-  }
-  $('#microphone-button-holder').bind( "taphold", function(event){
-     $( '#microphone-button-holder' ).addClass( "holded" );
-     // console.log('hold');
-  } );
+  jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
+  jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
+  window.neededToShow = true;
+  document.getElementById('microphone-button').addEventListener('click', function() {
+    window.startRecording();
+  });
   $("#inbenta-bot-input").focus(function(){
     setTimeout(function(){
       console.log($("#inbenta-bot-input").val());
@@ -289,6 +266,7 @@ recorderApp.controller('RecorderController', [ '$scope' , function($scope) {
             xhr.send();
           };
           var blob = e.data.buf;
+          console.log(e.data.buf);
           data.append('file', blob);
           oReq.send(data);
         }
@@ -312,12 +290,22 @@ recorderApp.controller('RecorderController', [ '$scope' , function($scope) {
         console.error('Unknown event from encoder (WebWorker): "'+e.data.cmd+'"!');
       }
     };
-    if(navigator.webkitGetUserMedia)
+    if(navigator.webkitGetUserMedia) {
       navigator.webkitGetUserMedia({ video: false, audio: true }, $scope.gotUserMedia, $scope.userMediaFailed);
-    else if(navigator.mozGetUserMedia)
+    }
+    else if(navigator.mozGetUserMedia) {
       navigator.mozGetUserMedia({ video: false, audio: true }, $scope.gotUserMedia, $scope.userMediaFailed);
-    else
-      getUserMedia({ video: false, audio: true }, $scope.gotUserMedia, $scope.userMediaFailed);
+    }
+    else {
+      // navigator.mediaDevices.getUserMedia({ video: false, audio: true }, $scope.gotUserMedia, $scope.userMediaFailed);
+      navigator.mediaDevices.getUserMedia({ video: false, audio: true })
+      .then(function(stream) {
+        $scope.gotUserMedia(stream);
+      })
+      .catch(function(err) {
+        $scope.userMediaFailed(err);
+      });
+    }
   };
 
   $scope.userMediaFailed = function(code) {
@@ -446,7 +434,7 @@ recorderApp.controller('RecorderController', [ '$scope' , function($scope) {
             encoding: "FLAC",
             sampleRateHertz: sample_rate,
             languageCode: language,
-            maxAlternatives: alternatives
+            maxAlternatives: 1
           },
           audio: {
             content: audioData
