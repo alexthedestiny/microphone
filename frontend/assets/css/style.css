@@ -25,11 +25,12 @@ body{
 }*/
 .control-panel{
 	display: flex;
-	width: 600px;
+	width: 400px;
 	height: 150px;
 	position: fixed;
 	bottom: 0px;
 	left: 0px;
+	margin: 0px!important;
 }
 .mic-wrapper{
 	display: flex;

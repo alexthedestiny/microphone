@@ -13,14 +13,34 @@
 //     console.log('holded');
 //   }
 // });
-document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
+$(function(){
+  if( $(window).width()>768 ){
+    $('#microphone-button-taphold').mousedown(function(){
+      micHoldDown();
+    });
+    $('#microphone-button-taphold').mouseup(function(){
+      micHoldUp();
+    });
+    $('#microphone-button-taphold').mouseleave(function(){
+      micHoldUp();
+    });
+  }
+  document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
+      micHoldDown();
+  }, false);
+  document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
+      micHoldUp();
+  }, false);
+});
+
+function micHoldDown(){
+  setTimeout(()=>{
     $('#microphone-button-taphold').addClass('holded');
-    console.log('touch');
-}, false);
-document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
-    $('#microphone-button-taphold').removeClass('holded');
-    console.log('end');
-}, false);
+  }, 750);
+}
+function micHoldUp(){
+  $('#microphone-button-taphold').removeClass('holded');
+}
 
 
 // import checkAgents from './checkAgents';
@@ -119,7 +139,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
   // document.getElementById('microphone-button').addEventListener('click', function() {
   //   window.startRecording();
   // });
-  jQuery('<div style="cursor: pointer; border: none; background: #fff" id="microphone-button-taphold" class="microphone-button-taphold"><i class="fa fa-microphone"></i></div>').insertBefore( ".inbenta-bot-button" );
+  // jQuery('<div style="cursor: pointer; border: none; background: #fff" id="microphone-button-taphold" class="microphone-button-taphold"><i class="fa fa-microphone"></i></div>').insertBefore( ".inbenta-bot-button" );
   $("#inbenta-bot-input").focus(function(){
     setTimeout(function(){
       console.log($("#inbenta-bot-input").val());
