@@ -36,16 +36,29 @@ body{
 	left: 0px;
 	margin: 0px!important;
 }
-.mic-wrapper, .timer-wrap, .loader-wrapp{
+.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: 0.3s;
+}
+.visibleCol{
+	visibility: visible;
+	opacity: 1;
+}
+.hiddenCol{
+	visibility: hidden;
+	opacity: 0;
+	display: none;
 }
 .loader-wrapp>img{
 	width: 100%;
 	height: auto;
 	transition: 0.3s;
 	opacity: 0;
+}
+.allLoader>img{
+	height: 150px;
 }
 .loader-wrapp>img.visibleLoader{
 	opacity: 1;

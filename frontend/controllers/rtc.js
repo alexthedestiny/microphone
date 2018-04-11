@@ -44,7 +44,9 @@ function micHoldDown(){
       audioStop.pause();
       audioStop.currentTime = 0;
       audioStart.play();
-      $('#microphone-button-taphold').addClass('holded');
+      if(!isEdge){
+        $('#microphone-button-taphold').addClass('holded');
+      }
       $('.loader-wrapp>img').addClass('visibleLoader');
         $('#timer').text('');
         mSeconds = 0;
@@ -62,6 +64,7 @@ function micHoldUp(){
     audioStart.pause();
     audioStart.currentTime = 0;
     audioStop.play();
+    // $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
   }
 }
 
@@ -291,8 +294,13 @@ function stopRecordingCallback() {
     // var file = new File([blob], getFileName('mp3'), {
     //     type: 'audio/wav'
     // });
+
     var data = new FormData();
     var oReq = new XMLHttpRequest();
+    
+    $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
+    $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
+
     oReq.open("POST", 'https://kosmo.sevn.pro/encode', true);
     oReq.onload = function (oEvent) {
       // Uploaded.
@@ -456,6 +464,9 @@ window.sendASRRequest = function(blob) {
       console.log("AJAXSubmit - Success!"); //DEBUG
       try {
         result = JSON.parse(result);
+        $('#timer').text('');
+        $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
+        $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
         jQuery('body').append(result.results[0].alternatives[0].transcript);
         // jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
         // jQuery("#inbenta-bot-input").attr('value', result.results[0].alternatives[0].transcript);
