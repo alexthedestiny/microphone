@@ -356,12 +356,11 @@ function stopRecordingCallback() {
 
 var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
 var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-// if(isSafari) {
-//   setTimeout(function() {
-//     jQuery('#btn-start-recording').trigger('click');
-//   }, 1000);
-// }
+if(isSafari) {
+  setTimeout(function() {
+    jQuery('#btn-start-recording').trigger('click');
+  }, 1000);
+}
 
 var recorder; // globally accessible
 var microphone;
