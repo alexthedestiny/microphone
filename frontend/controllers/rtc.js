@@ -31,9 +31,9 @@ $(function(){
     });
   }
   else {
-    document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
-        micHoldDown();
-    }, false);
+    // document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
+    //     micHoldDown();
+    // }, false);
     document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
         micHoldUp();
     }, false);
@@ -60,12 +60,12 @@ function micHoldDown(){
       if(isSafari) {
         window.counter++;
         if(window.counter == 1) {
-          click(btnStartRecording);
+          touch(btnStartRecording);
           return;
         }
       }
       // jQuery('#btn-start-recording').click();
-      click(btnStartRecording);
+      touch(btnStartRecording);
       var count = 0;
       var myInt = setInterval(function() {
         count++;
@@ -414,14 +414,15 @@ var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 if(isSafari) {
   setTimeout(function() {
-    jQuery('#btn-start-recording').trigger('click');
+    jQuery('#microphone-button-taphold').trigger('touchstart');
   }, 1000);
 }
 
 var recorder; // globally accessible
 var microphone;
 
-var btnStartRecording = document.getElementById('btn-start-recording');
+var btnStartRecording = document.getElementById('microphone-button-taphold');
+// var btnStartRecording = document.getElementById('btn-start-recording');
 var btnStopRecording = document.getElementById('btn-stop-recording');
 var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
@@ -450,7 +451,7 @@ btnStartRecording.ontouchstart = function() {
                 return;
             }
 
-            click(btnStartRecording);
+            touch(btnStartRecording);
         });
         return;
     }
@@ -488,7 +489,7 @@ btnStartRecording.ontouchstart = function() {
     btnDownloadRecording.disabled = true;
 };
 
-btnStopRecording.onclick = function() {
+btnStartRecording.ontouchend = function() {
     this.disabled = true;
     recorder.stopRecording(stopRecordingCallback);
 };
@@ -552,7 +553,7 @@ jQuery(document).ready(function(){
     jQuery('.microphone-button-taphold').css('margin-top', '-70%');
   }
   if(!isSafari) {
-    click(btnStartRecording);
+    touch(btnStartRecording);
   }
   // if(isEdge) {
   //   $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'block');
@@ -663,6 +664,13 @@ window.sendASRRequest = function(blob) {
   };
 
 function click(el) {
+    el.disabled = false; // make sure that element is not disabled
+    var evt = document.createEvent('Event');
+    evt.initEvent('click', true, true);
+    el.dispatchEvent(evt);
+}
+
+function touch(el) {
     el.disabled = false; // make sure that element is not disabled
     var evt = document.createEvent('Event');
     evt.initEvent('touchstart', true, true);
