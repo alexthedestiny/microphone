@@ -15,21 +15,33 @@ window.isFocus = false;
 //     console.log('holded');
 //   }
 // });
-$('#microphone-button-taphold').click(function(){
-  console.log('click done');
-});
+// $('#microphone-button-taphold').click(function(){
+//   console.log('click done');
+// });
 var countOfTouch = 0;
 
 $(function(){
   if( $(window).width()>768 ){
     $('#microphone-button-taphold').mousedown(function(){
-      micHoldDown();
+      console.log('down');
+      // micHoldDown();
+      // click(btnStartRecording);
+      var event = $.Event( "touchstart" );
+      $(btnStartRecording).trigger(event);
     });
     $('#microphone-button-taphold').mouseup(function(){
-      micHoldUp();
+      console.log('up');
+      // micHoldUp();
+      // click(btnStopRecording);
+      var event = $.Event( "touchend" );
+      $(btnStartRecording).trigger(event);
     });
     $('#microphone-button-taphold').mouseleave(function(){
-      micHoldUp();
+      console.log('up');
+      // micHoldUp();
+      var event = $.Event( "touchend" );
+      $(btnStartRecording).trigger(event);
+      // click(btnStopRecording);
     });
   }
   else {
@@ -463,6 +475,10 @@ btnStartRecording.ontouchstart = function() {
                 return;
             }
             touch(btnStartRecording);
+            if($(window).width()>768){
+              var event = $.Event( "touchstart" );
+              $(btnStartRecording).trigger(event);
+            }
         });
         return;
     }
@@ -515,7 +531,21 @@ btnStartRecording.ontouchstart = function() {
 btnStartRecording.ontouchend = function() {
     this.disabled = true;
     recorder.stopRecording(stopRecordingCallback);
+    if($(window).width()>768){
+       $('#microphone-button-taphold').removeClass('holded');
+      if(isEdge){
+        $('#microphone-button-taphold').removeClass('holded-edge');
+      }
+      $('.loader-wrapp>img').removeClass('visibleLoader');
+      $('.loader-wrapp>span').addClass('visibleText');
+      clearInterval(timerInterval);
+    }
 };
+
+// btnStopRecording.onclick = function() {
+//     this.disabled = true;
+//     recorder.stopRecording(stopRecordingCallback);
+// };
 
 btnReleaseMicrophone.onclick = function() {
     this.disabled = true;
