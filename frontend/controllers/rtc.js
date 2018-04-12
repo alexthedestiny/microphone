@@ -360,6 +360,9 @@ function stopRecordingCallback() {
 
     if(isSafari) {
         click(btnReleaseMicrophone);
+        setTimeout(function(){
+          touch(btnStartRecording);
+        },2000);
     }
 
     if(!recorder || !recorder.getBlob()) return;
