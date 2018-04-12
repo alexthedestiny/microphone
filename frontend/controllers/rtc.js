@@ -128,7 +128,7 @@ var noAgentsAvailable={
   action:'intentMatch',
   value:'NoAgentsAvailable'
 }
-InbentaAuth = InbentaChatbotSDK.createFromDomainKey("eyJ0eXBlIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJwcm9qZWN0IjoiemFsYW5kb19jaGF0Ym90X2VuIiwiZG9tYWluX2tleV9pZCI6IkJXaWMzTGJMdGRtTlE4aVVfcGh6LUE6OiJ9.WR3AfmwVKGU7KQcslnS-lrlcTlD7Jyj2VTTikYGQiEjYzKHq6FwJ2cjadL0UiQk5Wb5m2knHKcti6dDrsmrbwA", "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=");
+InbentaAuth = InbentaChatbotSDK.createFromDomainKey("eyJ0eXBlIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJwcm9qZWN0IjoiemFsYW5kb19jaGF0Ym90X2VuIiwiZG9tYWluX2tleV9pZCI6IkJXZDFmanlKbGQ2MTVIRjl3OG9jTHc6OiJ9.Y_ZnGQtds6cYbuykwo917BRxxMp4JK96bNsup0FWCllwe3FsAxhy4_qD7lpDhV4A0ip6XryaoRkIIelrdJiY3Q", "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=");
 InbentaChatbotSDK.build(InbentaAuth, {
   lang:'en',
   answers:{
