@@ -32,7 +32,7 @@
     <!-- <script src="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js" crossorigin="anonymous"></script> -->
   </head>
   <body>
-    <div class="hideMe">
+   <!--  <div class="hideMe">-->
         <button class="click_and_hold">Record a voice</button>
 
         <button id="btn-start-recording">Start Recording</button>
@@ -40,13 +40,24 @@
         <button id="btn-release-microphone" disabled>Release Microphone</button>
         <button id="btn-download-recording" disabled>Download</button>
         <hr>
-
-        <div><audio controls autoplay></audio></div>
-    </div>
+        <div><audio controls autoplay></audio></div> 
+        
+   <!-- </div> -->
+        <!-- <button id="btn-start-recording">Start Recording</button>
+        <br>
+        <br>
+        <button id="btn-stop-recording" disabled>Stop Recording</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>-->
 
     <div class="control-panel row">
 
-
+        <div class="col-xs-3 col-sm-3 col-md-3 mic-wrapper visibleCol">
+            <div class="microphone-button-taphold" id="microphone-button-taphold"></div>
+        </div>
         <div class="col-xs-3 col-sm-3 col-md-3 timer-wrap visibleCol">
             <span id="timer"></span>
         </div>
@@ -54,9 +65,7 @@
             <img src="https://data.whicdn.com/images/193337894/original.gif" alt="gif">
             <span class="visibleText">Press and hold</span>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 mic-wrapper visibleCol">
-            <div class="microphone-button-taphold" id="microphone-button-taphold"></div>
-        </div>
+        
         <div class="col-xs-12 col-sm-12 col-md-12 allLoader hiddenCol">
             <img src="https://loading.io/spinners/wave/lg.wave-ball-preloader.gif" alt="load">
         </div>

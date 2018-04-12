@@ -15,6 +15,9 @@ window.isFocus = false;
 //     console.log('holded');
 //   }
 // });
+$('#microphone-button-taphold').click(function(){
+  console.log('click done');
+});
 $(function(){
   if( $(window).width()>768 ){
     $('#microphone-button-taphold').mousedown(function(){
@@ -345,13 +348,13 @@ function stopRecordingCallback() {
 
         setTimeout(function() {
             if(!audio.paused) return;
-            //audio.play();
+            audio.play();
         }, 1000);
 
-        //audio.play();
+        audio.play();
     }, 300);
 
-    //audio.play();
+    audio.play();
 
     btnDownloadRecording.disabled = false;
 
@@ -437,7 +440,7 @@ btnStartRecording.onclick = function() {
 
                 audio.muted = true;
                 setSrcObject(microphone, audio);
-                //audio.play();
+                audio.play();
 
                 btnStartRecording.disabled = false;
                 btnStartRecording.style.border = '1px solid red';
@@ -456,7 +459,7 @@ btnStartRecording.onclick = function() {
 
     audio.muted = true;
     setSrcObject(microphone, audio);
-    //audio.play();
+    audio.play();
 
     var options = {
         type: 'audio',
