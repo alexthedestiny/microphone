@@ -378,8 +378,11 @@ function stopRecordingCallback() {
     oReq.onload = function (oEvent) {
       // Uploaded.
       var xhr = new XMLHttpRequest();
-      console.log(oEvent);
-      xhr.open('GET', 'https://kosmo.sevn.pro/track.flac', true);
+      // console.log('ee',oEvent);
+      console.log('res',JSON.parse(this.responseText) );
+      var resp = JSON.parse(this.responseText) ;
+      xhr.open('GET', resp.file, true);
+      // xhr.open('GET', 'https://kosmo.sevn.pro/track.flac', true);
       xhr.responseType = 'arraybuffer';
       xhr.onload = function(e) {
         if (this.status == 200) {
@@ -554,9 +557,11 @@ window.sendASRRequest = function(blob) {
         // jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');
       }
       var result = this.responseText;
+      console.log('result no parse',result);
       console.log("AJAXSubmit - Success!"); //DEBUG
       try {
         result = JSON.parse(result);
+        console.log('result parsed',result);
         $('#timer').text('');
         $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
         if(isEdge) {
@@ -567,8 +572,14 @@ window.sendASRRequest = function(blob) {
         }
         $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
         // jQuery('body').append(result.results[0].alternatives[0].transcript);
-        jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
-        jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
+        if(result.results && result.results.length>0){
+          jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
+          jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
+        }else{
+          jQuery("#inbenta-bot-input").val("");
+          jQuery("#inbenta-bot-input").attr('data-value', "");
+        }
+      
         // jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
         // jQuery("#inbenta-bot-input").attr('value', result.results[0].alternatives[0].transcript);
         // jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');

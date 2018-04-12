@@ -249,6 +249,9 @@ function launchNLEsclationForm(escalateNLForm,rejectedEscalation,noAgentsAvailab
               $("#inbenta-bot-input").attr('placeholder', 'Ask here');
             }, 500);
           });
+          // jQuery('.ui-draggable').attr('style', 'bottom: 120px; right: 15px; position: relative;');
+          jQuery('.ui-draggable').css({"bottom":'40%'});
+          console.log('lil');
         },0);
       }
       return next();

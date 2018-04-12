@@ -218,11 +218,14 @@ function launchNLEsclationForm(escalateNLForm, rejectedEscalation, noAgentsAvail
     chatBot.subscriptions.onShowConversationWindow(function (next) {
       if (window.neededToShow) {
         setTimeout(function () {
-          jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore(".inbenta-bot-button");
-          jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore(".inbenta-bot-button");
-          document.getElementById('microphone-button').addEventListener('click', function () {
-            window.startRecording();
-          });
+          // jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore(".inbenta-bot-button");
+          // jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore(".inbenta-bot-button");
+          // document.getElementById('microphone-button').addEventListener('click', function () {
+          //   window.startRecording();
+          // });
+          if( $(window).width()>=768 ){
+            jQuery('.ui-draggable').css({"bottom":'120px', 'right':'15px'});
+          }
 
           $(document).on('click', '.inbenta-bot-button', function () {
             window.clickNaKnopku = $("#inbenta-bot-input").attr('value');
