@@ -458,11 +458,11 @@ btnStartRecording.ontouchstart = function() {
                 // btnStartRecording.style.border = '1px solid red';
                 // btnStartRecording.style.fontSize = '150%';
                 window.flag = true;
-                touch(btnStartRecording);
+                
                 // alert('Please click startRecording button again. First time we tried to access your microphone. Now we will record it.');
                 return;
             }
-            
+            touch(btnStartRecording);
         });
         return;
     }
@@ -484,7 +484,7 @@ btnStartRecording.ontouchstart = function() {
     audio.muted = true;
     setSrcObject(microphone, audio);
     // audio.play();
-    
+
     var options = {
         type: 'audio',
         numberOfAudioChannels: isEdge ? 1 : 2,
