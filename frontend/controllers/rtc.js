@@ -348,13 +348,13 @@ function stopRecordingCallback() {
 
         setTimeout(function() {
             if(!audio.paused) return;
-            audio.play();
+            // audio.play();
         }, 1000);
 
-        audio.play();
+        // audio.play();
     }, 300);
 
-    audio.play();
+    // audio.play();
 
     btnDownloadRecording.disabled = false;
 
@@ -444,11 +444,11 @@ btnStartRecording.ontouchstart = function() {
 
                 audio.muted = true;
                 setSrcObject(microphone, audio);
-                audio.play();
+                // audio.play();
 
-                btnStartRecording.disabled = false;
-                btnStartRecording.style.border = '1px solid red';
-                btnStartRecording.style.fontSize = '150%';
+                // btnStartRecording.disabled = false;
+                // btnStartRecording.style.border = '1px solid red';
+                // btnStartRecording.style.fontSize = '150%';
                 window.flag = true;
                 // alert('Please click startRecording button again. First time we tried to access your microphone. Now we will record it.');
                 return;
@@ -463,7 +463,7 @@ btnStartRecording.ontouchstart = function() {
 
     audio.muted = true;
     setSrcObject(microphone, audio);
-    audio.play();
+    // audio.play();
 
     var options = {
         type: 'audio',
