@@ -18,6 +18,8 @@ window.isFocus = false;
 $('#microphone-button-taphold').click(function(){
   console.log('click done');
 });
+var countOfTouch = 0;
+
 $(function(){
   if( $(window).width()>768 ){
     $('#microphone-button-taphold').mousedown(function(){
@@ -32,7 +34,13 @@ $(function(){
   }
   else {
     // document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
-    //     micHoldDown();
+    //     // micHoldDown();
+    //     countOfTouch++;
+    //     $('.header__title').text("c: "+countOfTouch);
+    //     // if(countOfTouch>2){
+          
+    //     // }
+      
     // }, false);
     document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
         micHoldUp();
@@ -89,10 +97,10 @@ function micHoldDown(){
       }
       $('.loader-wrapp>img').addClass('visibleLoader');
       $('.loader-wrapp>span').removeClass('visibleText');
-        $('#timer').text('');
-        mSeconds = 0;
-        timerInterval = setInterval(function(){mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
-        isRecording = true;
+      $('#timer').text('');
+      mSeconds = 0;
+      timerInterval = setInterval(function(){mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
+      isRecording = true;
     }, 0);
   }
 }
@@ -453,11 +461,22 @@ btnStartRecording.ontouchstart = function() {
                 // alert('Please click startRecording button again. First time we tried to access your microphone. Now we will record it.');
                 return;
             }
-
             touch(btnStartRecording);
         });
         return;
     }
+    if(!isEdge){
+      $('#microphone-button-taphold').addClass('holded');
+    }else{
+      $('#microphone-button-taphold').addClass('holded-edge');
+    }
+    $('.loader-wrapp>img').addClass('visibleLoader');
+    $('.loader-wrapp>span').removeClass('visibleText');
+    $('#timer').text('');
+    mSeconds = 0;
+    timerInterval = setInterval(function(){mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
+    console.log('countOfTouch',countOfTouch);
+    isRecording = true;
 
     replaceAudio();
 
