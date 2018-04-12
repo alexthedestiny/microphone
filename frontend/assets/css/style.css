@@ -21,7 +21,7 @@ body{
 	user-select: none;
 }
 .microphone-button-taphold>i{
-	color: #6ac1ca; 
+	color: #6ac1ca;
 	font-size: 22px;
 }
 .microphone-button-taphold.holded >i {
@@ -33,8 +33,12 @@ body{
 	height: 150px;
 	position: fixed;
 	bottom: 0px;
-	left: 0px;
+	right: 0px;
 	margin: 0px!important;
+}
+
+.ui-draggeble {
+	bottom: 40% !important;
 }
 .mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader{
 	display: flex;
@@ -125,6 +129,4 @@ body{
 		height: 20%;
 		width: 100%;
 	}
-
-
 }

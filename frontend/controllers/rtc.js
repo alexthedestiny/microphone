@@ -5,9 +5,11 @@
 //     btnDownloadRecording();
 // });
 
+var isFirefox = window.isFirefox = typeof InstallTrigger !== 'undefined';
+window.isFocus = false;
 // $(function(){
 //   $( "#microphone-button-taphold" ).bind( "taphold", tapholdHandler );
- 
+
 //   function tapholdHandler( event ){
 //     // $( event.target ).addClass( "taphold" );
 //     console.log('holded');
@@ -25,31 +27,57 @@ $(function(){
       micHoldUp();
     });
   }
-  document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
-      micHoldDown();
-  }, false);
-  document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
-      micHoldUp();
-  }, false);
+  else {
+    document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
+        micHoldDown();
+    }, false);
+    document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
+        micHoldUp();
+    }, false);
+  }
 });
 
 var timerInterval;
 var mSeconds = 0;
 var audioStart;
 var audioStop;
-// if(!isSafari){
-  audioStart = new Audio('../assets/audio/beep.wav');
-  audioStop = new Audio('../assets/audio/stop.wav');
-// }
+if(!isSafari){
+  audioStart = new Audio('./assets/audio/beep.wav');
+  audioStop = new Audio('./assets/audio/stop.wav');
+  console.log(audioStop);
+}
 
 var isRecording = false;
+window.counter = 0
+var isClicked = false;
 function micHoldDown(){
+  isClicked = true;
   if(!isRecording){
-    setTimeout(()=>{
+    setTimeout(function(){
+      if(isSafari) {
+        window.counter++;
+        if(window.counter == 1) {
+          click(btnStartRecording);
+          return;
+        }
+      }
+      // jQuery('#btn-start-recording').click();
+      click(btnStartRecording);
+      var count = 0;
+      var myInt = setInterval(function() {
+        count++;
+        if(window.flag) {
+          document.getElementById("btn-start-recording").click();
+          window.flag = false;
+          clearInterval(myInt);
+        }
+      }, 200);
       if(!isSafari){
-        audioStop.pause();
-        audioStop.currentTime = 0;
-        audioStart.play();
+        // audioStop = new Audio('./assets/audio/stop.wav');
+        // console.log(audioStop);
+        // audioStop.pause();
+        // audioStop.currentTime = 0;
+        // audioStart.play();
       }
       if(!isEdge){
         $('#microphone-button-taphold').addClass('holded');
@@ -57,9 +85,9 @@ function micHoldDown(){
       $('.loader-wrapp>img').addClass('visibleLoader');
         $('#timer').text('');
         mSeconds = 0;
-        timerInterval = setInterval(()=>{mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
+        timerInterval = setInterval(function(){mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
         isRecording = true;
-    }, 500);
+    }, 0);
   }
 }
 function micHoldUp(){
@@ -69,11 +97,13 @@ function micHoldUp(){
     $('.loader-wrapp>img').removeClass('visibleLoader');
     clearInterval(timerInterval);
     if(!isSafari){
-      audioStart.pause();
-      audioStart.currentTime = 0;
-      audioStop.play();
+      // audioStart = new Audio('./assets/audio/beep.wav');
+      // audioStart.pause();
+      // audioStart.currentTime = 0;
+      // audioStop.play();
     }
-    
+    // jQuery('#btn-stop-recording').click();
+    click(btnStopRecording);
     // $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
   }
 }
@@ -96,7 +126,7 @@ var noAgentsAvailable={
   action:'intentMatch',
   value:'NoAgentsAvailable'
 }
-InbentaAuth = InbentaChatbotSDK.createFromDomainKey("eyJ0eXBlIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJwcm9qZWN0IjoiemFsYW5kb19jaGF0Ym90X2VuIiwiZG9tYWluX2tleV9pZCI6IkJXaWMzTGJMdGRtTlE4aVVfcGh6LUE6OiJ9.WR3AfmwVKGU7KQcslnS-lrlcTlD7Jyj2VTTikYGQiEjYzKHq6FwJ2cjadL0UiQk5Wb5m2knHKcti6dDrsmrbwA", "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=");
+InbentaAuth = InbentaChatbotSDK.createFromDomainKey("eyJ0eXBlIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJwcm9qZWN0IjoiemFsYW5kb19jaGF0Ym90X2VuIiwiZG9tYWluX2tleV9pZCI6IkJXZDFmanlKbGQ2MTVIRjl3OG9jTHc6OiJ9.Y_ZnGQtds6cYbuykwo917BRxxMp4JK96bNsup0FWCllwe3FsAxhy4_qD7lpDhV4A0ip6XryaoRkIIelrdJiY3Q", "qhgFlQl5PuOW2NB+31ZDFX4fE7ABYFifd0K5tm0S4Fw=");
 InbentaChatbotSDK.build(InbentaAuth, {
   lang:'en',
   answers:{
@@ -169,6 +199,9 @@ InbentaChatbotSDK.build(InbentaAuth, {
     }
   });
   chatbot.actions.showConversationWindow();
+  setTimeout(function(){
+    jQuery('.ui-draggable').attr('style', 'bottom: 120px; right: 15px; position: relative;');
+  },0);
   // jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
   // jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
   window.neededToShow = true;
@@ -177,44 +210,72 @@ InbentaChatbotSDK.build(InbentaAuth, {
   // });
   // jQuery('<div style="cursor: pointer; border: none; background: #fff" id="microphone-button-taphold" class="microphone-button-taphold"><i class="fa fa-microphone"></i></div>').insertBefore( ".inbenta-bot-button" );
   $("#inbenta-bot-input").focus(function(){
+    window.isFocus = true;
     setTimeout(function(){
-      console.log($("#inbenta-bot-input").val());
-      if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('value')) {
-        $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
-        return;
-      }
-      if($("#inbenta-bot-input").attr('value') !== null){
-        if(!$("#inbenta-bot-input").val()) {
-          $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
-        }
+      var attr = jQuery("#inbenta-bot-input").attr('data-value');
+      console.log(attr);
+      // For some browsers, `attr` is undefined; for others, `attr` is false. Check for both.
+      if (typeof attr !== typeof undefined && attr !== false) {
+        jQuery("#inbenta-bot-input").val(jQuery("#inbenta-bot-input").attr('data-value'));
       }
     },0);
   });
   $("#inbenta-bot-input").blur(function(){
+    window.isFocus = false;
     setTimeout(function(){
-      console.log($("#inbenta-bot-input").val());
-      if($("#inbenta-bot-input").val() && !$("#inbenta-bot-input").attr('value')) {
-        $("#inbenta-bot-input").attr('value', $("#inbenta-bot-input").val());
-        return;
-      }
-      if($("#inbenta-bot-input").attr('value') !== null){
-        if(!$("#inbenta-bot-input").val()) {
-          $("#inbenta-bot-input").val($("#inbenta-bot-input").attr('value'));
-        }
+      var attr = jQuery("#inbenta-bot-input").attr('data-value');
+      console.log(attr);
+      // For some browsers, `attr` is undefined; for others, `attr` is false. Check for both.
+      if (typeof attr !== typeof undefined && attr !== false) {
+        jQuery("#inbenta-bot-input").val(jQuery("#inbenta-bot-input").attr('data-value'));
       }
     },0);
   });
+  $("#inbenta-bot-input").keyup(function(e){
+    setTimeout(function(){
+      // console.log(e);
+      var code = e.keyCode ? e.keyCode : e.which;
+      if (code==13) {
+          e.preventDefault();
+          console.log('enter pressed');
+
+          var messageData = {
+            message: $("#inbenta-bot-input").val()
+          }
+          window.chatbot.actions.displayUserMessage(messageData);
+          window.chatbot.actions.sendMessage(messageData);
+          setTimeout(function(){
+            jQuery("#inbenta-bot-input").attr('data-value','');
+            jQuery("#inbenta-bot-input").val('');
+            jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
+          }, 500);
+
+          // jQuery("#inbenta-bot-input").attr('data-value','');
+          // jQuery('.inbenta-bot-button').trigget('click', [$("#inbenta-bot-input").val()]);
+          return;
+      }
+      jQuery("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
+      console.log($("#inbenta-bot-input").val());
+    },0);
+  });
+  $(document).keypress(function(e) {
+    if(e.which == 13) {
+      if(window.isFocus) {
+        jQuery("#inbenta-bot-input").attr('data-value','');
+      }
+    }
+});
   $(document).on('click', '.inbenta-bot-button', function(){
-    window.clickNaKnopku = $("#inbenta-bot-input").attr('value');
+    window.clickNaKnopku = jQuery("#inbenta-bot-input").attr('data-value');
     var messageData = {
       message: window.clickNaKnopku
     }
     window.chatbot.actions.displayUserMessage(messageData);
     window.chatbot.actions.sendMessage(messageData);
     setTimeout(function(){
-      $("#inbenta-bot-input").attr('value','');
-      $("#inbenta-bot-input").val('');
-      $("#inbenta-bot-input").attr('placeholder', 'Ask here');
+      jQuery("#inbenta-bot-input").attr('data-value','');
+      jQuery("#inbenta-bot-input").val('');
+      jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
     }, 500);
   });
   chatbot.api.addVariable('acme_airlines_en/Name', 'John Doe');
@@ -277,13 +338,13 @@ function stopRecordingCallback() {
 
         setTimeout(function() {
             if(!audio.paused) return;
-            audio.play();
+            //audio.play();
         }, 1000);
 
-        audio.play();
+        //audio.play();
     }, 300);
 
-    audio.play();
+    //audio.play();
 
     btnDownloadRecording.disabled = false;
 
@@ -338,6 +399,12 @@ function stopRecordingCallback() {
 var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
 var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
+if(isSafari) {
+  setTimeout(function() {
+    jQuery('#btn-start-recording').trigger('click');
+  }, 1000);
+}
+
 var recorder; // globally accessible
 var microphone;
 
@@ -360,13 +427,13 @@ btnStartRecording.onclick = function() {
 
                 audio.muted = true;
                 setSrcObject(microphone, audio);
-                audio.play();
+                //audio.play();
 
                 btnStartRecording.disabled = false;
                 btnStartRecording.style.border = '1px solid red';
                 btnStartRecording.style.fontSize = '150%';
-
-                alert('Please click startRecording button again. First time we tried to access your microphone. Now we will record it.');
+                window.flag = true;
+                // alert('Please click startRecording button again. First time we tried to access your microphone. Now we will record it.');
                 return;
             }
 
@@ -379,7 +446,7 @@ btnStartRecording.onclick = function() {
 
     audio.muted = true;
     setSrcObject(microphone, audio);
-    audio.play();
+    //audio.play();
 
     var options = {
         type: 'audio',
@@ -464,7 +531,21 @@ btnDownloadRecording.onclick = function() {
     oReq.send(data);
     // invokeSaveAsDialog(file);
 };
-
+jQuery(document).ready(function(){
+  if(window.isFirefox) {
+    jQuery('.microphone-button-taphold').css('margin-top', '-70%');
+  }
+  if(!isSafari) {
+    click(btnStartRecording);
+  }
+  if(isEdge) {
+    $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'block');
+    setTimeout(function(){
+      $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'flex');
+      $('.allLoader').css('position', 'absolute');
+    },1000);
+  }
+});
 window.sendASRRequest = function(blob) {
     function ajaxSuccess() {
       if(this.status !== '200' || this.status !== 200) {
@@ -476,8 +557,16 @@ window.sendASRRequest = function(blob) {
         result = JSON.parse(result);
         $('#timer').text('');
         $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
+        if(isEdge) {
+          $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'block');
+          setTimeout(function(){
+            $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'flex');
+          },1000);
+        }
         $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
-        jQuery('body').append(result.results[0].alternatives[0].transcript);
+        // jQuery('body').append(result.results[0].alternatives[0].transcript);
+        jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
+        jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
         // jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
         // jQuery("#inbenta-bot-input").attr('value', result.results[0].alternatives[0].transcript);
         // jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');
