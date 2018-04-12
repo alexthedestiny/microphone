@@ -15,21 +15,41 @@ window.isFocus = false;
 //     console.log('holded');
 //   }
 // });
-$('#microphone-button-taphold').click(function(){
-  console.log('click done');
-});
+// $('#microphone-button-taphold').click(function(){
+//   console.log('click done');
+// });
 var countOfTouch = 0;
 
 $(function(){
   if( $(window).width()>768 ){
+    var recorderEnable = false;
     $('#microphone-button-taphold').mousedown(function(){
-      micHoldDown();
+      console.log('down');
+      // micHoldDown();
+      // click(btnStartRecording);
+      var event = $.Event( "touchstart" );
+      $(btnStartRecording).trigger(event);
+      recorderEnable = true;
     });
     $('#microphone-button-taphold').mouseup(function(){
-      micHoldUp();
+      console.log('up');
+      // micHoldUp();
+      // click(btnStopRecording);
+      if(recorderEnable){
+        recorderEnable = false;
+        var event = $.Event( "touchend" );
+        $(btnStartRecording).trigger(event);
+      }
     });
     $('#microphone-button-taphold').mouseleave(function(){
-      micHoldUp();
+      console.log('up');
+      // micHoldUp();
+      if(recorderEnable){
+        recorderEnable = false;
+        var event = $.Event( "touchend" );
+        $(btnStartRecording).trigger(event);
+      }
+      // click(btnStopRecording);
     });
   }
   else {
@@ -99,7 +119,7 @@ function micHoldDown(){
       $('.loader-wrapp>span').removeClass('visibleText');
       $('#timer').text('');
       mSeconds = 0;
-      timerInterval = setInterval(function(){mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
+      window.timerInterval = setInterval(function(){mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
       isRecording = true;
     }, 0);
   }
@@ -113,7 +133,7 @@ function micHoldUp(){
     }
     $('.loader-wrapp>img').removeClass('visibleLoader');
     $('.loader-wrapp>span').addClass('visibleText');
-    clearInterval(timerInterval);
+    clearInterval(window.timerInterval);
     if(!isSafari){
       // audioStart = new Audio('./assets/audio/beep.wav');
       // audioStart.pause();
@@ -463,6 +483,10 @@ btnStartRecording.ontouchstart = function() {
                 return;
             }
             touch(btnStartRecording);
+            if($(window).width()>768){
+              var event = $.Event( "touchstart" );
+              $(btnStartRecording).trigger(event);
+            }
         });
         return;
     }
@@ -475,8 +499,7 @@ btnStartRecording.ontouchstart = function() {
     $('.loader-wrapp>span').removeClass('visibleText');
     $('#timer').text('');
     mSeconds = 0;
-    timerInterval = setInterval(function(){mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
-    console.log('countOfTouch',countOfTouch);
+    window.timerInterval = setInterval(function(){mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
     isRecording = true;
     
     replaceAudio();
@@ -513,9 +536,23 @@ btnStartRecording.ontouchstart = function() {
 };
 
 btnStartRecording.ontouchend = function() {
-    this.disabled = true;
-    recorder.stopRecording(stopRecordingCallback);
+  this.disabled = true;
+  recorder.stopRecording(stopRecordingCallback);
+  if($(window).width()>768){
+     $('#microphone-button-taphold').removeClass('holded');
+    if(isEdge){
+      $('#microphone-button-taphold').removeClass('holded-edge');
+    }
+    $('.loader-wrapp>img').removeClass('visibleLoader');
+    $('.loader-wrapp>span').addClass('visibleText');
+    clearInterval(window.timerInterval);
+  }
 };
+
+// btnStopRecording.onclick = function() {
+//     this.disabled = true;
+//     recorder.stopRecording(stopRecordingCallback);
+// };
 
 btnReleaseMicrophone.onclick = function() {
     this.disabled = true;
