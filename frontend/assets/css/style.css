@@ -28,27 +28,43 @@ body{
 	transform: scale(1.2);
 }*/
 .control-panel{
-	display: flex;
+	display: inline-block;
 	width: 400px;
-	height: 150px;
+	height: 120px;
 	position: fixed;
 	bottom: 0px;
 	right: 0px;
 	margin: 0px!important;
+	text-align: center;
 }
 
 .ui-draggeble {
 	bottom: 40% !important;
 }
 .mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader{
-	display: flex;
+	/*display: flex;*/
+	/*display: -ms-flexbox;
+	-ms-flex-pack: center;
+	-ms-flex-align: center;
 	justify-content: center;
-	align-items: center;
+	align-items: center;*/
+	display: table;
 	transition: 0.3s;
+	vertical-align: middle;
+	height: 100%;
+}
+.mic-wrapper>img, .timer-wrap>span, .loader-wrapp>img, .loader-wrapp>span, .mic-wrapper>div{
+	height: 100%;
+	display: table-cell!important;
+	vertical-align: middle;
+}
+.allLoader>img{
+	display: inline-block;
 }
 .visibleCol{
 	visibility: visible;
 	opacity: 1;
+	display: table;
 }
 .hiddenCol{
 	visibility: hidden;
@@ -56,27 +72,28 @@ body{
 	display: none;
 }
 .loader-wrapp>img{
-	width: 100%;
-	height: auto;
+	width: auto;
+	height: 90px;
+	margin-top: 15px;
 	transition: 0.3s;
 	opacity: 0;
-	display: none;
+	display: none!important;
 }
 .loader-wrapp>span{
 	transition: 0.3s;
 	opacity: 0;
-	display: none;
+	display: none!important;
 }
 .allLoader>img{
-	height: 150px;
+	height: 120px;
 }
 .loader-wrapp>img.visibleLoader{
 	opacity: 1;
-	display: inline-block;
+	display: table-cell!important;
 }
 .loader-wrapp>span.visibleText{
 	opacity: 1;
-	display: inline-block;
+	display: table-cell!important;
 }
 .microphone-button-taphold{
 	cursor: pointer;
@@ -99,8 +116,16 @@ body{
 	animation-delay: 0s;
 	animation-iteration-count: infinite;
 }
+.microphone-button-taphold.holded-edge{
+	animation-name: mic-holded;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-delay: 0s;
+	animation-iteration-count: infinite;
+}
 #timer{
 	display: inline-block;
+	text-align: center;
 	min-width: 60px;
 }
 @keyframes mic-holded {
@@ -112,6 +137,17 @@ body{
     }
     100%{
 		transform: scale(1);
+    }
+}
+@keyframes mic-holded-edge{
+    0%{
+		width: 100%;
+    }
+    50%{
+		width: 80%;
+    }
+    100%{
+		width: 100%;;
     }
 }
 @media all and (max-width: 768px){

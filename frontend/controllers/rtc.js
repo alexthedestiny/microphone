@@ -81,6 +81,8 @@ function micHoldDown(){
       }
       if(!isEdge){
         $('#microphone-button-taphold').addClass('holded');
+      }else{
+        $('#microphone-button-taphold').addClass('holded-edge');
       }
       $('.loader-wrapp>img').addClass('visibleLoader');
       $('.loader-wrapp>span').removeClass('visibleText');
@@ -95,6 +97,9 @@ function micHoldUp(){
   if(isRecording){
     isRecording = false;
     $('#microphone-button-taphold').removeClass('holded');
+    if(isEdge){
+      $('#microphone-button-taphold').removeClass('holded-edge');
+    }
     $('.loader-wrapp>img').removeClass('visibleLoader');
     $('.loader-wrapp>span').addClass('visibleText');
     clearInterval(timerInterval);
@@ -374,7 +379,7 @@ function stopRecordingCallback() {
     $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
     $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
 
-    oReq.open("POST", 'https://kosmo.sevn.pro/encode', true);
+    oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
     oReq.onload = function (oEvent) {
       // Uploaded.
       var xhr = new XMLHttpRequest();
@@ -462,6 +467,9 @@ btnStartRecording.onclick = function() {
 
     if(navigator.platform && navigator.platform.toString().toLowerCase().indexOf('win') === -1) {
         options.sampleRate = 48000; // or 44100 or remove this line for default
+        if(isEdge){
+          options.sampleRate = 44100;
+        }
     }
 
     if(recorder) {
@@ -543,13 +551,13 @@ jQuery(document).ready(function(){
   if(!isSafari) {
     click(btnStartRecording);
   }
-  if(isEdge) {
-    $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'block');
-    setTimeout(function(){
-      $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'flex');
-      $('.allLoader').css('position', 'absolute');
-    },1000);
-  }
+  // if(isEdge) {
+  //   $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'block');
+  //   setTimeout(function(){
+  //     $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'flex');
+  //     $('.allLoader').css('position', 'absolute');
+  //   },1000);
+  // }
 });
 window.sendASRRequest = function(blob) {
     function ajaxSuccess() {
@@ -564,12 +572,12 @@ window.sendASRRequest = function(blob) {
         console.log('result parsed',result);
         $('#timer').text('');
         $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
-        if(isEdge) {
-          $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'block');
-          setTimeout(function(){
-            $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'flex');
-          },1000);
-        }
+        // if(isEdge) {
+        //   $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'block');
+        //   setTimeout(function(){
+        //     $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'flex');
+        //   },1000);
+        // }
         $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
         // jQuery('body').append(result.results[0].alternatives[0].transcript);
         if(result.results && result.results.length>0){
@@ -615,6 +623,9 @@ window.sendASRRequest = function(blob) {
           content: audioData
         }
       };
+      if(isEdge){
+        data.config.sampleRateHertz = 44100;
+      }
       var oAjaxReq = new XMLHttpRequest();
       oAjaxReq.onload = ajaxSuccess;
       //NOTE: instead of API, it is recommended to use service API authentification,
