@@ -426,7 +426,7 @@ var btnStopRecording = document.getElementById('btn-stop-recording');
 var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
 
-btnStartRecording.onclick = function() {
+btnStartRecording.ontouchstart = function() {
     this.disabled = true;
     this.style.border = '';
     this.style.fontSize = '';
@@ -665,7 +665,7 @@ window.sendASRRequest = function(blob) {
 function click(el) {
     el.disabled = false; // make sure that element is not disabled
     var evt = document.createEvent('Event');
-    evt.initEvent('click', true, true);
+    evt.initEvent('touchstart', true, true);
     el.dispatchEvent(evt);
 }
 
