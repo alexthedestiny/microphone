@@ -14,15 +14,25 @@ if( $(window).width()>768 ){
           window.flag = true;
           return;
       }
-      // touch(btnStartRecording);
-      // if($(window).width()>768){
-      //   var event = $.Event( "touchstart" );
-      //   $(btnStartRecording).trigger(event);
-      // }
     });
   }, 2000);
 }
 
+if(!isSafari && $(window).width()<768){
+  setTimeout(function(){
+    captureMicrophone(function(mic) {
+      microphone = mic;
+      if(isSafari) {
+          replaceAudio();
+
+          audio.muted = true;
+          setSrcObject(microphone, audio);
+          window.flag = true;
+          return;
+      }
+    });
+  }, 2000);
+}
 
 if(isSafari) {
   setTimeout(function() {
@@ -58,7 +68,7 @@ $(function(){
   }
   else {
     document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
-        micHoldUp();
+      micHoldUp();
     }, false);
   }
 });
@@ -294,10 +304,10 @@ function stopRecordingCallback() {
     btnDownloadRecording.disabled = false;
 
     if(isSafari) {
-        click(btnReleaseMicrophone);
-        setTimeout(function(){
-          touch(btnStartRecording);
-        },2000);
+      click(btnReleaseMicrophone);
+      setTimeout(function(){
+        touch(btnStartRecording);
+      },2000);
     }
 
     if(!recorder || !recorder.getBlob()) return;
@@ -463,9 +473,6 @@ btnDownloadRecording.onclick = function() {
 jQuery(document).ready(function(){
   if(window.isFirefox) {
     jQuery('.microphone-button-taphold').css('margin-top', '-70%');
-  }
-  if(!isSafari) {
-    touch(btnStartRecording);
   }
 });
 window.sendASRRequest = function(blob) {
