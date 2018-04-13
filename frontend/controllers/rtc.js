@@ -2,6 +2,9 @@ var isFirefox = window.isFirefox = typeof InstallTrigger !== 'undefined';
 window.isFocus = false;
 var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
 var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+setTimeout(function(){
+  click(btnReleaseMicrophone);
+}, 2000);
 
 if(isSafari) {
   setTimeout(function() {

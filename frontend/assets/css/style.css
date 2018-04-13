@@ -26,12 +26,6 @@ body{
 	bottom: 40% !important;
 }
 .mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader{
-	/*display: flex;*/
-	/*display: -ms-flexbox;
-	-ms-flex-pack: center;
-	-ms-flex-align: center;
-	justify-content: center;
-	align-items: center;*/
 	display: table;
 	transition: 0.3s;
 	vertical-align: middle;
@@ -121,17 +115,6 @@ body{
     }
     100%{
 		transform: scale(1);
-    }
-}
-@keyframes mic-holded-edge{
-    0%{
-		width: 100%;
-    }
-    50%{
-		width: 80%;
-    }
-    100%{
-		width: 100%;;
     }
 }
 @media all and (max-width: 768px){
