@@ -1,6 +1,13 @@
 var isFirefox = window.isFirefox = typeof InstallTrigger !== 'undefined';
 window.isFocus = false;
-var countOfTouch = 0;
+var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
+var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+if(isSafari) {
+  setTimeout(function() {
+    jQuery('#microphone-button-taphold').trigger('touchstart');
+  }, 1000);
+}
 
 $(function(){
   if( $(window).width()>768 ){
@@ -35,46 +42,9 @@ $(function(){
   }
 });
 
-var timerInterval;
 var mSeconds = 0;
 var isRecording = false;
 window.counter = 0
-var isClicked = false;
-function micHoldDown(){
-  isClicked = true;
-  if(!isRecording){
-    setTimeout(function(){
-      if(isSafari) {
-        window.counter++;
-        if(window.counter == 1) {
-          touch(btnStartRecording);
-          return;
-        }
-      }
-      touch(btnStartRecording);
-      var count = 0;
-      var myInt = setInterval(function() {
-        count++;
-        if(window.flag) {
-          document.getElementById("btn-start-recording").click();
-          window.flag = false;
-          clearInterval(myInt);
-        }
-      }, 200);
-      if(!isEdge){
-        $('#microphone-button-taphold').addClass('holded');
-      }else{
-        $('#microphone-button-taphold').addClass('holded-edge');
-      }
-      $('.loader-wrapp>img').addClass('visibleLoader');
-      $('.loader-wrapp>span').removeClass('visibleText');
-      $('#timer').text('');
-      mSeconds = 0;
-      window.timerInterval = setInterval(function(){mSeconds+=10; $('#timer').text(`${mSeconds/1000} s`)},10);
-      isRecording = true;
-    }, 0);
-  }
-}
 function micHoldUp(){
   if(isRecording){
     isRecording = false;
@@ -85,8 +55,6 @@ function micHoldUp(){
     $('.loader-wrapp>img').removeClass('visibleLoader');
     $('.loader-wrapp>span').addClass('visibleText');
     clearInterval(window.timerInterval);
-    if(!isSafari){
-    }
     click(btnStopRecording);
   }
 }
@@ -344,15 +312,6 @@ function stopRecordingCallback() {
     oReq.send(data);
 }
 
-var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
-var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-if(isSafari) {
-  setTimeout(function() {
-    jQuery('#microphone-button-taphold').trigger('touchstart');
-  }, 1000);
-}
-
 var recorder; // globally accessible
 var microphone;
 
@@ -362,10 +321,6 @@ var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
 
 btnStartRecording.ontouchstart = function() {
-    this.disabled = true;
-    this.style.border = '';
-    this.style.fontSize = '';
-
     if (!microphone) {
         captureMicrophone(function(mic) {
             microphone = mic;
@@ -576,33 +531,3 @@ function touch(el) {
     evt.initEvent('touchstart', true, true);
     el.dispatchEvent(evt);
 }
-
-// function SaveToDisk(fileURL, fileName) {
-//     // for non-IE
-//     if (!window.ActiveXObject) {
-//         var save = document.createElement('a');
-//         save.href = fileURL;
-//         save.download = fileName || 'unknown';
-//         save.style = 'display:none;opacity:0;color:transparent;';
-//         (document.body || document.documentElement).appendChild(save);
-
-//         if (typeof save.click === 'function') {
-//             save.click();
-//         } else {
-//             save.target = '_blank';
-//             var event = document.createEvent('Event');
-//             event.initEvent('click', true, true);
-//             save.dispatchEvent(event);
-//         }
-
-//         (window.URL || window.webkitURL).revokeObjectURL(save.href);
-//     }
-
-//     // for IE
-//     else if (!!window.ActiveXObject && document.execCommand) {
-//         var _window = window.open(fileURL, '_blank');
-//         _window.document.close();
-//         _window.document.execCommand('SaveAs', true, fileName || fileURL)
-//         _window.close();
-//     }
-// }
