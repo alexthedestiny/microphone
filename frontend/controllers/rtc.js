@@ -2,9 +2,27 @@ var isFirefox = window.isFirefox = typeof InstallTrigger !== 'undefined';
 window.isFocus = false;
 var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
 var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-setTimeout(function(){
-  click(btnReleaseMicrophone);
-}, 2000);
+if( $(window).width()>768 ){
+  setTimeout(function(){
+    captureMicrophone(function(mic) {
+      microphone = mic;
+      if(isSafari) {
+          replaceAudio();
+
+          audio.muted = true;
+          setSrcObject(microphone, audio);
+          window.flag = true;
+          return;
+      }
+      // touch(btnStartRecording);
+      // if($(window).width()>768){
+      //   var event = $.Event( "touchstart" );
+      //   $(btnStartRecording).trigger(event);
+      // }
+    });
+  }, 2000);
+}
+
 
 if(isSafari) {
   setTimeout(function() {
