@@ -37,13 +37,6 @@ $(function(){
 
 var timerInterval;
 var mSeconds = 0;
-var audioStart;
-var audioStop;
-if(!isSafari){
-  audioStart = new Audio('./assets/audio/beep.wav');
-  audioStop = new Audio('./assets/audio/stop.wav');
-}
-
 var isRecording = false;
 window.counter = 0
 var isClicked = false;
