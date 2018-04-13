@@ -398,9 +398,9 @@ btnStartRecording.ontouchstart = function() {
 
     if(navigator.platform && navigator.platform.toString().toLowerCase().indexOf('win') === -1) {
         options.sampleRate = 48000; // or 44100 or remove this line for default
-        if(isEdge){
-          options.sampleRate = 44100;
-        }
+        // if(isEdge){
+        //   options.sampleRate = 44100;
+        // }
     }
 
     if(recorder) {
@@ -524,9 +524,9 @@ window.sendASRRequest = function(blob) {
           content: audioData
         }
       };
-      if(isEdge){
-        data.config.sampleRateHertz = 44100;
-      }
+      // if(isEdge){
+      //   data.config.sampleRateHertz = 44100;
+      // }
       var oAjaxReq = new XMLHttpRequest();
       oAjaxReq.onload = ajaxSuccess;
 
