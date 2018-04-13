@@ -1,32 +1,16 @@
 body{
-	margin: 0px;
-	padding: 0px;
+	margin: 0!important;
+    padding: 0!important;
+    overflow: hidden!important;
+    width: 100%;
 }
 .hideMe{
 	display: none;
 	visibility: hidden;
 }
-/*.microphone-button-taphold{
-	transition: 0.3s;
-	width: 50px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 99999;
-    -webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+.inbenta-bot__bubble img, .inbenta-bot__chat img {
+    box-shadow: none !important;
 }
-.microphone-button-taphold>i{
-	color: #6ac1ca;
-	font-size: 22px;
-}
-.microphone-button-taphold.holded >i {
-	transform: scale(1.2);
-}*/
 .control-panel{
 	display: inline-block;
 	width: 400px;
