@@ -1,23 +1,5 @@
-// jQuery('.click_and_hold').on('mousedown', function() {
-//   btnStartRecordingClick();
-// }).on('mouseup mouseleave', function() {
-//     btnStopRecordingClick();
-//     btnDownloadRecording();
-// });
-
 var isFirefox = window.isFirefox = typeof InstallTrigger !== 'undefined';
 window.isFocus = false;
-// $(function(){
-//   $( "#microphone-button-taphold" ).bind( "taphold", tapholdHandler );
-
-//   function tapholdHandler( event ){
-//     // $( event.target ).addClass( "taphold" );
-//     console.log('holded');
-//   }
-// });
-// $('#microphone-button-taphold').click(function(){
-//   console.log('click done');
-// });
 var countOfTouch = 0;
 
 $(function(){
@@ -25,16 +7,12 @@ $(function(){
     var recorderEnable = false;
     $('#microphone-button-taphold').mousedown(function(){
       console.log('down');
-      // micHoldDown();
-      // click(btnStartRecording);
       var event = $.Event( "touchstart" );
       $(btnStartRecording).trigger(event);
       recorderEnable = true;
     });
     $('#microphone-button-taphold').mouseup(function(){
       console.log('up');
-      // micHoldUp();
-      // click(btnStopRecording);
       if(recorderEnable){
         recorderEnable = false;
         var event = $.Event( "touchend" );
@@ -43,25 +21,14 @@ $(function(){
     });
     $('#microphone-button-taphold').mouseleave(function(){
       console.log('up');
-      // micHoldUp();
       if(recorderEnable){
         recorderEnable = false;
         var event = $.Event( "touchend" );
         $(btnStartRecording).trigger(event);
       }
-      // click(btnStopRecording);
     });
   }
   else {
-    // document.getElementById('microphone-button-taphold').addEventListener('touchstart', function(event) {
-    //     // micHoldDown();
-    //     countOfTouch++;
-    //     $('.header__title').text("c: "+countOfTouch);
-    //     // if(countOfTouch>2){
-          
-    //     // }
-      
-    // }, false);
     document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
         micHoldUp();
     }, false);
@@ -75,7 +42,6 @@ var audioStop;
 if(!isSafari){
   audioStart = new Audio('./assets/audio/beep.wav');
   audioStop = new Audio('./assets/audio/stop.wav');
-  console.log(audioStop);
 }
 
 var isRecording = false;
@@ -92,7 +58,6 @@ function micHoldDown(){
           return;
         }
       }
-      // jQuery('#btn-start-recording').click();
       touch(btnStartRecording);
       var count = 0;
       var myInt = setInterval(function() {
@@ -103,13 +68,6 @@ function micHoldDown(){
           clearInterval(myInt);
         }
       }, 200);
-      if(!isSafari){
-        // audioStop = new Audio('./assets/audio/stop.wav');
-        // console.log(audioStop);
-        // audioStop.pause();
-        // audioStop.currentTime = 0;
-        // audioStart.play();
-      }
       if(!isEdge){
         $('#microphone-button-taphold').addClass('holded');
       }else{
@@ -135,31 +93,21 @@ function micHoldUp(){
     $('.loader-wrapp>span').addClass('visibleText');
     clearInterval(window.timerInterval);
     if(!isSafari){
-      // audioStart = new Audio('./assets/audio/beep.wav');
-      // audioStart.pause();
-      // audioStart.currentTime = 0;
-      // audioStop.play();
     }
-    // jQuery('#btn-stop-recording').click();
     click(btnStopRecording);
-    // $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
   }
 }
 
-
-// import checkAgents from './checkAgents';
 function getVisitorSetting(url) {
   return fetch(url)
   // .then(response => response.data.match(/\{.+\}/g)); // parses response to JSON
   .then(response => console.log(response.body)); // parses response to JSON
 }
-
-//Rejected escalation will display What else can I do for you? as a chatbotMessage
 var rejectedEscalation={
   action:'displayChatbotMessage',
   value:'What else can I do for you?'
 };
-//NoAgentsAvailable will send NoAgentsAvailable to the API, and should match an intent, which answer will be displayed as a chatbotMessage.
+
 var noAgentsAvailable={
   action:'intentMatch',
   value:'NoAgentsAvailable'
@@ -240,19 +188,12 @@ InbentaChatbotSDK.build(InbentaAuth, {
   setTimeout(function(){
     jQuery('.ui-draggable').attr('style', 'bottom: 120px; right: 15px; position: relative;');
   },0);
-  // jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
-  // jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore( ".inbenta-bot-button" );
   window.neededToShow = true;
-  // document.getElementById('microphone-button').addEventListener('click', function() {
-  //   window.startRecording();
-  // });
-  // jQuery('<div style="cursor: pointer; border: none; background: #fff" id="microphone-button-taphold" class="microphone-button-taphold"><i class="fa fa-microphone"></i></div>').insertBefore( ".inbenta-bot-button" );
   $("#inbenta-bot-input").focus(function(){
     window.isFocus = true;
     setTimeout(function(){
       var attr = jQuery("#inbenta-bot-input").attr('data-value');
       console.log(attr);
-      // For some browsers, `attr` is undefined; for others, `attr` is false. Check for both.
       if (typeof attr !== typeof undefined && attr !== false) {
         jQuery("#inbenta-bot-input").val(jQuery("#inbenta-bot-input").attr('data-value'));
       }
@@ -262,8 +203,6 @@ InbentaChatbotSDK.build(InbentaAuth, {
     window.isFocus = false;
     setTimeout(function(){
       var attr = jQuery("#inbenta-bot-input").attr('data-value');
-      console.log(attr);
-      // For some browsers, `attr` is undefined; for others, `attr` is false. Check for both.
       if (typeof attr !== typeof undefined && attr !== false) {
         jQuery("#inbenta-bot-input").val(jQuery("#inbenta-bot-input").attr('data-value'));
       }
@@ -271,12 +210,10 @@ InbentaChatbotSDK.build(InbentaAuth, {
   });
   $("#inbenta-bot-input").keyup(function(e){
     setTimeout(function(){
-      // console.log(e);
       var code = e.keyCode ? e.keyCode : e.which;
       if (code==13) {
           e.preventDefault();
           console.log('enter pressed');
-
           var messageData = {
             message: $("#inbenta-bot-input").val()
           }
@@ -287,9 +224,6 @@ InbentaChatbotSDK.build(InbentaAuth, {
             jQuery("#inbenta-bot-input").val('');
             jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
           }, 500);
-
-          // jQuery("#inbenta-bot-input").attr('data-value','');
-          // jQuery('.inbenta-bot-button').trigget('click', [$("#inbenta-bot-input").val()]);
           return;
       }
       jQuery("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
@@ -319,18 +253,14 @@ InbentaChatbotSDK.build(InbentaAuth, {
   chatbot.api.addVariable('acme_airlines_en/Name', 'John Doe');
 });
 
-
-
 var audio = document.querySelector('audio');
 
 function captureMicrophone(callback) {
     btnReleaseMicrophone.disabled = false;
-
     if(microphone) {
         callback(microphone);
         return;
     }
-
     if(typeof navigator.mediaDevices === 'undefined' || !navigator.mediaDevices.getUserMedia) {
         alert('This browser does not supports WebRTC getUserMedia API.');
 
@@ -338,7 +268,6 @@ function captureMicrophone(callback) {
             alert('This browser seems supporting deprecated getUserMedia API.');
         }
     }
-
     navigator.mediaDevices.getUserMedia({
         audio: isEdge ? true : {
             echoCancellation: false
@@ -376,13 +305,9 @@ function stopRecordingCallback() {
 
         setTimeout(function() {
             if(!audio.paused) return;
-            // audio.play();
         }, 1000);
 
-        // audio.play();
     }, 300);
-
-    // audio.play();
 
     btnDownloadRecording.disabled = false;
 
@@ -395,17 +320,7 @@ function stopRecordingCallback() {
 
     if(!recorder || !recorder.getBlob()) return;
 
-    // if(isSafari) {
-    //     recorder.getDataURL(function(dataURL) {
-    //         SaveToDisk(dataURL, getFileName('mp3'));
-    //     });
-    //     return;
-    // }
-
     var blob = recorder.getBlob();
-    // var file = new File([blob], getFileName('mp3'), {
-    //     type: 'audio/wav'
-    // });
 
     var data = new FormData();
     var oReq = new XMLHttpRequest();
@@ -428,16 +343,12 @@ function stopRecordingCallback() {
           var myBlob = this.response;
           console.log(new Blob([new Uint8Array(myBlob)]));
           window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
-          // window.audio_context.close();
-          // window.audio_context = {};
-          // myBlob is now the blob that the object URL pointed to.
         }
       };
       xhr.send();
     };
     data.append('file', blob);
     oReq.send(data);
-    // invokeSaveAsDialog(file);
 }
 
 var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
@@ -453,7 +364,6 @@ var recorder; // globally accessible
 var microphone;
 
 var btnStartRecording = document.getElementById('microphone-button-taphold');
-// var btnStartRecording = document.getElementById('btn-start-recording');
 var btnStopRecording = document.getElementById('btn-stop-recording');
 var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
@@ -472,14 +382,7 @@ btnStartRecording.ontouchstart = function() {
 
                 audio.muted = true;
                 setSrcObject(microphone, audio);
-                // audio.play();
-
-                // btnStartRecording.disabled = false;
-                // btnStartRecording.style.border = '1px solid red';
-                // btnStartRecording.style.fontSize = '150%';
                 window.flag = true;
-                
-                // alert('Please click startRecording button again. First time we tried to access your microphone. Now we will record it.');
                 return;
             }
             touch(btnStartRecording);
@@ -506,7 +409,6 @@ btnStartRecording.ontouchstart = function() {
 
     audio.muted = true;
     setSrcObject(microphone, audio);
-    // audio.play();
 
     var options = {
         type: 'audio',
@@ -562,27 +464,12 @@ btnReleaseMicrophone.onclick = function() {
         microphone.stop();
         microphone = null;
     }
-
-    if(recorder) {
-        // click(btnStopRecording);
-    }
 };
 
 btnDownloadRecording.onclick = function() {
     this.disabled = true;
     if(!recorder || !recorder.getBlob()) return;
-
-    // if(isSafari) {
-    //     recorder.getDataURL(function(dataURL) {
-    //         SaveToDisk(dataURL, getFileName('mp3'));
-    //     });
-    //     return;
-    // }
-
     var blob = recorder.getBlob();
-    // var file = new File([blob], getFileName('mp3'), {
-    //     type: 'audio/wav'
-    // });
     var data = new FormData();
     var oReq = new XMLHttpRequest();
     oReq.open("POST", 'https://kosmo.sevn.pro/encode', true);
@@ -597,16 +484,12 @@ btnDownloadRecording.onclick = function() {
           var myBlob = this.response;
           console.log(new Blob([new Uint8Array(myBlob)]));
           window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
-          // window.audio_context.close();
-          // window.audio_context = {};
-          // myBlob is now the blob that the object URL pointed to.
         }
       };
       xhr.send();
     };
     data.append('file', blob);
     oReq.send(data);
-    // invokeSaveAsDialog(file);
 };
 jQuery(document).ready(function(){
   if(window.isFirefox) {
@@ -615,19 +498,9 @@ jQuery(document).ready(function(){
   if(!isSafari) {
     touch(btnStartRecording);
   }
-  // if(isEdge) {
-  //   $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'block');
-  //   setTimeout(function(){
-  //     $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'flex');
-  //     $('.allLoader').css('position', 'absolute');
-  //   },1000);
-  // }
 });
 window.sendASRRequest = function(blob) {
     function ajaxSuccess() {
-      if(this.status !== '200' || this.status !== 200) {
-        // jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');
-      }
       var result = this.responseText;
       console.log('result no parse',result);
       console.log("AJAXSubmit - Success!"); //DEBUG
@@ -636,12 +509,6 @@ window.sendASRRequest = function(blob) {
         console.log('result parsed',result);
         $('#timer').text('');
         $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
-        // if(isEdge) {
-        //   $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'block');
-        //   setTimeout(function(){
-        //     $('.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader').css('display', 'flex');
-        //   },1000);
-        // }
         $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
         // jQuery('body').append(result.results[0].alternatives[0].transcript);
         if(result.results && result.results.length>0){
@@ -651,10 +518,7 @@ window.sendASRRequest = function(blob) {
           jQuery("#inbenta-bot-input").val("");
           jQuery("#inbenta-bot-input").attr('data-value', "");
         }
-      
-        // jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
-        // jQuery("#inbenta-bot-input").attr('value', result.results[0].alternatives[0].transcript);
-        // jQuery('#microphone-button').html('<i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i>');
+
       } catch (exc) {
         console.warn('Could not parse result into JSON object: "' + result + '"');
       }
@@ -692,15 +556,6 @@ window.sendASRRequest = function(blob) {
       }
       var oAjaxReq = new XMLHttpRequest();
       oAjaxReq.onload = ajaxSuccess;
-      //NOTE: instead of API, it is recommended to use service API authentification,
-      //      then create an access_token (on your server, retrieve it with the client)
-      //    and set the token as access_token param
-      //      ?access_token=<access_token>
-      //
-      //      or set it in the header as
-      //          Authorization: Bearer <access_token>
-      //
-      //      (see example code below)
 
       if(!window.auth){
         window.auth = 'serviceKey';
@@ -711,11 +566,6 @@ window.sendASRRequest = function(blob) {
       key = 'AIzaSyA-jabza2otTKehPlI0QG0k6C5Gf1RczFE';
       window.auth = 'apiKey';
       var params = window.auth === 'apiKey'?  '?key='+key : (window.auth === 'serviceKey'? '?access_token='+key : '');
-      //DISABLED: currently Google Cloud Speech does not support authorization (headers) in combination with CORS
-//        if(window.auth === 'serviceKey'){
-//          oAjaxReq.setRequestHeader("Authorization", "Bearer "+key);
-//          oAjaxReq.withCredentials = true;
-//        }
       console.log(params);
       oAjaxReq.open("post", "https://speech.googleapis.com/v1/speech:recognize"+params, true);
       oAjaxReq.setRequestHeader("Content-Type", "application/json");
