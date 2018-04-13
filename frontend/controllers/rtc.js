@@ -495,11 +495,9 @@ jQuery(document).ready(function(){
 window.sendASRRequest = function(blob) {
     function ajaxSuccess() {
       var result = this.responseText;
-      console.log('result no parse',result);
       console.log("AJAXSubmit - Success!"); //DEBUG
       try {
         result = JSON.parse(result);
-        console.log('result parsed',result);
         $('#timer').text('');
         $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
         $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
@@ -511,7 +509,6 @@ window.sendASRRequest = function(blob) {
           jQuery("#inbenta-bot-input").val("");
           jQuery("#inbenta-bot-input").attr('data-value', "");
         }
-
       } catch (exc) {
         console.warn('Could not parse result into JSON object: "' + result + '"');
       }
@@ -580,53 +577,32 @@ function touch(el) {
     el.dispatchEvent(evt);
 }
 
-function getRandomString() {
-    if (window.crypto && window.crypto.getRandomValues && navigator.userAgent.indexOf('Safari') === -1) {
-        var a = window.crypto.getRandomValues(new Uint32Array(3)),
-            token = '';
-        for (var i = 0, l = a.length; i < l; i++) {
-            token += a[i].toString(36);
-        }
-        return token;
-    } else {
-        return (Math.random() * new Date().getTime()).toString(36).replace(/\./g, '');
-    }
-}
+// function SaveToDisk(fileURL, fileName) {
+//     // for non-IE
+//     if (!window.ActiveXObject) {
+//         var save = document.createElement('a');
+//         save.href = fileURL;
+//         save.download = fileName || 'unknown';
+//         save.style = 'display:none;opacity:0;color:transparent;';
+//         (document.body || document.documentElement).appendChild(save);
 
-function getFileName(fileExtension) {
-    var d = new Date();
-    var year = d.getFullYear();
-    var month = d.getMonth();
-    var date = d.getDate();
-    return 'RecordRTC-' + year + month + date + '-' + getRandomString() + '.' + fileExtension;
-}
+//         if (typeof save.click === 'function') {
+//             save.click();
+//         } else {
+//             save.target = '_blank';
+//             var event = document.createEvent('Event');
+//             event.initEvent('click', true, true);
+//             save.dispatchEvent(event);
+//         }
 
-function SaveToDisk(fileURL, fileName) {
-    // for non-IE
-    if (!window.ActiveXObject) {
-        var save = document.createElement('a');
-        save.href = fileURL;
-        save.download = fileName || 'unknown';
-        save.style = 'display:none;opacity:0;color:transparent;';
-        (document.body || document.documentElement).appendChild(save);
+//         (window.URL || window.webkitURL).revokeObjectURL(save.href);
+//     }
 
-        if (typeof save.click === 'function') {
-            save.click();
-        } else {
-            save.target = '_blank';
-            var event = document.createEvent('Event');
-            event.initEvent('click', true, true);
-            save.dispatchEvent(event);
-        }
-
-        (window.URL || window.webkitURL).revokeObjectURL(save.href);
-    }
-
-    // for IE
-    else if (!!window.ActiveXObject && document.execCommand) {
-        var _window = window.open(fileURL, '_blank');
-        _window.document.close();
-        _window.document.execCommand('SaveAs', true, fileName || fileURL)
-        _window.close();
-    }
-}
+//     // for IE
+//     else if (!!window.ActiveXObject && document.execCommand) {
+//         var _window = window.open(fileURL, '_blank');
+//         _window.document.close();
+//         _window.document.execCommand('SaveAs', true, fileName || fileURL)
+//         _window.close();
+//     }
+// }
