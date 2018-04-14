@@ -11,6 +11,9 @@ body{
 .inbenta-bot__bubble img, .inbenta-bot__chat img {
     box-shadow: none !important;
 }
+.inbenta-bot__bubble .footer__form__button .inbenta-bot-icon--send, .inbenta-bot__chat .footer__form__button span.inbenta-bot-icon--send{
+	right: 0px!important;
+}
 .control-panel{
 	display: inline-block;
 	width: 400px;

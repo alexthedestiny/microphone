@@ -234,13 +234,16 @@ InbentaChatbotSDK.build(InbentaAuth, {
     var messageData = {
       message: window.clickNaKnopku
     }
-    window.chatbot.actions.displayUserMessage(messageData);
-    window.chatbot.actions.sendMessage(messageData);
-    setTimeout(function(){
-      jQuery("#inbenta-bot-input").attr('data-value','');
-      jQuery("#inbenta-bot-input").val('');
-      jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
-    }, 500);
+    if(window.clickNaKnopku && window.clickNaKnopku.length>0){
+      window.chatbot.actions.displayUserMessage(messageData);
+      window.chatbot.actions.sendMessage(messageData);
+      setTimeout(function(){
+        jQuery("#inbenta-bot-input").attr('data-value','');
+        jQuery("#inbenta-bot-input").val('');
+        jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
+      }, 500);
+    }
+    
   });
   chatbot.api.addVariable('acme_airlines_en/Name', 'John Doe');
 });
