@@ -41,6 +41,13 @@ if(isSafari) {
 }
 
 $(function(){
+  setTimeout(function(){
+    //start custom input
+    $('#inbenta-bot-input, .inbenta-bot-button').css('display','none');
+    $('#inbenta-bot-input').after('<div class="custom-input-wrapp"><input type="text" class="custom-input" autocomplete="off" placeholder="Custom ask me" id="custom-input"/><button id="custom-send">SEND</button></div>');
+    // end custom input
+  }, 3000);
+
   if( $(window).width()>768 ){
     var recorderEnable = false;
     $('#microphone-button-taphold').mousedown(function(){
@@ -494,7 +501,10 @@ window.sendASRRequest = function(blob) {
           document.getElementById('inbenta-bot-input').setAttribute("value", result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
+          $('#custom-input').val(result.results[0].alternatives[0].transcript);
+
         }else{
+          $('#custom-input').val('');
           jQuery("#inbenta-bot-input").val("");
           jQuery("#inbenta-bot-input").attr('data-value', "");
           document.getElementById('inbenta-bot-input').setAttribute("value", "");
