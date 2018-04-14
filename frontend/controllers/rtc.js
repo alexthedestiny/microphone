@@ -185,9 +185,10 @@ InbentaChatbotSDK.build(InbentaAuth, {
     window.isFocus = true;
     setTimeout(function(){
       var attr = jQuery("#inbenta-bot-input").attr('data-value');
-      console.log(attr);
       if (typeof attr !== typeof undefined && attr !== false) {
-        jQuery("#inbenta-bot-input").val(jQuery("#inbenta-bot-input").attr('data-value'));
+        jQuery("#inbenta-bot-input").val(attr);
+        document.getElementById('inbenta-bot-input').setAttribute('value', attr);
+        document.getElementById('inbenta-bot-input').defaultValue = attr;
       }
     },0);
   });
@@ -196,7 +197,9 @@ InbentaChatbotSDK.build(InbentaAuth, {
     setTimeout(function(){
       var attr = jQuery("#inbenta-bot-input").attr('data-value');
       if (typeof attr !== typeof undefined && attr !== false) {
-        jQuery("#inbenta-bot-input").val(jQuery("#inbenta-bot-input").attr('data-value'));
+        jQuery("#inbenta-bot-input").val(attr);
+        document.getElementById('inbenta-bot-input').setAttribute('value', attr);
+        document.getElementById('inbenta-bot-input').defaultValue = attr;
       }
     },0);
   });
@@ -487,13 +490,14 @@ window.sendASRRequest = function(blob) {
         $('#timer').text('');
         $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
         $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
-        // jQuery('body').append(result.results[0].alternatives[0].transcript);
         if(result.results && result.results.length>0){
+          document.getElementById('inbenta-bot-input').setAttribute("value", result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
         }else{
           jQuery("#inbenta-bot-input").val("");
           jQuery("#inbenta-bot-input").attr('data-value', "");
+          document.getElementById('inbenta-bot-input').setAttribute("value", "");
         }
       } catch (exc) {
         console.warn('Could not parse result into JSON object: "' + result + '"');
