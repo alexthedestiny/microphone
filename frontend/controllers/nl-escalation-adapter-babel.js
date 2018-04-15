@@ -216,8 +216,15 @@ function launchNLEsclationForm(escalateNLForm, rejectedEscalation, noAgentsAvail
     });
 
     chatBot.subscriptions.onShowConversationWindow(function (next) {
+    	setTimeout(function(){
+    		if(!$('#inbenta-bot-input+div').is('.custom-input-wrapp')){
+    			$('#inbenta-bot-input, .inbenta-bot-button.footer__form__button').css('display','none');
+    			$('#inbenta-bot-input').after('<div class="custom-input-wrapp"><input type="text" class="custom-input" autocomplete="off" placeholder="Custom ask me" id="custom-input"/><button id="custom-send">SEND</button></div>');
+    		}
+    	},500);
       if (window.neededToShow) {
         setTimeout(function () {
+        	
           // jQuery('<div ng-click="startRecording();" style="cursor: pointer; border: none; background: #fff" id="microphone-button" class="microphone-button"><i class="fa fa-microphone" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore(".inbenta-bot-button");
           // jQuery('<div ng-click="stopRecording();" style="display: none; cursor: pointer; border: none; background: #fff" class="microphone-button-slash" id="microphone-button-slash"><i class="fa fa-microphone-slash" style="color: #6ac1ca; font-size: 18px;"></i></div>').insertBefore(".inbenta-bot-button");
           // document.getElementById('microphone-button').addEventListener('click', function () {
@@ -227,19 +234,19 @@ function launchNLEsclationForm(escalateNLForm, rejectedEscalation, noAgentsAvail
             jQuery('.ui-draggable').css({"bottom":'120px', 'right':'15px'});
           }
 
-          $(document).on('click', '.inbenta-bot-button', function () {
-            window.clickNaKnopku = $("#inbenta-bot-input").attr('value');
-            var messageData = {
-              message: window.clickNaKnopku
-            };
-            window.chatbot.actions.displayUserMessage(messageData);
-            window.chatbot.actions.sendMessage(messageData);
-            setTimeout(function () {
-              $("#inbenta-bot-input").attr('value', '');
-              $("#inbenta-bot-input").val('');
-              $("#inbenta-bot-input").attr('placeholder', 'Ask here');
-            }, 500);
-          });
+          // $(document).on('click', '.inbenta-bot-button', function () {
+          //   window.clickNaKnopku = $("#inbenta-bot-input").attr('value');
+          //   var messageData = {
+          //     message: window.clickNaKnopku
+          //   };
+          //   window.chatbot.actions.displayUserMessage(messageData);
+          //   window.chatbot.actions.sendMessage(messageData);
+          //   setTimeout(function () {
+          //     $("#inbenta-bot-input").attr('value', '');
+          //     $("#inbenta-bot-input").val('');
+          //     $("#inbenta-bot-input").attr('placeholder', 'Ask here');
+          //   }, 500);
+          // });
         }, 0);
       }
       return next();

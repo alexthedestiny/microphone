@@ -41,10 +41,7 @@ if(isSafari) {
 }
 
 $(function(){
-  setTimeout(function(){
     //start custom input
-    $('#inbenta-bot-input, .inbenta-bot-button.footer__form__button').css('display','none');
-    $('#inbenta-bot-input').after('<div class="custom-input-wrapp"><input type="text" class="custom-input" autocomplete="off" placeholder="Custom ask me" id="custom-input"/><button id="custom-send">SEND</button></div>');
     $(document).on('click', '#custom-send', function(){
       window.customData = jQuery("#custom-input").val();
       let messageData = {
@@ -60,7 +57,6 @@ $(function(){
       
     });
     // end custom input
-  }, 3000);
 
   if( $(window).width()>768 ){
     var recorderEnable = false;
