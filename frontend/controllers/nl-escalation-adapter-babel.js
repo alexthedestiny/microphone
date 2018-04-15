@@ -219,9 +219,9 @@ function launchNLEsclationForm(escalateNLForm, rejectedEscalation, noAgentsAvail
     	setTimeout(function(){
     		if(!$('#inbenta-bot-input+div').is('.custom-input-wrapp')){
     			$('#inbenta-bot-input, .inbenta-bot-button.footer__form__button').css('display','none');
-    			$('#inbenta-bot-input').after('<div class="custom-input-wrapp"><input type="text" class="custom-input" autocomplete="off" placeholder="Custom ask me" id="custom-input"/><button id="custom-send">SEND</button></div>');
+    			$('#inbenta-bot-input').after('<div class="custom-input-wrapp"><input type="text" class="custom-input" autocomplete="off" placeholder="Ask me" id="custom-input"/><button id="custom-send"><span class="custom-icon"></span></button></div>');
     		}
-    	},500);
+    	},100);
       if (window.neededToShow) {
         setTimeout(function () {
         	
