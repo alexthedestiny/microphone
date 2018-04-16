@@ -60,21 +60,21 @@ $(function(){
       
     });
     // end custom input
+var recorderEnable = false;
 
   if( $(window).width()>768 ){
-    var recorderEnable = false;
     $('#microphone-button-taphold').mousedown(function(){
-      console.log('down');
       var event = $.Event( "touchstart" );
-      $(btnStartRecording).trigger(event);
-      recorderEnable = true;
-      holdTime = 0;
-      setTimeout(function(){
-        holdTime = 1000;
-      }, 1000);
+      if(!recorderEnable){
+        $(btnStartRecording).trigger(event);
+        recorderEnable = true;
+        holdTime = 0;
+        setTimeout(function(){
+          holdTime = 1000;
+        }, 1000);
+      }
     });
     $('#microphone-button-taphold').mouseup(function(){
-      console.log('up');
       if(recorderEnable){
         if(holdTime>=1000){
           recorderEnable = false;
@@ -90,7 +90,6 @@ $(function(){
       }
     });
     $('#microphone-button-taphold').mouseleave(function(){
-      console.log('up');
       if(recorderEnable){
         if(holdTime>=1000){
           recorderEnable = false;
@@ -123,6 +122,8 @@ var mSeconds = 0;
 var isRecording = false;
 window.counter = 0
 function micHoldUp(){
+console.log(isRecording);
+
   if(isRecording){
     isRecording = false;
     $('#microphone-button-taphold').removeClass('holded');
@@ -404,6 +405,9 @@ var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
 
 btnStartRecording.ontouchstart = function() {
+  console.log(isRecording);
+
+  if(!isRecording){ 
     if (!microphone) {
         captureMicrophone(function(mic) {
             microphone = mic;
@@ -435,7 +439,6 @@ btnStartRecording.ontouchstart = function() {
     mSeconds = 0;
     window.timerInterval = setInterval(function(){mSeconds+=100; $('#timer').text(`${mSeconds/1000} s`)},100);
     isRecording = true;
-    
     replaceAudio();
 
     audio.muted = true;
@@ -450,26 +453,20 @@ btnStartRecording.ontouchstart = function() {
 
     if(navigator.platform && navigator.platform.toString().toLowerCase().indexOf('win') === -1) {
         options.sampleRate = 48000; // or 44100 or remove this line for default
-        // if(isEdge){
-        //   options.sampleRate = 44100;
-        // }
     }
-
     if(recorder) {
         recorder.destroy();
         recorder = null;
     }
-
     recorder = RecordRTC(microphone, options);
-
     recorder.startRecording();
-
     btnStopRecording.disabled = false;
     btnDownloadRecording.disabled = true;
     holdTime = 0;
     setTimeout(function(){
       holdTime = 1000;
     },1000);
+  }
 };
 
 btnStartRecording.ontouchend = function() {
@@ -485,6 +482,7 @@ btnStartRecording.ontouchend = function() {
       $('.loader-wrapp>span').addClass('visibleText');
       clearInterval(window.timerInterval);
     }
+    isRecording = false;
   }else{
     setTimeout(function(){
       this.disabled = true;
@@ -498,7 +496,9 @@ btnStartRecording.ontouchend = function() {
         $('.loader-wrapp>span').addClass('visibleText');
         clearInterval(window.timerInterval);
       }
+     
     },1000);
+     isRecording = false;
   }
   
 };
