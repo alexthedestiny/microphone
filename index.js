@@ -1,5 +1,5 @@
 var express = require('express');
-var recognize = require('./routes/recognize');
+// var recognize = require('./routes/recognize');
 var path = require('path');
 const PORT = process.env.PORT || 5000;
 
@@ -13,7 +13,7 @@ app.get('/', function(req, res) {
   res.sendStatus(200);
 });
 
-app.use('/recognize', recognize);
+// app.use('/recognize', recognize);
 
 if (!module.parent) {
   app.listen(PORT);
