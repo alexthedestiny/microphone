@@ -231,7 +231,9 @@ function launchNLEsclationForm(escalateNLForm, rejectedEscalation, noAgentsAvail
           //   window.startRecording();
           // });
           if( $(window).width()>=768 ){
-            jQuery('.ui-draggable').css({"bottom":'120px', 'right':'15px'});
+            setTimeout(function(){
+              jQuery('.ui-draggable').css({"bottom":'120px', 'right':'15px'});
+            }, 0);
           }
 
           // $(document).on('click', '.inbenta-bot-button', function () {
