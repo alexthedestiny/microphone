@@ -106,15 +106,15 @@ var recorderEnable = false;
     });
   }
   else {
-    document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
-      if(holdTime>=1000){
-        micHoldUp();
-      }else{
-        setTimeout(function(){
-          micHoldUp();
-        },1000); 
-      }
-    }, false);
+    // document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
+    //   if(holdTime>=1000){
+    //     micHoldUp();
+    //   }else{
+    //     setTimeout(function(){
+    //       micHoldUp();
+    //     },1000); 
+    //   }
+    // }, false);
   }
 });
 
@@ -405,7 +405,7 @@ var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
 
 btnStartRecording.ontouchstart = function() {
-  console.log(isRecording);
+  console.log('st',isRecording);
 
   if(!isRecording){ 
     if (!microphone) {
@@ -470,10 +470,12 @@ btnStartRecording.ontouchstart = function() {
 };
 
 btnStartRecording.ontouchend = function() {
+  console.log('en',isRecording);
   if(holdTime>=1000){
     this.disabled = true;
+    isRecording = false;
     recorder.stopRecording(stopRecordingCallback);
-    if($(window).width()>768){
+    // if($(window).width()>768){
        $('#microphone-button-taphold').removeClass('holded');
       if(isEdge){
         $('#microphone-button-taphold').removeClass('holded-edge');
@@ -481,13 +483,13 @@ btnStartRecording.ontouchend = function() {
       $('.loader-wrapp>img').removeClass('visibleLoader');
       $('.loader-wrapp>span').addClass('visibleText');
       clearInterval(window.timerInterval);
-    }
-    isRecording = false;
+    // }
   }else{
     setTimeout(function(){
       this.disabled = true;
+      isRecording = false;
       recorder.stopRecording(stopRecordingCallback);
-      if($(window).width()>768){
+      // if($(window).width()>768){
          $('#microphone-button-taphold').removeClass('holded');
         if(isEdge){
           $('#microphone-button-taphold').removeClass('holded-edge');
@@ -495,10 +497,9 @@ btnStartRecording.ontouchend = function() {
         $('.loader-wrapp>img').removeClass('visibleLoader');
         $('.loader-wrapp>span').addClass('visibleText');
         clearInterval(window.timerInterval);
-      }
+      // }
      
     },1000);
-     isRecording = false;
   }
   
 };
