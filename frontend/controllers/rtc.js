@@ -2,8 +2,8 @@ var isFirefox = window.isFirefox = typeof InstallTrigger !== 'undefined';
 window.isFocus = false;
 var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
 var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-var holdInterval;
 var holdTime = 0;
+var holdInterval;
 
 if( $(window).width()>768 ){
   setTimeout(function(){
@@ -69,77 +69,48 @@ var recorderEnable = false;
         $(btnStartRecording).trigger(event);
         recorderEnable = true;
         holdTime = 0;
-        setTimeout(function(){
-          holdTime = 1000;
-        }, 1000);
+        clearTimeout(holdInterval);
+        holdInterval = setTimeout(function(){
+          holdTime = 500;
+        }, 500);
       }
     });
     $('#microphone-button-taphold').mouseup(function(){
       if(recorderEnable){
-        if(holdTime>=1000){
-          recorderEnable = false;
-          var event = $.Event( "touchend" );
-          $(btnStartRecording).trigger(event);
-        }else{
-          setTimeout(function(){
-            recorderEnable = false;
-            var event = $.Event( "touchend" );
-            $(btnStartRecording).trigger(event);
-          },1000); 
-        }
+        recorderEnable = false;
+        var event = $.Event( "touchend" );
+        $(btnStartRecording).trigger(event);        
       }
     });
     $('#microphone-button-taphold').mouseleave(function(){
       if(recorderEnable){
-        if(holdTime>=1000){
-          recorderEnable = false;
-          var event = $.Event( "touchend" );
-          $(btnStartRecording).trigger(event);
-        }else{
-          setTimeout(function(){
-            recorderEnable = false;
-            var event = $.Event( "touchend" );
-            $(btnStartRecording).trigger(event);
-          },1000); 
-        }
+        recorderEnable = false;
+        var event = $.Event( "touchend" );
+        $(btnStartRecording).trigger(event);
       }
     });
-  }
-  else {
-    // document.getElementById('microphone-button-taphold').addEventListener('touchend', function(event) {
-    //   if(holdTime>=1000){
-    //     micHoldUp();
-    //   }else{
-    //     setTimeout(function(){
-    //       micHoldUp();
-    //     },1000); 
-    //   }
-    // }, false);
   }
 });
 
 var mSeconds = 0;
 var isRecording = false;
 window.counter = 0
-function micHoldUp(){
-// console.log(isRecording);
-
-  if(isRecording){
-    isRecording = false;
-    $('#microphone-button-taphold').removeClass('holded');
-    if(isEdge){
-      $('#microphone-button-taphold').removeClass('holded-edge');
-    }
-    $('.loader-wrapp>img').removeClass('visibleLoader');
-    $('.loader-wrapp>span').addClass('visibleText');
-    clearInterval(window.timerInterval);
-    click(btnStopRecording);
-  }
-}
+// function micHoldUp(){
+//   if(isRecording){
+//     isRecording = false;
+//     $('#microphone-button-taphold').removeClass('holded');
+//     if(isEdge){
+//       $('#microphone-button-taphold').removeClass('holded-edge');
+//     }
+//     $('.loader-wrapp>img').removeClass('visibleLoader');
+//     $('.loader-wrapp>span').addClass('visibleText');
+//     clearInterval(window.timerInterval);
+//     click(btnStopRecording);
+//   }
+// }
 
 function getVisitorSetting(url) {
   return fetch(url)
-  // .then(response => response.data.match(/\{.+\}/g)); // parses response to JSON
   .then(response => console.log(response.body)); // parses response to JSON
 }
 var rejectedEscalation={
@@ -345,14 +316,14 @@ function stopRecordingCallback() {
 
     btnStartRecording.disabled = false;
 
-    setTimeout(function() {
-        if(!audio.paused) return;
+    // setTimeout(function() {
+    //     if(!audio.paused) return;
 
-        setTimeout(function() {
-            if(!audio.paused) return;
-        }, 1000);
+    //     setTimeout(function() {
+    //         if(!audio.paused) return;
+    //     }, 1000);
 
-    }, 300);
+    // }, 300);
 
     btnDownloadRecording.disabled = false;
 
@@ -360,7 +331,7 @@ function stopRecordingCallback() {
       click(btnReleaseMicrophone);
       setTimeout(function(){
         touch(btnStartRecording);
-      },2000);
+      },0);
     }
 
     if(!recorder || !recorder.getBlob()) return;
@@ -369,13 +340,20 @@ function stopRecordingCallback() {
 
     var data = new FormData();
     var oReq = new XMLHttpRequest();
-
+    console.log('stop callback');
     $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
     $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
-
+    if(holdTime<500){
+      clearTimeout(holdInterval);
+      $('#timer').text('');
+      $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
+      $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
+      return;
+    }
     oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
     oReq.onload = function (oEvent) {
       // Uploaded.
+      console.log('uploaded');
       var xhr = new XMLHttpRequest();
       // console.log('ee',oEvent);
       console.log('res',JSON.parse(this.responseText) );
@@ -464,46 +442,25 @@ btnStartRecording.ontouchstart = function() {
     btnStopRecording.disabled = false;
     btnDownloadRecording.disabled = true;
     holdTime = 0;
-    setTimeout(function(){
-      holdTime = 1000;
-    },1000);
+    clearTimeout(holdInterval);
+    holdInterval = setTimeout(function(){
+      holdTime = 500;
+    },500);
   }
   console.log('touchstart');
 };
 
 btnStartRecording.ontouchend = function() {
-  if(holdTime>=1000){
     this.disabled = true;
     isRecording = false;
     recorder.stopRecording(stopRecordingCallback);
-    // if($(window).width()>768){
-       $('#microphone-button-taphold').removeClass('holded');
-      if(isEdge){
-        $('#microphone-button-taphold').removeClass('holded-edge');
-      }
-      $('.loader-wrapp>img').removeClass('visibleLoader');
-      $('.loader-wrapp>span').addClass('visibleText');
-      clearInterval(window.timerInterval);
-    // }
-  }else{
-    setTimeout(function(){
-      this.disabled = true;
-      isRecording = false;
-      recorder.stopRecording(stopRecordingCallback);
-      // if($(window).width()>768){
-         $('#microphone-button-taphold').removeClass('holded');
-        if(isEdge){
-          $('#microphone-button-taphold').removeClass('holded-edge');
-        }
-        $('.loader-wrapp>img').removeClass('visibleLoader');
-        $('.loader-wrapp>span').addClass('visibleText');
-        clearInterval(window.timerInterval);
-      // }
-     
-    },1000);
-  }
-    console.log('touchend');
-    console.log('isRecording',isRecording);
+    $('#microphone-button-taphold').removeClass('holded');
+    if(isEdge){
+      $('#microphone-button-taphold').removeClass('holded-edge');
+    }
+    $('.loader-wrapp>img').removeClass('visibleLoader');
+    $('.loader-wrapp>span').addClass('visibleText');
+    clearInterval(window.timerInterval);
 };
 
 // btnStopRecording.onclick = function() {
@@ -522,6 +479,7 @@ btnReleaseMicrophone.onclick = function() {
 };
 
 btnDownloadRecording.onclick = function() {
+    console.log('click download');  
     this.disabled = true;
     if(!recorder || !recorder.getBlob()) return;
     var blob = recorder.getBlob();
