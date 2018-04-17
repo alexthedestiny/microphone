@@ -50,6 +50,11 @@
             </div>
         </div>
     </div>
+    <form id="uploadForm" name="uploadForm" action="https://kosmo.sevn.pro/encodeToWav">
+        <input name="authenticity_token" value="xxxxx" type="hidden">
+        <input name="upload_file[parent_id]" value="1" type="hidden">
+        <input name="format" value="json" type="hidden">
+    </form>
     <div class="control-panel row">
         <div class="col-xs-3 col-sm-3 col-md-3 timer-wrap visibleCol no-select">
             <span id="timer"></span>

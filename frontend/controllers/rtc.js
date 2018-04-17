@@ -46,7 +46,6 @@ if(isSafari && $(window).width()<768) {
 }
 
 $(function(){
-    // FWRecorder.configure(44);
     //start custom input
     $(document).on('click', '#custom-send', function(){
       window.customData = jQuery("#custom-input").val();
@@ -345,62 +344,64 @@ function stopRecordingCallback() {
 
 function stopRecordingCallbackExplorer(base) {
   console.log('base',base);
-  var baseReplaced = base.replace(/^data:audio\/wav;base64\,/,'');
-  console.log('base replace', baseReplaced);
+  FWRecorder.updateForm();
+  // $('#uploadForm').submit();
+  // var baseReplaced = base.replace(/^data:audio\/wav;base64\,/,'');
+  // console.log('base replace', baseReplaced);
 
-    function b64toBlob(b64Data, contentType, sliceSize) {
-      contentType = contentType || '';
-      sliceSize = sliceSize || 512;
+  //   function b64toBlob(b64Data, contentType, sliceSize) {
+  //     contentType = contentType || '';
+  //     sliceSize = sliceSize || 512;
 
-      var byteCharacters = atob(b64Data);
-      var byteArrays = [];
+  //     var byteCharacters = atob(b64Data);
+  //     var byteArrays = [];
 
-      for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-        var slice = byteCharacters.slice(offset, offset + sliceSize);
+  //     for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+  //       var slice = byteCharacters.slice(offset, offset + sliceSize);
 
-        var byteNumbers = new Array(slice.length);
-        for (var i = 0; i < slice.length; i++) {
-          byteNumbers[i] = slice.charCodeAt(i);
-        }
+  //       var byteNumbers = new Array(slice.length);
+  //       for (var i = 0; i < slice.length; i++) {
+  //         byteNumbers[i] = slice.charCodeAt(i);
+  //       }
 
-        var byteArray = new Uint8Array(byteNumbers);
+  //       var byteArray = new Uint8Array(byteNumbers);
 
-        byteArrays.push(byteArray);
-      }
+  //       byteArrays.push(byteArray);
+  //     }
         
-      var blob = new Blob(byteArrays, {type: contentType});
-      return blob;
-    }
+  //     var blob = new Blob(byteArrays, {type: contentType});
+  //     return blob;
+  //   }
 
-    var contentType = 'audio/wav';
-    var blob = b64toBlob(baseReplaced, contentType);
-    var blobUrl = URL.createObjectURL(blob);
+  //   var contentType = 'audio/wav';
+  //   var blob = b64toBlob(baseReplaced, contentType);
+  //   var blobUrl = URL.createObjectURL(blob);
 
 
-    var data = new FormData();
-    var oReq = new XMLHttpRequest();
-    console.log('stop callback ie');
-    oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
-    oReq.onload = function (oEvent) {
-      // Uploaded.
-      console.log('uploaded');
-      var xhr = new XMLHttpRequest();
-      console.log('res',JSON );
-      console.log('oEvent',oEvent);
-      var resp = JSON.parse(this.responseText) ;
-      xhr.open('GET', resp.file, true);
-      xhr.responseType = 'arraybuffer';
-      xhr.onload = function(e) {
-        if (this.status == 200) {
-          var myBlob = this.response;
-          console.log(new Blob([new Uint8Array(myBlob)]));
-          window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
-        }
-      };
-      xhr.send();
-    };
-    data.append('file', blob);
-    oReq.send(data);
+  //   var data = new FormData();
+  //   var oReq = new XMLHttpRequest();
+  //   console.log('stop callback ie');
+  //   oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
+  //   oReq.onload = function (oEvent) {
+  //     // Uploaded.
+  //     console.log('uploaded');
+  //     var xhr = new XMLHttpRequest();
+  //     console.log('res',JSON );
+  //     console.log('oEvent',oEvent);
+  //     var resp = JSON.parse(this.responseText) ;
+  //     xhr.open('GET', resp.file, true);
+  //     xhr.responseType = 'arraybuffer';
+  //     xhr.onload = function(e) {
+  //       if (this.status == 200) {
+  //         var myBlob = this.response;
+  //         console.log(new Blob([new Uint8Array(myBlob)]));
+  //         window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
+  //       }
+  //     };
+  //     xhr.send();
+  //   };
+  //   data.append('file', blob);
+  //   oReq.send(data);
 }
 
 var recorder; // globally accessible
@@ -491,10 +492,7 @@ btnStartRecording.ontouchend = function() {
       recorder.stopRecording(stopRecordingCallback);
     }else{
       FWRecorder.stopRecording('audio');
-      setTimeout(function(){
-        stopRecordingCallbackExplorer(FWRecorder.getBase64('audio'));
-
-      }, 2000);
+      stopRecordingCallbackExplorer(FWRecorder.getBase64('audio'));
     }
     $('#microphone-button-taphold').removeClass('holded');
     if(isEdge){
