@@ -15,6 +15,10 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
+    <script src="./vendor/FlashWavRecorder/html/js/swfobject.js"></script>
+    <script src="./vendor/FlashWavRecorder/html/js/recorder.js"></script>
+    <script src="./vendor/FlashWavRecorder/html/basic/basic.js"></script>
+
   </head>
   <body>
      <div class="hideMe">
@@ -26,7 +30,25 @@
         <hr>
         <div><audio controls autoplay></audio></div> 
    </div>
-    
+    <div class="recorder">
+        <button class="start-recording" onclick="FWRecorder.record('audio', 'audio.wav');">
+            record
+        </button>
+        <div class="level">
+            <div class="progress"></div>
+        </div>
+        <button class="stop-recording" onclick="FWRecorder.stopRecording('audio');">
+            stop
+        </button>
+        <button class="start-playing" onclick="FWRecorder.playBack('audio');" title="Play">
+            play
+        </button>
+        <div class="upload" style="display: inline-block">
+            <div id="flashcontent">
+                <p>Your browser must have JavaScript enabled and the Adobe Flash Player installed.</p>
+            </div>
+        </div>
+    </div>
     <div class="control-panel row">
         <div class="col-xs-3 col-sm-3 col-md-3 timer-wrap visibleCol no-select">
             <span id="timer"></span>
