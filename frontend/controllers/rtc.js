@@ -110,8 +110,16 @@ window.counter = 0
 // }
 
 function getVisitorSetting(url) {
-  return fetch(url)
-  .then(response => console.log(response.body)); // parses response to JSON
+  // return fetch(url)
+  // .then(response => console.log(response.body)); // parses response to JSON
+  var xhr2 = new XMLHttpRequest();
+  xhr2.open('GET', url, true);
+  xhr2.onload = function(e) {
+    if (this.status == 200) {
+      console.log('e',e);
+    }
+  };
+  xhr2.send();
 }
 var rejectedEscalation={
   action:'displayChatbotMessage',
@@ -412,7 +420,7 @@ btnStartRecording.ontouchstart = function() {
     $('.loader-wrapp>span').removeClass('visibleText');
     $('#timer').text('');
     mSeconds = 0;
-    window.timerInterval = setInterval(function(){mSeconds+=100; $('#timer').text(`${mSeconds/1000} s`)},100);
+    window.timerInterval = setInterval(function(){mSeconds+=100; $('#timer').text(String(mSeconds/1000)+' s' )},100);
     isRecording = true;
     replaceAudio();
 
