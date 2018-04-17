@@ -46,6 +46,7 @@ if(isSafari && $(window).width()<768) {
 }
 
 $(function(){
+    // FWRecorder.configure(44);
     //start custom input
     $(document).on('click', '#custom-send', function(){
       window.customData = jQuery("#custom-input").val();
@@ -343,11 +344,15 @@ function stopRecordingCallback() {
 }
 
 function stopRecordingCallbackExplorer(base) {
+  console.log('base',base);
+  var baseReplaced = base.replace(/^data:audio\/wav;base64\,/,'');
+  console.log('base replace', baseReplaced);
+
     function b64toBlob(b64Data, contentType, sliceSize) {
       contentType = contentType || '';
       sliceSize = sliceSize || 512;
 
-      var byteCharacters = window.atob(b64Data);
+      var byteCharacters = atob(b64Data);
       var byteArrays = [];
 
       for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
@@ -367,27 +372,14 @@ function stopRecordingCallbackExplorer(base) {
       return blob;
     }
 
-
     var contentType = 'audio/wav';
-    var b64Data = base;
-
-    var blob1 = b64toBlob(b64Data, contentType);
-    var blobUrl = URL.createObjectURL(blob1);
-    window.location = blobUrl;
+    var blob = b64toBlob(baseReplaced, contentType);
+    var blobUrl = URL.createObjectURL(blob);
 
 
     var data = new FormData();
     var oReq = new XMLHttpRequest();
     console.log('stop callback ie');
-    // $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
-    // $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
-    // if(holdTime<500){
-    //   clearTimeout(holdInterval);
-    //   $('#timer').text('');
-    //   $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
-    //   $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
-    //   return;
-    // }
     oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
     oReq.onload = function (oEvent) {
       // Uploaded.
@@ -407,7 +399,7 @@ function stopRecordingCallbackExplorer(base) {
       };
       xhr.send();
     };
-    data.append('file', blob1);
+    data.append('file', blob);
     oReq.send(data);
 }
 
@@ -499,7 +491,10 @@ btnStartRecording.ontouchend = function() {
       recorder.stopRecording(stopRecordingCallback);
     }else{
       FWRecorder.stopRecording('audio');
-      stopRecordingCallbackExplorer(FWRecorder.getBase64('audio'));
+      setTimeout(function(){
+        stopRecordingCallbackExplorer(FWRecorder.getBase64('audio'));
+
+      }, 2000);
     }
     $('#microphone-button-taphold').removeClass('holded');
     if(isEdge){
