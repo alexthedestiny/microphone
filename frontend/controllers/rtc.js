@@ -68,7 +68,7 @@ $(function(){
     }
     var wrap = document.getElementById('recorder-wrap');
     flashvars = {gateway:'form', 'return':'reset', callback:'audioReceived', format:'wav'};
-    swfobject.embedSWF("../assets/flash-recorder/build/recorder.swf", "recorder", "405", "305", "10.1", "./assets/flash-recorder/demo/expressInstall.swf", flashvars);
+    swfobject.embedSWF("./assets/flash-recorder/demo/recorder.swf", "recorder", "215", "138", "10.1", "./assets/flash-recorder/demo/expressInstall.swf", flashvars);
     // ie end
 
 
