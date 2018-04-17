@@ -212,26 +212,6 @@ body{
 
 }
 /*custom input end*/
-#recorder-wrap{
-	width: 217px;
-	height: 140px;
-}
-#recorder-overlay{
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	z-index: 9999;
-	width: 217px;
-	height: 140px;
-	background-color: red;
-}
-
-
-
-
-
-
-
 @keyframes mic-holded {
     0%{
 		transform: scale(1);

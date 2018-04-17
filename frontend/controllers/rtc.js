@@ -62,27 +62,7 @@ $(function(){
     });
     // end custom input
     // ie start
-    function audioReceived(name, data){
-      var filedata = window.atob(filedata);
-      console.log(filedata);  
-    }
-    var wrap = document.getElementById('recorder-wrap');
-    flashvars = {gateway:'form', 'return':'reset', callback:'audioReceived', format:'wav'};
-    swfobject.embedSWF("./assets/flash-recorder/demo/recorder.swf", "recorder", "215", "138", "10.1", "./assets/flash-recorder/demo/expressInstall.swf", flashvars);
-    console.log(swfobject);
-    // $(document).mousemove(function(event){
-    //   let x = event.offsetX;
-    //   let y = event.offsetY;
-    //   console.log('x: '+x+' y: '+y);
-    // });
-    $('#recorder-overlay').on('click' ,function(event){
-      let xClicked = event.offsetX;
-      let yClicked = event.offsetY;
-      console.log('x cl: '+xClicked+' y cl: '+yClicked);
-      if(xClicked>=145 && xClicked<=205 && yClicked>=115 && yClicked<=125){
-        console.log('click');
-      }
-    });
+   
     // ie end
 
 
