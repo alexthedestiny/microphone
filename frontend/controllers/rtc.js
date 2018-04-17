@@ -342,9 +342,40 @@ function stopRecordingCallback() {
     oReq.send(data);
 }
 
-function stopRecordingCallbackExplorer(blobIE) {
-    var blob = blobIE;
-    console.log('blobIE',blobIE);
+function stopRecordingCallbackExplorer(base) {
+    function b64toBlob(b64Data, contentType, sliceSize) {
+      contentType = contentType || '';
+      sliceSize = sliceSize || 512;
+
+      var byteCharacters = window.atob(b64Data);
+      var byteArrays = [];
+
+      for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+      }
+        
+      var blob = new Blob(byteArrays, {type: contentType});
+      return blob;
+    }
+
+
+    var contentType = 'audio/wav';
+    var b64Data = base;
+
+    var blob1 = b64toBlob(b64Data, contentType);
+    var blobUrl = URL.createObjectURL(blob1);
+    window.location = blobUrl;
+
+
     var data = new FormData();
     var oReq = new XMLHttpRequest();
     console.log('stop callback ie');
@@ -376,7 +407,7 @@ function stopRecordingCallbackExplorer(blobIE) {
       };
       xhr.send();
     };
-    data.append('file', blob);
+    data.append('file', blob1);
     oReq.send(data);
 }
 
@@ -468,7 +499,7 @@ btnStartRecording.ontouchend = function() {
       recorder.stopRecording(stopRecordingCallback);
     }else{
       FWRecorder.stopRecording('audio');
-      stopRecordingCallbackExplorer(FWRecorder.getBlob('audio'));
+      stopRecordingCallbackExplorer(FWRecorder.getBase64('audio'));
     }
     $('#microphone-button-taphold').removeClass('holded');
     if(isEdge){
