@@ -1,0 +1,11 @@
+<!-- BEGIN card -->
+<div class="news-item" ui-sref="user.newsPage({newsId: object.id})">
+  <h3>{{object.title}}</h3>
+  <div>
+    <img src="{{object.photoAddress}}" alt="{{object.title}}">
+  </div>
+  <p>{{object.description}}</p>
+  <b>Категорія: {{object.categoryTitle}}</b><br>
+  <span>Опубліковано: {{object.createdAt}}</span>
+</div>
+<!-- END card -->

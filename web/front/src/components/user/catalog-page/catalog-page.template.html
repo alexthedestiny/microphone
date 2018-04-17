@@ -1,0 +1,24 @@
+<header-open></header-open>
+
+<!-- BEGIN hero -->
+<section class="bg--hero">
+  <div class="section--hero-1 section--hero-main4 bg-section-main-static" data-id="hero-bg">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xs-12 col-lg-12">
+          <h1 class="heading--1">
+          catalog-page
+          </h1>
+          <p class="text--subheading-2">
+           <a href="" ui-sref="user.trademarksCatalogPage">trademarks</a> <br>
+           <a href="" ui-sref="user.giftcardsPage">giftcards</a> <br>
+           <a href="" ui-sref="user.brandsPage">brands</a>
+          </p>
+          <div class="row">
+            <product-card class="col-4" ng-repeat="product in products track by $index" object="product"></product-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

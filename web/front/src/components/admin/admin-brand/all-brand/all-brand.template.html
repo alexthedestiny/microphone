@@ -1,0 +1,21 @@
+<header-open></header-open>
+
+<!-- BEGIN hero -->
+<section class="bg--hero">
+  <div class="section--hero-1 section--hero-main4 bg-section-main-static" data-id="hero-bg">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xs-12 col-lg-8">
+          <h1 class="heading--1">
+          allBrands
+          </h1>
+          <div style="padding:20px 0" ng-repeat="item in brands">
+            <a href="" ui-sref="user.brandsPageItem({id_brand: item.id})"><div>{{item.title}}</div></a>
+            <button ng-click="deleteBrand(item)">удалить бренд</button>
+            <a href=""ui-sref="admin.editBrandPage({id_brand: item.id})"><button>редактировать бренд</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+<script>
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId      : '884595115076549',
+			xfbml      : true,
+			version    : 'v2.9'
+		});
+		FB.AppEvents.logPageView();
+	};
+	(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
+<section class="section-1-login">
+	<div class="container">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-lg-6 col-lg-offset-3 main-login-block">
+				<h2 class="heading--cstm01">Регистрация на сайте</h2>
+				<center>
+					<p class="row--33">Уже есть аккаунт? <a href="/login" ui-sref="user.login"><b class="text--link1">Войдите</b></a></p>
+				</center><br>
+				<div layout="column" style="background: white; padding: 40px">
+					<md-input-container flex="50">
+						<label>Ваше имя</label>
+						<input required name="clientName" ng-model="user.name">
+					</md-input-container>
+					<md-input-container flex="50">
+						<label>Ваша фамилия</label>
+						<input required name="clientLastName" ng-model="user.lastname">
+					</md-input-container>
+					<md-input-container flex="50">
+						<label>Ваш email</label>
+						<input required name="clientName" ng-model="user.email">
+					</md-input-container>
+					<md-input-container flex="50">
+						<label>Ваш логин</label>
+						<input required name="clientLogin" ng-model="user.login">
+					</md-input-container>
+					<md-input-container flex="50">
+						<label>Ваш пароль</label>
+						<input required type="password" name="clientName" ng-model="user.password">
+					</md-input-container>
+					<md-input-container flex="50">
+						<label>Подтвердите пароль</label>
+						<input required type="password" name="clientName" ng-model="user.passwordRepeat">
+					</md-input-container>
+					<md-button class="btn--main" ng-click="register(user);">Зарегистрироваться</md-button>
+				</div>
+
+				<div class="row--76">
+					<h4 class="text-center">Или войдите через соц. сети</h4>
+					<p class="text-center" style="margin-top: 15px">
+							<a ng-click="googleAuth($event)">
+								GOOGLE LOGIN
+							</a>
+							<a id="login_button" ng-click="fbAuth($event);">
+								FACEBOOK LOGIN
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>

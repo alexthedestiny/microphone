@@ -1,0 +1,48 @@
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '884595115076549',
+            xfbml      : true,
+            version    : 'v2.9'
+        });
+        FB.AppEvents.logPageView();
+    };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<section class="login-wrapper" style="background: gray">
+  <center><h2 class="heading--cstm01">Вход на сайт</h2></center>
+  <md-content layout="column" layout-padding style="padding: 30px 40px;">
+    <md-input-container flex="50">
+      <label>Ваше email</label>
+      <input required name="clientName" ng-model="email">
+      <div ng-messages="projectForm.clientName.$error">
+        <div ng-message="required">This is required.</div>
+      </div>
+    </md-input-container>
+    <md-input-container flex="50">
+      <label>Ваш пароль</label>
+      <input type="password" required name="clientName" ng-model="password">
+      <div ng-messages="projectForm.clientName.$error">
+        <div ng-message="required">This is required.</div>
+      </div>
+    </md-input-container>
+    <md-button class="btn--main" ng-click="login();">Войти</md-button>
+  </md-content>
+  <br>
+  <p class="row--33"><a href="#" ng-click="passwordRecovery($event);"><b class="text--link1">Забыли пароль?</b></a></p>
+
+  <div  class="row--76">
+    <h4 class="text-center">Или войдите через соц. сети</h4>
+      <p class="text-center" style="margin-top: 15px">
+          <a ng-click="googleAuth();">GOOGLE LOGIN</a>
+          <a ng-click="fbAuth();">FACEBOOK LOGIN</a>
+      </p>
+  </div>
+</section>

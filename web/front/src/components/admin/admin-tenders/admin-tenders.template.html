@@ -1,0 +1,24 @@
+<header-open></header-open>
+
+<!-- BEGIN hero -->
+<section class="bg--hero">
+  <div class="section--hero-1 section--hero-main4 bg-section-main-static" data-id="hero-bg">
+    <div class="container">
+      <div class="row justify-content-center" style="padding-top: 9vh">
+        <div class="col-xs-12 col-lg-8">
+          <h1 class="heading--1">
+          admin-tenders
+          </h1>
+          <div class="vacancy-item" ng-repeat="tender in tenders track by $index">
+            <a href="" ui-sref="user.tenderPage({tenderId: tender.id})">{{tender.title}}</a>
+            <a href="" ui-sref="admin.editTendersPage({tenderId: tender.id})">.edit</a>
+            <a href="" ng-click='removeTender(tender.id)'>.remove</a>
+          </div>
+          <p class="text--subheading-2">
+           <a href="" ui-sref="admin.addTendersPage()">add tenders</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

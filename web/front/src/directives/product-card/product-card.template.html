@@ -1,0 +1,24 @@
+<!-- BEGIN card -->
+<div class="product-item">
+  <a ui-sref="user.catalogProduct({productId:object.id})"><h3>{{object.title}}</h3></a>
+  <p>{{object.description | limitTo : 120}}...</p>
+  <div ui-sref="user.catalogProduct({productId:object.id})">
+  	<img src="{{object.photoAddres}}" alt="photoAddres" style="max-width: 100%;">
+  </div>
+  <br>
+  <div class="row">
+  	<div class="col-12">Цена: {{object.price}} UAH</div>
+  </div>
+  <br>
+  <div class="row">
+  	<div class="col-6"><button ng-click="addToCart(object.id)">Добавить в корзину</button></div>
+  	<div class="col-6"><button ng-click="addToWishlist(object.id)">Добавить в список желаний</button></div>
+  </div>
+  <div class="row">
+  	<div class="col-12" ng-if="object.availability && object.availability.length>0" style="font-size: 12px;">
+  		Є в наявності у: <br>
+  		<span style="display: inline-block; width: 100%" ng-repeat="city in object.availability track by $index">{{city.city_title}}({{city.store_title}})</span>
+  	</div>
+  </div>
+</div>
+<!-- END card -->
