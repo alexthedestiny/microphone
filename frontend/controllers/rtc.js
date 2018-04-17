@@ -99,20 +99,6 @@ $(function(){
 var mSeconds = 0;
 var isRecording = false;
 window.counter = 0
-// function micHoldUp(){
-//   if(isRecording){
-//     isRecording = false;
-//     $('#microphone-button-taphold').removeClass('holded');
-//     if(isEdge){
-//       $('#microphone-button-taphold').removeClass('holded-edge');
-//     }
-//     $('.loader-wrapp>img').removeClass('visibleLoader');
-//     $('.loader-wrapp>span').addClass('visibleText');
-//     clearInterval(window.timerInterval);
-//     click(btnStopRecording);
-//   }
-// }
-
 function getVisitorSetting(url) {
   var xhr2 = new XMLHttpRequest();
   xhr2.open('GET', url, true);
@@ -263,29 +249,12 @@ InbentaChatbotSDK.build(InbentaAuth, {
   }, false);
 
 });
-  // $(document).on('click', '.inbenta-bot-button.footer__form__button', function(){
-  //   window.clickNaKnopku = jQuery("#inbenta-bot-input").attr('data-value');
-  //   var messageData = {
-  //     message: window.clickNaKnopku
-  //   }
-  //   if(window.clickNaKnopku && window.clickNaKnopku.length>0){
-  //     window.chatbot.actions.displayUserMessage(messageData);
-  //     window.chatbot.actions.sendMessage(messageData);
-  //     setTimeout(function(){
-  //       jQuery("#inbenta-bot-input").attr('data-value','');
-  //       jQuery("#inbenta-bot-input").val('');
-  //       jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
-  //     }, 500);
-  //   }
-    
-  // });
   chatbot.api.addVariable('acme_airlines_en/Name', 'John Doe');
 });
 
 var audio = document.querySelector('audio');
 
 function captureMicrophone(callback) {
-    // btnReleaseMicrophone.disabled = false;
     if(microphone) {
         callback(microphone);
         return;
@@ -294,9 +263,7 @@ function captureMicrophone(callback) {
         // alert('This browser does not supports WebRTC getUserMedia API.');
         isExplorer = true;
         console.log('sorry, you are using ie');
-        // if(!FWRecorder.isMicrophoneAccessible()){
-          FWRecorder.record('audio', 'audio.wav');
-        // }
+        FWRecorder.record('audio', 'audio.wav');
         return;
     }
     navigator.mediaDevices.getUserMedia({
@@ -328,11 +295,6 @@ function replaceAudio(src) {
 
 function stopRecordingCallback() {
     replaceAudio(URL.createObjectURL(recorder.getBlob()));
-
-    // btnStartRecording.disabled = false;
-
-    // btnDownloadRecording.disabled = false;
-
     if(isSafari && holdTime>=500) {
       click(btnReleaseMicrophone);
       setTimeout(function(){
@@ -389,10 +351,13 @@ var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
 
 btnStartRecording.ontouchstart = function() {
-  console.log('start');
+  console.log('st 1');
   if(!isRecording){ 
+    console.log('st 2');
     if (!microphone || (isExplorer && !FWRecorder.isMicrophoneAccessible() ) ) {
+      console.log('st 2.5');
         captureMicrophone(function(mic) {
+          console.log('st 3');
             microphone = mic;
             if(isSafari && $(window).width()<768 ) {
                 replaceAudio();
@@ -409,19 +374,22 @@ btnStartRecording.ontouchstart = function() {
         });
         return;
     }
+    console.log('st 4');
     if(!isEdge){
       $('#microphone-button-taphold').addClass('holded');
     }else{
       $('#microphone-button-taphold').addClass('holded-edge');
     }
+    console.log('st 5');
     $('.loader-wrapp>img').addClass('visibleLoader');
     $('.loader-wrapp>span').removeClass('visibleText');
     $('#timer').text('');
+    console.log('st 6');
     mSeconds = 0;
     window.timerInterval = setInterval(function(){mSeconds+=100; $('#timer').text(String(mSeconds/1000)+' s' )},100);
     isRecording = true;
     replaceAudio();
-
+    console.log('st 6');
     audio.muted = true;
     setSrcObject(microphone, audio);
 
@@ -431,7 +399,7 @@ btnStartRecording.ontouchstart = function() {
         checkForInactiveTracks: true,
         bufferSize: 16384
     };
-
+    console.log('st 7');
     if(navigator.platform && navigator.platform.toString().toLowerCase().indexOf('win') === -1) {
         options.sampleRate = ( isEdge ) ? 44100 : 48000; // or 44100 or remove this line for default
     }
@@ -439,14 +407,14 @@ btnStartRecording.ontouchstart = function() {
         recorder.destroy();
         recorder = null;
     }
-    recorder = RecordRTC(microphone, options);
+    console.log('st 8');
     if(!isExplorer){
+      recorder = RecordRTC(microphone, options);
       recorder.startRecording();
     }else{
+      console.log('st 9');
       FWRecorder.record('audio', 'audio.wav');
     }
-    // btnStopRecording.disabled = false;
-    // btnDownloadRecording.disabled = true;
     holdTime = 0;
     clearTimeout(holdInterval);
     holdInterval = setTimeout(function(){
@@ -457,7 +425,6 @@ btnStartRecording.ontouchstart = function() {
 
 btnStartRecording.ontouchend = function() {
     console.log('end');
-    // this.disabled = true;
     isRecording = false;
     if(!isExplorer){
       recorder.stopRecording(stopRecordingCallback);
@@ -473,15 +440,7 @@ btnStartRecording.ontouchend = function() {
     clearInterval(window.timerInterval);
 };
 
-// btnStopRecording.onclick = function() {
-//     this.disabled = true;
-//     recorder.stopRecording(stopRecordingCallback);
-// };
-
 btnReleaseMicrophone.onclick = function() {
-    // this.disabled = true;
-    // btnStartRecording.disabled = false;
-
     if(microphone) {
         microphone.stop();
         microphone = null;
@@ -489,7 +448,6 @@ btnReleaseMicrophone.onclick = function() {
 };
 
 btnDownloadRecording.onclick = function() {
-    // this.disabled = true;
     if(!recorder || !recorder.getBlob()) return;
     var blob = recorder.getBlob();
     var data = new FormData();
@@ -589,14 +547,12 @@ window.sendASRRequest = function(blob) {
   };
 
 function click(el) {
-    // el.disabled = false; // make sure that element is not disabled
     var evt = document.createEvent('Event');
     evt.initEvent('click', true, true);
     el.dispatchEvent(evt);
 }
 
 function touch(el) {
-    // el.disabled = false; // make sure that element is not disabled
     var evt = document.createEvent('Event');
     evt.initEvent('touchstart', true, true);
     el.dispatchEvent(evt);
