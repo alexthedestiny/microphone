@@ -342,6 +342,44 @@ function stopRecordingCallback() {
     oReq.send(data);
 }
 
+function stopRecordingCallbackExplorer(blobIE) {
+    var blob = blobIE;
+    console.log('blobIE',blobIE);
+    var data = new FormData();
+    var oReq = new XMLHttpRequest();
+    console.log('stop callback ie');
+    // $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
+    // $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
+    // if(holdTime<500){
+    //   clearTimeout(holdInterval);
+    //   $('#timer').text('');
+    //   $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
+    //   $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
+    //   return;
+    // }
+    oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
+    oReq.onload = function (oEvent) {
+      // Uploaded.
+      console.log('uploaded');
+      var xhr = new XMLHttpRequest();
+      console.log('res',JSON );
+      console.log('oEvent',oEvent);
+      var resp = JSON.parse(this.responseText) ;
+      xhr.open('GET', resp.file, true);
+      xhr.responseType = 'arraybuffer';
+      xhr.onload = function(e) {
+        if (this.status == 200) {
+          var myBlob = this.response;
+          console.log(new Blob([new Uint8Array(myBlob)]));
+          window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
+        }
+      };
+      xhr.send();
+    };
+    data.append('file', blob);
+    oReq.send(data);
+}
+
 var recorder; // globally accessible
 var microphone;
 
@@ -430,6 +468,7 @@ btnStartRecording.ontouchend = function() {
       recorder.stopRecording(stopRecordingCallback);
     }else{
       FWRecorder.stopRecording('audio');
+      stopRecordingCallbackExplorer(FWRecorder.getBlob('audio'));
     }
     $('#microphone-button-taphold').removeClass('holded');
     if(isEdge){
