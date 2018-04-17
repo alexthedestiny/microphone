@@ -249,6 +249,11 @@ InbentaChatbotSDK.build(InbentaAuth, {
         jQuery("#inbenta-bot-input").attr('data-value','');
       }
     }
+
+  document.addEventListener('touchmove', function (event) {
+    if (event.scale !== 1 && isSafari) { event.preventDefault(); }
+  }, false);
+
 });
   $(document).on('click', '.inbenta-bot-button.footer__form__button', function(){
     window.clickNaKnopku = jQuery("#inbenta-bot-input").attr('data-value');
