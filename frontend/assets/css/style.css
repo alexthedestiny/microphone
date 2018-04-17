@@ -25,7 +25,6 @@ body{
 }
 .inbenta-bot__bubble .footer__form__button .inbenta-bot-icon--send, .inbenta-bot__chat .footer__form__button span.inbenta-bot-icon--send{
 	right: 0px!important;
-	
 }
 .control-panel{
 	display: inline-block;
@@ -213,6 +212,26 @@ body{
 
 }
 /*custom input end*/
+#recorder-wrap{
+	width: 217px;
+	height: 140px;
+}
+#recorder-overlay{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 9999;
+	width: 217px;
+	height: 140px;
+	background-color: red;
+}
+
+
+
+
+
+
+
 @keyframes mic-holded {
     0%{
 		transform: scale(1);
