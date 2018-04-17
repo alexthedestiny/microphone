@@ -59,9 +59,20 @@ $(function(){
           $('#custom-input').val('');
         }, 500);
       }
-      
     });
     // end custom input
+    // ie start
+    function audioReceived(name, data){
+      var filedata = window.atob(filedata);
+      console.log(filedata);  
+    }
+    var wrap = document.getElementById('recorder-wrap');
+    flashvars = {gateway:'form', 'return':'reset', callback:'audioReceived', format:'wav'};
+    swfobject.embedSWF("../assets/flash-recorder/build/recorder.swf", "recorder", "405", "305", "10.1", "./assets/flash-recorder/demo/expressInstall.swf", flashvars);
+    // ie end
+
+
+
 var recorderEnable = false;
 
   if( $(window).width()>768 ){
