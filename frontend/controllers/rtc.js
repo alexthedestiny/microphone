@@ -62,7 +62,7 @@ $(function(){
     });
     // end custom input
     // ie start
-   
+
     // ie end
 
 
@@ -297,6 +297,9 @@ function captureMicrophone(callback) {
         // alert('This browser does not supports WebRTC getUserMedia API.');
         isExplorer = true;
         console.log('sorry, you are using ie');
+        // if(!FWRecorder.isMicrophoneAccessible()){
+          FWRecorder.record('audio', 'audio.wav');
+        // }
         return;
     }
     navigator.mediaDevices.getUserMedia({
@@ -389,8 +392,9 @@ var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
 
 btnStartRecording.ontouchstart = function() {
+  console.log('start');
   if(!isRecording){ 
-    if (!microphone) {
+    if (!microphone || !FWRecorder.isMicrophoneAccessible()) {
         captureMicrophone(function(mic) {
             microphone = mic;
             if(isSafari && $(window).width()<768 ) {
@@ -439,7 +443,11 @@ btnStartRecording.ontouchstart = function() {
         recorder = null;
     }
     recorder = RecordRTC(microphone, options);
-    recorder.startRecording();
+    if(!isExplorer){
+      recorder.startRecording();
+    }else{
+      FWRecorder.record('audio', 'audio.wav');
+    }
     btnStopRecording.disabled = false;
     btnDownloadRecording.disabled = true;
     holdTime = 0;
@@ -451,9 +459,14 @@ btnStartRecording.ontouchstart = function() {
 };
 
 btnStartRecording.ontouchend = function() {
+    console.log('end');
     this.disabled = true;
     isRecording = false;
-    recorder.stopRecording(stopRecordingCallback);
+    if(!isExplorer){
+      recorder.stopRecording(stopRecordingCallback);
+    }else{
+      FWRecorder.stopRecording('audio');
+    }
     $('#microphone-button-taphold').removeClass('holded');
     if(isEdge){
       $('#microphone-button-taphold').removeClass('holded-edge');
