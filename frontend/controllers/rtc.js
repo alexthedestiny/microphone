@@ -321,18 +321,9 @@ function stopRecordingCallback() {
 
     btnStartRecording.disabled = false;
 
-    // setTimeout(function() {
-    //     if(!audio.paused) return;
-
-    //     setTimeout(function() {
-    //         if(!audio.paused) return;
-    //     }, 1000);
-
-    // }, 300);
-
     btnDownloadRecording.disabled = false;
 
-    if(isSafari) {
+    if(isSafari && holdTime>=500) {
       click(btnReleaseMicrophone);
       setTimeout(function(){
         touch(btnStartRecording);
