@@ -2,8 +2,10 @@ var isFirefox = window.isFirefox = typeof InstallTrigger !== 'undefined';
 window.isFocus = false;
 var isEdge = navigator.userAgent.indexOf('Edge') !== -1 && (!!navigator.msSaveOrOpenBlob || !!navigator.msSaveBlob);
 var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+var isExplorer = false;
 var holdTime = 0;
 var holdInterval;
+
 
 if( $(window).width()>768 ){
   setTimeout(function(){
@@ -110,8 +112,6 @@ window.counter = 0
 // }
 
 function getVisitorSetting(url) {
-  // return fetch(url)
-  // .then(response => console.log(response.body)); // parses response to JSON
   var xhr2 = new XMLHttpRequest();
   xhr2.open('GET', url, true);
   xhr2.onload = function(e) {
@@ -234,7 +234,6 @@ InbentaChatbotSDK.build(InbentaAuth, {
       var code = e.keyCode ? e.keyCode : e.which;
       if (code==13) {
           e.preventDefault();
-          // console.log('enter pressed');
           var messageData = {
             message: $("#inbenta-bot-input").val()
           }
@@ -248,7 +247,6 @@ InbentaChatbotSDK.build(InbentaAuth, {
           return;
       }
       jQuery("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
-      // console.log($("#inbenta-bot-input").val());
     },0);
   });
   $(document).keypress(function(e) {
@@ -291,11 +289,10 @@ function captureMicrophone(callback) {
         return;
     }
     if(typeof navigator.mediaDevices === 'undefined' || !navigator.mediaDevices.getUserMedia) {
-        alert('This browser does not supports WebRTC getUserMedia API.');
-
-        if(!!navigator.getUserMedia) {
-            alert('This browser seems supporting deprecated getUserMedia API.');
-        }
+        // alert('This browser does not supports WebRTC getUserMedia API.');
+        isExplorer = true;
+        console.log('sorry, you are using ie');
+        return;
     }
     navigator.mediaDevices.getUserMedia({
         audio: isEdge ? true : {
@@ -387,16 +384,11 @@ var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
 
 btnStartRecording.ontouchstart = function() {
-  console.log('start t',isRecording);
-
   if(!isRecording){ 
-    console.log('recording false');
     if (!microphone) {
-      console.log('not mic');
         captureMicrophone(function(mic) {
             microphone = mic;
             if(isSafari && $(window).width()<768 ) {
-              console.log(' is safari in ontouch');
                 replaceAudio();
                 audio.muted = true;
                 setSrcObject(microphone, audio);
@@ -451,7 +443,6 @@ btnStartRecording.ontouchstart = function() {
       holdTime = 500;
     },500);
   }
-  console.log('touchstart');
 };
 
 btnStartRecording.ontouchend = function() {
@@ -483,7 +474,6 @@ btnReleaseMicrophone.onclick = function() {
 };
 
 btnDownloadRecording.onclick = function() {
-    console.log('click download');  
     this.disabled = true;
     if(!recorder || !recorder.getBlob()) return;
     var blob = recorder.getBlob();
@@ -491,15 +481,12 @@ btnDownloadRecording.onclick = function() {
     var oReq = new XMLHttpRequest();
     oReq.open("POST", 'https://kosmo.sevn.pro/encode', true);
     oReq.onload = function (oEvent) {
-      // Uploaded.
       var xhr = new XMLHttpRequest();
-      // console.log(oEvent);
       xhr.open('GET', 'https://kosmo.sevn.pro/track.flac', true);
       xhr.responseType = 'arraybuffer';
       xhr.onload = function(e) {
         if (this.status == 200) {
           var myBlob = this.response;
-          // console.log(new Blob([new Uint8Array(myBlob)]));
           window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
         }
       };
@@ -516,7 +503,6 @@ jQuery(document).ready(function(){
 window.sendASRRequest = function(blob) {
     function ajaxSuccess() {
       var result = this.responseText;
-      // console.log("AJAXSubmit - Success!"); //DEBUG
       try {
         result = JSON.parse(result);
         $('#timer').text('');
@@ -581,7 +567,6 @@ window.sendASRRequest = function(blob) {
       key = 'AIzaSyA-jabza2otTKehPlI0QG0k6C5Gf1RczFE';
       window.auth = 'apiKey';
       var params = window.auth === 'apiKey'?  '?key='+key : (window.auth === 'serviceKey'? '?access_token='+key : '');
-      // console.log(params);
       oAjaxReq.open("post", "https://speech.googleapis.com/v1/speech:recognize"+params, true);
       oAjaxReq.setRequestHeader("Content-Type", "application/json");
       oAjaxReq.send(JSON.stringify(data));
