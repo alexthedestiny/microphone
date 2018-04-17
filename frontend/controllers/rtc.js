@@ -61,16 +61,11 @@ $(function(){
       }
     });
     // end custom input
-    // ie start
-
-    // ie end
-
-
-
-var recorderEnable = false;
+  var recorderEnable = false;
 
   if( $(window).width()>768 ){
     $('#microphone-button-taphold').mousedown(function(){
+      console.log('touchstart', recorderEnable);
       var event = $.Event( "touchstart" );
       if(!recorderEnable){
         $(btnStartRecording).trigger(event);
@@ -83,6 +78,7 @@ var recorderEnable = false;
       }
     });
     $('#microphone-button-taphold').mouseup(function(){
+      console.log('mouse up', recorderEnable);
       if(recorderEnable){
         recorderEnable = false;
         var event = $.Event( "touchend" );
@@ -90,6 +86,7 @@ var recorderEnable = false;
       }
     });
     $('#microphone-button-taphold').mouseleave(function(){
+      console.log('mouse leave', recorderEnable);
       if(recorderEnable){
         recorderEnable = false;
         var event = $.Event( "touchend" );
@@ -212,48 +209,48 @@ InbentaChatbotSDK.build(InbentaAuth, {
     jQuery('.ui-draggable').attr('style', 'bottom: 120px; right: 15px; position: relative;');
   },0);
   window.neededToShow = true;
-  $("#inbenta-bot-input").focus(function(){
-    window.isFocus = true;
-    setTimeout(function(){
-      var attr = jQuery("#inbenta-bot-input").attr('data-value');
-      if (typeof attr !== typeof undefined && attr !== false) {
-        jQuery("#inbenta-bot-input").val(attr);
-        document.getElementById('inbenta-bot-input').setAttribute('value', attr);
-        document.getElementById('inbenta-bot-input').defaultValue = attr;
-      }
-    },0);
-  });
-  $("#inbenta-bot-input").blur(function(){
-    window.isFocus = false;
-    setTimeout(function(){
-      var attr = jQuery("#inbenta-bot-input").attr('data-value');
-      if (typeof attr !== typeof undefined && attr !== false) {
-        jQuery("#inbenta-bot-input").val(attr);
-        document.getElementById('inbenta-bot-input').setAttribute('value', attr);
-        document.getElementById('inbenta-bot-input').defaultValue = attr;
-      }
-    },0);
-  });
-  $("#inbenta-bot-input").keyup(function(e){
-    setTimeout(function(){
-      var code = e.keyCode ? e.keyCode : e.which;
-      if (code==13) {
-          e.preventDefault();
-          var messageData = {
-            message: $("#inbenta-bot-input").val()
-          }
-          window.chatbot.actions.displayUserMessage(messageData);
-          window.chatbot.actions.sendMessage(messageData);
-          setTimeout(function(){
-            jQuery("#inbenta-bot-input").attr('data-value','');
-            jQuery("#inbenta-bot-input").val('');
-            jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
-          }, 500);
-          return;
-      }
-      jQuery("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
-    },0);
-  });
+  // $("#inbenta-bot-input").focus(function(){
+  //   window.isFocus = true;
+  //   setTimeout(function(){
+  //     var attr = jQuery("#inbenta-bot-input").attr('data-value');
+  //     if (typeof attr !== typeof undefined && attr !== false) {
+  //       jQuery("#inbenta-bot-input").val(attr);
+  //       document.getElementById('inbenta-bot-input').setAttribute('value', attr);
+  //       document.getElementById('inbenta-bot-input').defaultValue = attr;
+  //     }
+  //   },0);
+  // });
+  // $("#inbenta-bot-input").blur(function(){
+  //   window.isFocus = false;
+  //   setTimeout(function(){
+  //     var attr = jQuery("#inbenta-bot-input").attr('data-value');
+  //     if (typeof attr !== typeof undefined && attr !== false) {
+  //       jQuery("#inbenta-bot-input").val(attr);
+  //       document.getElementById('inbenta-bot-input').setAttribute('value', attr);
+  //       document.getElementById('inbenta-bot-input').defaultValue = attr;
+  //     }
+  //   },0);
+  // });
+  // $("#inbenta-bot-input").keyup(function(e){
+  //   setTimeout(function(){
+  //     var code = e.keyCode ? e.keyCode : e.which;
+  //     if (code==13) {
+  //         e.preventDefault();
+  //         var messageData = {
+  //           message: $("#inbenta-bot-input").val()
+  //         }
+  //         window.chatbot.actions.displayUserMessage(messageData);
+  //         window.chatbot.actions.sendMessage(messageData);
+  //         setTimeout(function(){
+  //           jQuery("#inbenta-bot-input").attr('data-value','');
+  //           jQuery("#inbenta-bot-input").val('');
+  //           jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
+  //         }, 500);
+  //         return;
+  //     }
+  //     jQuery("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
+  //   },0);
+  // });
   $(document).keypress(function(e) {
     if(e.which == 13) {
       if(window.isFocus) {
@@ -266,29 +263,29 @@ InbentaChatbotSDK.build(InbentaAuth, {
   }, false);
 
 });
-  $(document).on('click', '.inbenta-bot-button.footer__form__button', function(){
-    window.clickNaKnopku = jQuery("#inbenta-bot-input").attr('data-value');
-    var messageData = {
-      message: window.clickNaKnopku
-    }
-    if(window.clickNaKnopku && window.clickNaKnopku.length>0){
-      window.chatbot.actions.displayUserMessage(messageData);
-      window.chatbot.actions.sendMessage(messageData);
-      setTimeout(function(){
-        jQuery("#inbenta-bot-input").attr('data-value','');
-        jQuery("#inbenta-bot-input").val('');
-        jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
-      }, 500);
-    }
+  // $(document).on('click', '.inbenta-bot-button.footer__form__button', function(){
+  //   window.clickNaKnopku = jQuery("#inbenta-bot-input").attr('data-value');
+  //   var messageData = {
+  //     message: window.clickNaKnopku
+  //   }
+  //   if(window.clickNaKnopku && window.clickNaKnopku.length>0){
+  //     window.chatbot.actions.displayUserMessage(messageData);
+  //     window.chatbot.actions.sendMessage(messageData);
+  //     setTimeout(function(){
+  //       jQuery("#inbenta-bot-input").attr('data-value','');
+  //       jQuery("#inbenta-bot-input").val('');
+  //       jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
+  //     }, 500);
+  //   }
     
-  });
+  // });
   chatbot.api.addVariable('acme_airlines_en/Name', 'John Doe');
 });
 
 var audio = document.querySelector('audio');
 
 function captureMicrophone(callback) {
-    btnReleaseMicrophone.disabled = false;
+    // btnReleaseMicrophone.disabled = false;
     if(microphone) {
         callback(microphone);
         return;
@@ -332,9 +329,9 @@ function replaceAudio(src) {
 function stopRecordingCallback() {
     replaceAudio(URL.createObjectURL(recorder.getBlob()));
 
-    btnStartRecording.disabled = false;
+    // btnStartRecording.disabled = false;
 
-    btnDownloadRecording.disabled = false;
+    // btnDownloadRecording.disabled = false;
 
     if(isSafari && holdTime>=500) {
       click(btnReleaseMicrophone);
@@ -394,7 +391,7 @@ var btnDownloadRecording = document.getElementById('btn-download-recording');
 btnStartRecording.ontouchstart = function() {
   console.log('start');
   if(!isRecording){ 
-    if (!microphone || !FWRecorder.isMicrophoneAccessible()) {
+    if (!microphone || (isExplorer && !FWRecorder.isMicrophoneAccessible() ) ) {
         captureMicrophone(function(mic) {
             microphone = mic;
             if(isSafari && $(window).width()<768 ) {
@@ -448,8 +445,8 @@ btnStartRecording.ontouchstart = function() {
     }else{
       FWRecorder.record('audio', 'audio.wav');
     }
-    btnStopRecording.disabled = false;
-    btnDownloadRecording.disabled = true;
+    // btnStopRecording.disabled = false;
+    // btnDownloadRecording.disabled = true;
     holdTime = 0;
     clearTimeout(holdInterval);
     holdInterval = setTimeout(function(){
@@ -460,7 +457,7 @@ btnStartRecording.ontouchstart = function() {
 
 btnStartRecording.ontouchend = function() {
     console.log('end');
-    this.disabled = true;
+    // this.disabled = true;
     isRecording = false;
     if(!isExplorer){
       recorder.stopRecording(stopRecordingCallback);
@@ -482,8 +479,8 @@ btnStartRecording.ontouchend = function() {
 // };
 
 btnReleaseMicrophone.onclick = function() {
-    this.disabled = true;
-    btnStartRecording.disabled = false;
+    // this.disabled = true;
+    // btnStartRecording.disabled = false;
 
     if(microphone) {
         microphone.stop();
@@ -492,7 +489,7 @@ btnReleaseMicrophone.onclick = function() {
 };
 
 btnDownloadRecording.onclick = function() {
-    this.disabled = true;
+    // this.disabled = true;
     if(!recorder || !recorder.getBlob()) return;
     var blob = recorder.getBlob();
     var data = new FormData();
@@ -592,14 +589,14 @@ window.sendASRRequest = function(blob) {
   };
 
 function click(el) {
-    el.disabled = false; // make sure that element is not disabled
+    // el.disabled = false; // make sure that element is not disabled
     var evt = document.createEvent('Event');
     evt.initEvent('click', true, true);
     el.dispatchEvent(evt);
 }
 
 function touch(el) {
-    el.disabled = false; // make sure that element is not disabled
+    // el.disabled = false; // make sure that element is not disabled
     var evt = document.createEvent('Event');
     evt.initEvent('touchstart', true, true);
     el.dispatchEvent(evt);
