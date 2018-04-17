@@ -1,11 +1,9 @@
 <?php
-$save_folder = dirname(__FILE__) . "/audio";
-if(! file_exists($save_folder)) {
-  if(! mkdir($save_folder)) {
-    die("failed to create save folder $save_folder");
-  }
- }
-
+// require (ROOT.'/vendor/autoload.php');
+$save_folder = "/audio";
+// if(!is_dir("uploads/flac")) {
+//   mkdir("uploads/flac", 0777, true);
+// }
 function valid_wav_file($file) {
   $handle = fopen($file, 'r');
   $header = fread($handle, 4);
@@ -25,12 +23,25 @@ if($type == 'audio/wav' && preg_match('/^[a-zA-Z0-9_\-]+\.wav$/', $upload_name) 
   $saved = move_uploaded_file($tmp_name, $filename) ? 1 : 0;
 }
 
-if($_POST['format'] == 'json') {
-  header('Content-type: application/json');
-  print "{\"saved\": $saved}";
-} else {
-  print $saved ? "Saved" : 'Not saved';
-}
+print(ROOT.$filename);
+// $ffmpeg = FFMpeg\FFMpeg::create();
+// $audio = $ffmpeg->open(ROOT.'/'.$filename);
 
-exit;
+// $format = new FFMpeg\Format\Audio\Flac();
+// $format
+//     ->setAudioChannels(1)
+//     ->setAudioKiloBitrate(256);
+// $name = 'track'.time().'.flac';
+// $audio->save($format, ROOT.'/uploads/flac/'.$name);
+        
+// echo( json_encode(['file'=>ROOT.'/uploads/flac/'.$name, 'unlinkFile'=>ROOT.'/uploads/flac/'.$name]) );
+
+// if($_POST['format'] == 'json') {
+//   header('Content-type: application/json');
+//   print "{\"saved\": $saved}";
+// } else {
+//   print $saved ? "Saved" : 'Not saved';
+// }
+
+// exit;
 ?>
