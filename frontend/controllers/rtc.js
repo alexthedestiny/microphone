@@ -312,6 +312,7 @@ function stopRecordingCallback() {
     $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
     $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
     if(holdTime<500){
+      console.log(holdTime);
       clearTimeout(holdInterval);
       $('#timer').text('');
       $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
@@ -369,13 +370,15 @@ function stopRecordingCallbackExplorer() {
     $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
     $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
     if(holdTime<500){
+      console.log(holdTime);
       clearTimeout(holdInterval);
       $('#timer').text('');
       $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
       $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
       return;
     }
-    oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
+    else {
+      oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
     oReq.onload = function (oEvent) {
       // Uploaded.
       console.log('uploaded');
@@ -396,6 +399,7 @@ function stopRecordingCallbackExplorer() {
     };
     data.append('file', recBlob);
     oReq.send(data);
+    }
 }
 
 var recorder; // globally accessible
