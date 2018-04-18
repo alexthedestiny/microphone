@@ -125,6 +125,9 @@
       var frm = $(Recorder.uploadFormId); 
       Recorder.recorder.update(frm.serializeArray());
     },
+    saveAudio: function() { 
+      Recorder.recorder.saveAudio();
+    },
 
     showPermissionWindow: function(options) {
       Recorder.resize(240, 160);

@@ -341,19 +341,12 @@ function stopRecordingCallback() {
     data.append('file', blob);
     oReq.send(data);
 }
-// function simulateClick(target) {
-//   var evt = document.createEvent("MouseEvents");
-//   evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-//   var cancelled = !target.dispatchEvent(evt);
-//   if (cancelled) {
-//       console.log('cancelled');
-//   } else {
-//       console.log('not cancelled');
-//   }
-// }
 function stopRecordingCallbackExplorer() {
   // FWRecorder.updateForm();
   console.log('stop callback');
+  console.log('FWRecorder',FWRecorder);
+  FWRecorder.saveAudio();
+
   // FWRecorder.save_pressed('audio');
   // FWRecorder.on("eventName", ["sessionName"], function() {
   //   // ...
