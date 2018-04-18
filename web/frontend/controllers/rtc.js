@@ -341,10 +341,22 @@ function stopRecordingCallback() {
     data.append('file', blob);
     oReq.send(data);
 }
+$('#customSendTest').click(function(){
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://inbenta.sevn.pro/flac/track.flac', true);
+  xhr.responseType = 'arraybuffer';
+  xhr.onload = function(e) {
+    if (this.status == 200) {
+      var myBlob = this.response;
+      console.log(new Blob([new Uint8Array(myBlob)]));
+      window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
+    }
+  };
+  xhr.send();
+});
 function stopRecordingCallbackExplorer() {
   // FWRecorder.updateForm();
   console.log('stop callback');
-  console.log('FWRecorder',FWRecorder);
   FWRecorder.saveAudio();
 
   // FWRecorder.save_pressed('audio');
