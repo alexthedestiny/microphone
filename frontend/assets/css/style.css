@@ -8,6 +8,9 @@ body{
 	-webkit-appearance: none;
    -moz-appearance: none;
 }
+.mic_config li{
+	visibility: hidden;
+}
 .no-select{
 	 -moz-user-select: none; /* Firefox */
       -ms-user-select: none; /* Internet Explorer */
