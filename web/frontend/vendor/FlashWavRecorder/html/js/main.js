@@ -15,7 +15,7 @@ $(function () {
   setUpFormOptions();
   var appWidth = 24;
   var appHeight = 24;
-  var flashvars = {'upload_image': 'images/upload.png'};
+  var flashvars = {'upload_image': 'img/emptyup.jpg'};
   var params = {};
   var attributes = {'id': "recorderApp", 'name': "recorderApp"};
   swfobject.embedSWF("web/frontend/recorder.swf", "flashcontent", appWidth, appHeight, "11.0.0", "", flashvars, params, attributes);

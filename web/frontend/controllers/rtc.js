@@ -341,84 +341,52 @@ function stopRecordingCallback() {
     data.append('file', blob);
     oReq.send(data);
 }
-$('#customSendTest').click(function(){
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://inbenta.sevn.pro/flac/track.flac', true);
-  xhr.responseType = 'arraybuffer';
-  xhr.onload = function(e) {
-    if (this.status == 200) {
-      var myBlob = this.response;
-      console.log(new Blob([new Uint8Array(myBlob)]));
-      window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
-    }
-  };
-  xhr.send();
-});
+// $('#customSendTest').click(function(){
+//   var xhr = new XMLHttpRequest();
+//   xhr.open('GET', 'https://inbenta.sevn.pro/flac/track.flac', true);
+//   xhr.responseType = 'arraybuffer';
+//   xhr.onload = function(e) {
+//     if (this.status == 200) {
+//       var myBlob = this.response;
+//       console.log(new Blob([new Uint8Array(myBlob)]));
+//       window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
+//     }
+//   };
+//   xhr.send();
+// });
 function stopRecordingCallbackExplorer() {
   // FWRecorder.updateForm();
   console.log('stop callback');
-  FWRecorder.saveAudio();
-
-  // FWRecorder.save_pressed('audio');
-  // FWRecorder.on("eventName", ["sessionName"], function() {
-  //   // ...
-  // });
-  // simulateClick(document.getElementById('recorderApp'));
- // jQuery('object').trigger('click');
-  // var baseReplaced = base.replace(/^data:audio\/wav;base64\,/,'');
-  // console.log('base replace', baseReplaced);
-
-  //   function b64toBlob(b64Data, contentType, sliceSize) {
-  //     contentType = contentType || '';
-  //     sliceSize = sliceSize || 512;
-
-  //     var byteCharacters = atob(b64Data);
-  //     var byteArrays = [];
-
-  //     for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-  //       var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-  //       var byteNumbers = new Array(slice.length);
-  //       for (var i = 0; i < slice.length; i++) {
-  //         byteNumbers[i] = slice.charCodeAt(i);
-  //       }
-
-  //       var byteArray = new Uint8Array(byteNumbers);
-
-  //       byteArrays.push(byteArray);
-  //     }
-        
-  //     var blob = new Blob(byteArrays, {type: contentType});
-  //     return blob;
-  //   }
+  var recBlob = FWRecorder.getBlob('audio');
+  console.log('recBlob',recBlob);
 
   //   var contentType = 'audio/wav';
   //   var blob = b64toBlob(baseReplaced, contentType);
   //   var blobUrl = URL.createObjectURL(blob);
-    // var data = new FormData();
-    // var oReq = new XMLHttpRequest();
-    // console.log('stop callback ie');
-    // oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
-    // oReq.onload = function (oEvent) {
-    //   // Uploaded.
-    //   console.log('uploaded');
-    //   var xhr = new XMLHttpRequest();
-    //   console.log('res',JSON );
-    //   console.log('oEvent',oEvent);
-    //   var resp = JSON.parse(this.responseText) ;
-    //   xhr.open('GET', resp.file, true);
-    //   xhr.responseType = 'arraybuffer';
-    //   xhr.onload = function(e) {
-    //     if (this.status == 200) {
-    //       var myBlob = this.response;
-    //       console.log(new Blob([new Uint8Array(myBlob)]));
-    //       window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
-    //     }
-    //   };
-    //   xhr.send();
-    // };
-    // data.append('file', blob);
-    // oReq.send(data);
+    var data = new FormData();
+    var oReq = new XMLHttpRequest();
+    console.log('stop callback ie');
+    oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
+    oReq.onload = function (oEvent) {
+      // Uploaded.
+      console.log('uploaded');
+      var xhr = new XMLHttpRequest();
+      console.log('res',JSON );
+      console.log('oEvent',oEvent);
+      var resp = JSON.parse(this.responseText) ;
+      xhr.open('GET', resp.file, true);
+      xhr.responseType = 'arraybuffer';
+      xhr.onload = function(e) {
+        if (this.status == 200) {
+          var myBlob = this.response;
+          console.log(new Blob([new Uint8Array(myBlob)]));
+          window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
+        }
+      };
+      xhr.send();
+    };
+    data.append('file', recBlob);
+    oReq.send(data);
 }
 
 var recorder; // globally accessible
