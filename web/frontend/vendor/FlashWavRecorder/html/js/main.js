@@ -18,7 +18,7 @@ $(function () {
   var flashvars = {'upload_image': 'images/upload.png'};
   var params = {};
   var attributes = {'id': "recorderApp", 'name': "recorderApp"};
-  swfobject.embedSWF("/frontend/recorder.swf", "flashcontent", appWidth, appHeight, "11.0.0", "", flashvars, params, attributes);
+  swfobject.embedSWF("web/frontend/recorder.swf", "flashcontent", appWidth, appHeight, "11.0.0", "", flashvars, params, attributes);
 
 //  Handling FWR events ------------------------------------------------------------------------------------------------
 
