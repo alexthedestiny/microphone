@@ -15,6 +15,9 @@ body{
 .details {
 	margin-top: 20% !important;
 }
+.custom-input::-ms-clear {
+	display: none;
+}
 .mic_config li{
 	visibility: hidden;
 }
