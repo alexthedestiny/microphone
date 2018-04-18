@@ -8,6 +8,13 @@ body{
 	-webkit-appearance: none;
    -moz-appearance: none;
 }
+
+#save_button {
+	margin-left: 40% !important;
+}
+.details {
+	margin-top: 20% !important;
+}
 .mic_config li{
 	visibility: hidden;
 }
