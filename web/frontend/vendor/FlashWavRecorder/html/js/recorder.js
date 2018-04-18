@@ -124,8 +124,6 @@
     updateForm: function() {
       var frm = $(Recorder.uploadFormId); 
       Recorder.recorder.update(frm.serializeArray());
-      console.log('frm',frm);
-      console.log('frm.serializeArray()',frm.serializeArray());
     },
 
     showPermissionWindow: function(options) {
