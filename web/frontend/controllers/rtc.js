@@ -341,13 +341,25 @@ function stopRecordingCallback() {
     data.append('file', blob);
     oReq.send(data);
 }
-$('#tokosmo').click(function(){
-  stopRecordingCallbackExplorer(FWRecorder.getBlob('audio'));
-});
-function stopRecordingCallbackExplorer(blob) {
-  console.log('blob',blob);
+// function simulateClick(target) {
+//   var evt = document.createEvent("MouseEvents");
+//   evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+//   var cancelled = !target.dispatchEvent(evt);
+//   if (cancelled) {
+//       console.log('cancelled');
+//   } else {
+//       console.log('not cancelled');
+//   }
+// }
+function stopRecordingCallbackExplorer() {
   // FWRecorder.updateForm();
-  // $('#uploadForm').submit();
+  console.log('stop callback');
+  // FWRecorder.save_pressed('audio');
+  // FWRecorder.on("eventName", ["sessionName"], function() {
+  //   // ...
+  // });
+  // simulateClick(document.getElementById('recorderApp'));
+ // jQuery('object').trigger('click');
   // var baseReplaced = base.replace(/^data:audio\/wav;base64\,/,'');
   // console.log('base replace', baseReplaced);
 
@@ -378,32 +390,30 @@ function stopRecordingCallbackExplorer(blob) {
   //   var contentType = 'audio/wav';
   //   var blob = b64toBlob(baseReplaced, contentType);
   //   var blobUrl = URL.createObjectURL(blob);
-
-
-    var data = new FormData();
-    var oReq = new XMLHttpRequest();
-    console.log('stop callback ie');
-    oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
-    oReq.onload = function (oEvent) {
-      // Uploaded.
-      console.log('uploaded');
-      var xhr = new XMLHttpRequest();
-      console.log('res',JSON );
-      console.log('oEvent',oEvent);
-      var resp = JSON.parse(this.responseText) ;
-      xhr.open('GET', resp.file, true);
-      xhr.responseType = 'arraybuffer';
-      xhr.onload = function(e) {
-        if (this.status == 200) {
-          var myBlob = this.response;
-          console.log(new Blob([new Uint8Array(myBlob)]));
-          window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
-        }
-      };
-      xhr.send();
-    };
-    data.append('file', blob);
-    oReq.send(data);
+    // var data = new FormData();
+    // var oReq = new XMLHttpRequest();
+    // console.log('stop callback ie');
+    // oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
+    // oReq.onload = function (oEvent) {
+    //   // Uploaded.
+    //   console.log('uploaded');
+    //   var xhr = new XMLHttpRequest();
+    //   console.log('res',JSON );
+    //   console.log('oEvent',oEvent);
+    //   var resp = JSON.parse(this.responseText) ;
+    //   xhr.open('GET', resp.file, true);
+    //   xhr.responseType = 'arraybuffer';
+    //   xhr.onload = function(e) {
+    //     if (this.status == 200) {
+    //       var myBlob = this.response;
+    //       console.log(new Blob([new Uint8Array(myBlob)]));
+    //       window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
+    //     }
+    //   };
+    //   xhr.send();
+    // };
+    // data.append('file', blob);
+    // oReq.send(data);
 }
 
 var recorder; // globally accessible
@@ -494,7 +504,9 @@ btnStartRecording.ontouchend = function() {
       recorder.stopRecording(stopRecordingCallback);
     }else{
       FWRecorder.stopRecording('audio');
-      stopRecordingCallbackExplorer(FWRecorder.getBlob('audio'));
+      setTimeout(function(){
+        stopRecordingCallbackExplorer();
+      }, 500);
     }
     $('#microphone-button-taphold').removeClass('holded');
     if(isEdge){
