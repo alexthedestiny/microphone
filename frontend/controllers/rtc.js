@@ -366,6 +366,15 @@ function stopRecordingCallbackExplorer() {
     var data = new FormData();
     var oReq = new XMLHttpRequest();
     console.log('stop callback ie');
+    $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
+    $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
+    if(holdTime<500){
+      clearTimeout(holdInterval);
+      $('#timer').text('');
+      $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
+      $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
+      return;
+    }
     oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
     oReq.onload = function (oEvent) {
       // Uploaded.
