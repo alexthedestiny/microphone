@@ -70,9 +70,9 @@ $(function(){
         $(btnStartRecording).trigger(event);
         recorderEnable = true;
         holdTime = 0;
-        clearTimeout(holdInterval);
-        holdInterval = setTimeout(function(){
-          holdTime = 500;
+        clearInterval(holdInterval);
+        holdInterval = setInterval(function(){
+          holdTime += 500;
         }, 500);
       }
     });
@@ -310,7 +310,7 @@ function stopRecordingCallback() {
     $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
     if(holdTime<500){
       console.log(holdTime);
-      clearTimeout(holdInterval);
+      clearInterval(holdInterval);
       $('#timer').text('');
       $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
       $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
@@ -347,8 +347,8 @@ function stopRecordingCallbackExplorer() {
     console.log('stop callback ie');
     $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
     $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
-    if(holdTime<500){
-      clearTimeout(holdInterval);
+    if(holdTime<1500){
+      clearInterval(holdInterval);
       $('#timer').text('');
       $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
       $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
@@ -442,9 +442,9 @@ btnStartRecording.ontouchstart = function() {
       FWRecorder.record('audio', 'audio.wav');
     }
     holdTime = 0;
-    clearTimeout(holdInterval);
-    holdInterval = setTimeout(function(){
-      holdTime = 500;
+    clearInterval(holdInterval);
+    holdInterval = setInterval(function(){
+      holdTime += 500;
     },500);
   }
 };
