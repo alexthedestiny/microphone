@@ -340,6 +340,7 @@ function stopRecordingCallback() {
       // console.log('ee',oEvent);
       console.log('res',JSON.parse(this.responseText) );
       var resp = JSON.parse(this.responseText) ;
+      window.responseFromEncode = resp; 
       xhr.open('GET', resp.file, true);
       // xhr.open('GET', 'https://kosmo.sevn.pro/track.flac', true);
       xhr.responseType = 'arraybuffer';
@@ -379,6 +380,7 @@ function stopRecordingCallbackExplorer() {
       console.log('res',JSON );
       console.log('oEvent',oEvent);
       var resp = JSON.parse(this.responseText) ;
+      window.responseFromEncode = resp;
       xhr.open('GET', resp.file, true);
       xhr.responseType = 'arraybuffer';
       xhr.onload = function(e) {
@@ -535,12 +537,37 @@ window.sendASRRequest = function(blob) {
           jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
           $('#custom-input').val(result.results[0].alternatives[0].transcript);
-
+          if(window.responseFromEncode){
+            var params = {
+              text: result.results[0].alternatives[0].transcript,
+              flac: window.responseFromEncode.flac,
+              wav: window.responseFromEncode.wav,
+              time: window.responseFromEncode.time
+            };
+            $.post("/log", params,
+              function(data){
+                console.log('done');
+              }
+            );
+          }
         }else{
           $('#custom-input').val('');
           jQuery("#inbenta-bot-input").val("");
           jQuery("#inbenta-bot-input").attr('data-value', "");
           document.getElementById('inbenta-bot-input').setAttribute("value", "");
+          if(window.responseFromEncode){
+            var params = {
+              text: " ",
+              flac: window.responseFromEncode.flac,
+              wav: window.responseFromEncode.wav,
+              time: window.responseFromEncode.time
+            };
+            $.post("/log", params,
+              function(data){
+                console.log('done');
+              }
+            );
+          }
         }
       } catch (exc) {
         console.warn('Could not parse result into JSON object: "' + result + '"');
