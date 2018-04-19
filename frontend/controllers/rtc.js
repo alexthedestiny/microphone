@@ -219,23 +219,25 @@ function captureMicrophone(callback) {
         // alert('This browser does not supports WebRTC getUserMedia API.');
         isExplorer = true;
         console.log('sorry, you are using ie');
-        if(!FWRecorder.isMicrophoneAccessible()){
-          FWRecorder.record('audio', 'audio.wav');
-        }else{
-          FWRecorder.record('audio', 'audio.wav');
-          if(!isEdge){
-            $('#microphone-button-taphold').addClass('holded');
+        setTimeout(function(){
+          if(FWRecorder && !FWRecorder.isMicrophoneAccessible()){
+            FWRecorder.record('audio', 'audio.wav');
           }else{
-            $('#microphone-button-taphold').addClass('holded-edge');
-          }
+            FWRecorder.record('audio', 'audio.wav');
+            if(!isEdge){
+              $('#microphone-button-taphold').addClass('holded');
+            }else{
+              $('#microphone-button-taphold').addClass('holded-edge');
+            }
 
-          $('.loader-wrapp>img').addClass('visibleLoader');
-          $('.loader-wrapp>span').removeClass('visibleText');
-          $('#timer').text('');
-          mSeconds = 0;
-          window.timerInterval = setInterval(function(){mSeconds+=100; $('#timer').text(String(mSeconds/1000)+' s' )},100);
-          isRecording = true;
-        }
+            $('.loader-wrapp>img').addClass('visibleLoader');
+            $('.loader-wrapp>span').removeClass('visibleText');
+            $('#timer').text('');
+            mSeconds = 0;
+            window.timerInterval = setInterval(function(){mSeconds+=100; $('#timer').text(String(mSeconds/1000)+' s' )},100);
+            isRecording = true;
+          }
+        },0);
         return;
     }
     navigator.mediaDevices.getUserMedia({
@@ -457,6 +459,7 @@ btnReleaseMicrophone.onclick = function() {
 jQuery(document).ready(function(){
   if(window.isFirefox) {
     jQuery('.microphone-button-taphold').css('margin-top', '-70%');
+    $('.details').css('display','none');
   }
 });
 window.sendASRRequest = function(blob) {
