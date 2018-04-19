@@ -230,15 +230,17 @@ function launchNLEsclationForm(escalateNLForm, rejectedEscalation, noAgentsAvail
           $('.ui-draggable .ui-draggable-handle .header__actions').css({'pointer-events':'all'});
     		}
     	},100);
-      if (window.neededToShow) {
+      
         setTimeout(function () {
-          if( $(window).width()>=768 ){
-            setTimeout(function(){
-              jQuery('.ui-draggable').css({"bottom":'120px', 'right':'15px', 'left':'auto!important','top':'auto!important'});
-            }, 0);
+          if (window.neededToShow) {
+            if( $(window).width()>=768 ){
+              setTimeout(function(){
+                jQuery('.ui-draggable').css({"bottom":'120px', 'right':'15px', 'left':'auto!important','top':'auto!important'});
+              }, 0);
+            }
           }
         }, 100);
-      }
+      
       return next();
     });
     chatBot.subscriptions.onHideConversationWindow(function(next){
