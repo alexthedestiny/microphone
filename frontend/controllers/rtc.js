@@ -192,48 +192,7 @@ InbentaChatbotSDK.build(InbentaAuth, {
     jQuery('.ui-draggable').attr('style', 'bottom: 120px; right: 15px; position: relative;');
   },0);
   window.neededToShow = true;
-  // $("#inbenta-bot-input").focus(function(){
-  //   window.isFocus = true;
-  //   setTimeout(function(){
-  //     var attr = jQuery("#inbenta-bot-input").attr('data-value');
-  //     if (typeof attr !== typeof undefined && attr !== false) {
-  //       jQuery("#inbenta-bot-input").val(attr);
-  //       document.getElementById('inbenta-bot-input').setAttribute('value', attr);
-  //       document.getElementById('inbenta-bot-input').defaultValue = attr;
-  //     }
-  //   },0);
-  // });
-  // $("#inbenta-bot-input").blur(function(){
-  //   window.isFocus = false;
-  //   setTimeout(function(){
-  //     var attr = jQuery("#inbenta-bot-input").attr('data-value');
-  //     if (typeof attr !== typeof undefined && attr !== false) {
-  //       jQuery("#inbenta-bot-input").val(attr);
-  //       document.getElementById('inbenta-bot-input').setAttribute('value', attr);
-  //       document.getElementById('inbenta-bot-input').defaultValue = attr;
-  //     }
-  //   },0);
-  // });
-  // $("#inbenta-bot-input").keyup(function(e){
-  //   setTimeout(function(){
-  //     var code = e.keyCode ? e.keyCode : e.which;
-  //     if (code==13) {
-  //         e.preventDefault();
-  //         var messageData = {
-  //           message: $("#inbenta-bot-input").val()
-  //         }
-  //         window.chatbot.actions.displayUserMessage(messageData);
-  //         window.chatbot.actions.sendMessage(messageData);
-  //         setTimeout(function(){
-  //           jQuery("#inbenta-bot-input").attr('data-value','');
-  //           jQuery("#inbenta-bot-input").val('');
-  //           jQuery("#inbenta-bot-input").attr('placeholder', 'Ask here');
-  //         }, 500);
-  //         return;
-  //     }
-  //     jQuery("#inbenta-bot-input").attr('data-value', $("#inbenta-bot-input").val());
-  //   },0);
-  // });
+ 
   $(document).keypress(function(e) {
     if(e.which == 13) {
       if(window.isFocus) {
@@ -403,7 +362,6 @@ var microphone;
 var btnStartRecording = document.getElementById('microphone-button-taphold');
 var btnStopRecording = document.getElementById('btn-stop-recording');
 var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
-// var btnDownloadRecording = document.getElementById('btn-download-recording');
 
 btnStartRecording.ontouchstart = function() {
   console.log('before addclass 1');
@@ -498,27 +456,6 @@ btnReleaseMicrophone.onclick = function() {
     }
 };
 
-// btnDownloadRecording.onclick = function() {
-//     if(!recorder || !recorder.getBlob()) return;
-//     var blob = recorder.getBlob();
-//     var data = new FormData();
-//     var oReq = new XMLHttpRequest();
-//     oReq.open("POST", 'https://kosmo.sevn.pro/encode', true);
-//     oReq.onload = function (oEvent) {
-//       var xhr = new XMLHttpRequest();
-//       xhr.open('GET', 'https://kosmo.sevn.pro/track.flac', true);
-//       xhr.responseType = 'arraybuffer';
-//       xhr.onload = function(e) {
-//         if (this.status == 200) {
-//           var myBlob = this.response;
-//           window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
-//         }
-//       };
-//       xhr.send();
-//     };
-//     data.append('file', blob);
-//     oReq.send(data);
-// };
 jQuery(document).ready(function(){
   if(window.isFirefox) {
     jQuery('.microphone-button-taphold').css('margin-top', '-70%');

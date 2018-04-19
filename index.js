@@ -43,7 +43,7 @@ app.get('/log', function(req, res){
 		if(!err){
 			res.send(contents);
 		}else{
-			res.send('some err');
+			res.send('some error occured or log is empty');
 		}
 	    
 	});
