@@ -296,12 +296,10 @@ function stopRecordingCallback() {
       // Uploaded.
       console.log('uploaded');
       var xhr = new XMLHttpRequest();
-      // console.log('ee',oEvent);
       console.log('res',JSON.parse(this.responseText) );
       var resp = JSON.parse(this.responseText) ;
       window.responseFromEncode = resp; 
       xhr.open('GET', resp.file, true);
-      // xhr.open('GET', 'https://kosmo.sevn.pro/track.flac', true);
       xhr.responseType = 'arraybuffer';
       xhr.onload = function(e) {
         if (this.status == 200) {
