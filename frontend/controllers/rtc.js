@@ -260,7 +260,23 @@ function captureMicrophone(callback) {
         // alert('This browser does not supports WebRTC getUserMedia API.');
         isExplorer = true;
         console.log('sorry, you are using ie');
-        FWRecorder.record('audio', 'audio.wav');
+        if(!FWRecorder.isMicrophoneAccessible()){
+          FWRecorder.record('audio', 'audio.wav');
+        }else{
+          FWRecorder.record('audio', 'audio.wav');
+          if(!isEdge){
+            $('#microphone-button-taphold').addClass('holded');
+          }else{
+            $('#microphone-button-taphold').addClass('holded-edge');
+          }
+
+          $('.loader-wrapp>img').addClass('visibleLoader');
+          $('.loader-wrapp>span').removeClass('visibleText');
+          $('#timer').text('');
+          mSeconds = 0;
+          window.timerInterval = setInterval(function(){mSeconds+=100; $('#timer').text(String(mSeconds/1000)+' s' )},100);
+          isRecording = true;
+        }
         return;
     }
     navigator.mediaDevices.getUserMedia({
@@ -442,9 +458,9 @@ btnStartRecording.ontouchstart = function() {
       recorder = RecordRTC(microphone, options);
       recorder.startRecording();
     }
-    // else{
-    //   FWRecorder.record('audio', 'audio.wav');
-    // }
+    else{
+      FWRecorder.record('audio', 'audio.wav');
+    }
     holdTime = 0;
     clearInterval(holdInterval);
     holdInterval = setInterval(function(){
