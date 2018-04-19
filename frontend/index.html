@@ -21,9 +21,9 @@
   </head>
   <body>
      <div class="hideMe">
-        <button id="btn-start-recording">Start Recording</button>
-        <button id="btn-stop-recording" disabled>Stop Recording</button>
-        <button id="btn-release-microphone" disabled>Release Microphone</button>
+        <button id="btn-start-recording"></button>
+        <button id="btn-stop-recording" disabled></button>
+        <button id="btn-release-microphone" disabled></button>
         <hr>
         <div><audio controls autoplay></audio></div> 
    </div>
@@ -45,24 +45,18 @@
     <form class="mic_config" onsubmit="return false;">
       <ul>
         <li>
-          <label for="gain">Gain</label>
           <select id="gain" name="gain">
           </select>
         </li>
-
         <li>
-          <label for="silenceLevel">Silence Level</label>
           <select id="silenceLevel" name="silenceLevel">
           </select>
         </li>
-
         <li>
-          <label for="silenceTimeout">Silence Timeout</label>
           <input id="silenceTimeout" name="silenceTimeout" value="2000"/>
         </li>
-
         <li>
-          <button onclick="configureMicrophone();">Configure</button>
+          <button onclick="configureMicrophone();"></button>
         </li>
       </ul>
     </form>
