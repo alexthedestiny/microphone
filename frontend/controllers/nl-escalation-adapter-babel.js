@@ -226,22 +226,25 @@ function launchNLEsclationForm(escalateNLForm, rejectedEscalation, noAgentsAvail
           if(lastInputText && lastInputText!==undefined){
             $('#custom-input').val(lastInputText);
           }
+          $('.control-panel').addClass('visibleCP').animate({'opacity':1},300);
     		}
     	},100);
-      // if (window.neededToShow) {
+      if (window.neededToShow) {
         setTimeout(function () {
           if( $(window).width()>=768 ){
             setTimeout(function(){
               jQuery('.ui-draggable').css({"bottom":'120px', 'right':'15px', 'left':'auto!important','top':'auto!important'});
-              console.log('ssss');
             }, 0);
           }
-        }, 1000);
-      // }
+        }, 100);
+      }
       return next();
     });
     chatBot.subscriptions.onHideConversationWindow(function(next){
       lastInputText = $('#custom-input').val();
+      $('.control-panel').animate({'opacity':'0'},300, function(){
+        $(this).removeClass('visibleCP');
+      });
       return next();
     });
     /**

@@ -40,7 +40,7 @@ body{
 	right: 0px!important;
 }
 .control-panel{
-	display: inline-block;
+	display: none;
 	width: 400px;
 	height: 120px;
 	position: fixed;
@@ -48,8 +48,11 @@ body{
 	right: 0px;
 	margin: 0px!important;
 	text-align: center;
+	opacity: 0;
 }
-
+.control-panel.visibleCP{
+	display: inline-block;
+}
 .ui-draggeble {
 	bottom: 40% !important;
 }
