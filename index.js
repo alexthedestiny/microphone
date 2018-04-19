@@ -25,7 +25,7 @@ app.post('/log', function(req, res){
 	}
 	fs.readFile('./log.json', 'utf8', function(err, contents) {
 	    arr = JSON.parse(contents);
-	    arr.push(req.body);
+	    arr.unshift(req.body);
 	    var json = JSON.stringify(arr);
     	fs.writeFile('./log.json', json, (err) => {
 		    if (err) {
