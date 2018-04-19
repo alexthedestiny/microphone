@@ -217,7 +217,6 @@ function launchNLEsclationForm(escalateNLForm, rejectedEscalation, noAgentsAvail
 
     var lastInputText;
     chatBot.subscriptions.onShowConversationWindow(function (next) {
-      console.log('chatBot.subscriptions',chatBot.subscriptions);
     	setTimeout(function(){
     		if(!$('#inbenta-bot-input+div').is('.custom-input-wrapp')){
     			$('#inbenta-bot-input, .inbenta-bot-button.footer__form__button').css('display','none');
@@ -227,6 +226,8 @@ function launchNLEsclationForm(escalateNLForm, rejectedEscalation, noAgentsAvail
             $('#custom-input').val(lastInputText);
           }
           $('.control-panel').addClass('visibleCP').animate({'opacity':1},300);
+          $('.ui-draggable .ui-draggable-handle').css({'cursor':'auto','pointer-events':'none'});
+          $('.ui-draggable .ui-draggable-handle .header__actions').css({'pointer-events':'all'});
     		}
     	},100);
       if (window.neededToShow) {

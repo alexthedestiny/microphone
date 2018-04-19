@@ -56,6 +56,10 @@ body{
 .ui-draggeble {
 	bottom: 40% !important;
 }
+.ui-draggable-handle{
+	pointer-events: none!important;
+	cursor: auto!important;
+}
 .mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader{
 	display: table;
 	transition: 0.3s;
