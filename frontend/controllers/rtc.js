@@ -65,7 +65,6 @@ $(function(){
 
   if( $(window).width()>768 ){
     $('#microphone-button-taphold').mousedown(function(){
-      console.log('touchstart', recorderEnable);
       var event = $.Event( "touchstart" );
       if(!recorderEnable){
         $(btnStartRecording).trigger(event);
@@ -78,7 +77,6 @@ $(function(){
       }
     });
     $('#microphone-button-taphold').mouseup(function(){
-      console.log('mouse up', recorderEnable);
       if(recorderEnable){
         recorderEnable = false;
         var event = $.Event( "touchend" );
@@ -86,7 +84,6 @@ $(function(){
       }
     });
     $('#microphone-button-taphold').mouseleave(function(){
-      console.log('mouse leave', recorderEnable);
       if(recorderEnable){
         recorderEnable = false;
         var event = $.Event( "touchend" );
@@ -342,35 +339,15 @@ function stopRecordingCallback() {
     data.append('file', blob);
     oReq.send(data);
 }
-// $('#customSendTest').click(function(){
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('GET', 'https://inbenta.sevn.pro/flac/track.flac', true);
-//   xhr.responseType = 'arraybuffer';
-//   xhr.onload = function(e) {
-//     if (this.status == 200) {
-//       var myBlob = this.response;
-//       console.log(new Blob([new Uint8Array(myBlob)]));
-//       window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
-//     }
-//   };
-//   xhr.send();
-// });
 function stopRecordingCallbackExplorer() {
-  // FWRecorder.updateForm();
-  console.log('stop callback');
   var recBlob = FWRecorder.getBlob('audio');
-  console.log('recBlob',recBlob);
-
-  //   var contentType = 'audio/wav';
-  //   var blob = b64toBlob(baseReplaced, contentType);
-  //   var blobUrl = URL.createObjectURL(blob);
+    console.log('holdTime',holdTime);
     var data = new FormData();
     var oReq = new XMLHttpRequest();
     console.log('stop callback ie');
     $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
     $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
     if(holdTime<500){
-      console.log(holdTime);
       clearTimeout(holdInterval);
       $('#timer').text('');
       $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
@@ -411,13 +388,9 @@ var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
 
 btnStartRecording.ontouchstart = function() {
-  console.log('st 1');
   if(!isRecording){ 
-    console.log('st 2');
     if (!microphone || (isExplorer && !FWRecorder.isMicrophoneAccessible() ) ) {
-      console.log('st 2.5');
         captureMicrophone(function(mic) {
-          console.log('st 3');
             microphone = mic;
             if(isSafari && $(window).width()<768 ) {
                 replaceAudio();
@@ -434,22 +407,18 @@ btnStartRecording.ontouchstart = function() {
         });
         return;
     }
-    console.log('st 4');
     if(!isEdge){
       $('#microphone-button-taphold').addClass('holded');
     }else{
       $('#microphone-button-taphold').addClass('holded-edge');
     }
-    console.log('st 5');
     $('.loader-wrapp>img').addClass('visibleLoader');
     $('.loader-wrapp>span').removeClass('visibleText');
     $('#timer').text('');
-    console.log('st 6');
     mSeconds = 0;
     window.timerInterval = setInterval(function(){mSeconds+=100; $('#timer').text(String(mSeconds/1000)+' s' )},100);
     isRecording = true;
     replaceAudio();
-    console.log('st 6');
     audio.muted = true;
     setSrcObject(microphone, audio);
 
@@ -459,7 +428,6 @@ btnStartRecording.ontouchstart = function() {
         checkForInactiveTracks: true,
         bufferSize: 16384
     };
-    console.log('st 7');
     if(navigator.platform && navigator.platform.toString().toLowerCase().indexOf('win') === -1) {
         options.sampleRate = ( isEdge ) ? 44100 : 48000; // or 44100 or remove this line for default
     }
@@ -467,12 +435,10 @@ btnStartRecording.ontouchstart = function() {
         recorder.destroy();
         recorder = null;
     }
-    console.log('st 8');
     if(!isExplorer){
       recorder = RecordRTC(microphone, options);
       recorder.startRecording();
     }else{
-      console.log('st 9');
       FWRecorder.record('audio', 'audio.wav');
     }
     holdTime = 0;
@@ -484,7 +450,7 @@ btnStartRecording.ontouchstart = function() {
 };
 
 btnStartRecording.ontouchend = function() {
-    console.log('end');
+    console.log('end isExplorer: ', isExplorer);
     isRecording = false;
     if(!isExplorer){
       recorder.stopRecording(stopRecordingCallback);
