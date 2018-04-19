@@ -403,7 +403,7 @@ var microphone;
 var btnStartRecording = document.getElementById('microphone-button-taphold');
 var btnStopRecording = document.getElementById('btn-stop-recording');
 var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
-var btnDownloadRecording = document.getElementById('btn-download-recording');
+// var btnDownloadRecording = document.getElementById('btn-download-recording');
 
 btnStartRecording.ontouchstart = function() {
   console.log('before addclass 1');
@@ -498,27 +498,27 @@ btnReleaseMicrophone.onclick = function() {
     }
 };
 
-btnDownloadRecording.onclick = function() {
-    if(!recorder || !recorder.getBlob()) return;
-    var blob = recorder.getBlob();
-    var data = new FormData();
-    var oReq = new XMLHttpRequest();
-    oReq.open("POST", 'https://kosmo.sevn.pro/encode', true);
-    oReq.onload = function (oEvent) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'https://kosmo.sevn.pro/track.flac', true);
-      xhr.responseType = 'arraybuffer';
-      xhr.onload = function(e) {
-        if (this.status == 200) {
-          var myBlob = this.response;
-          window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
-        }
-      };
-      xhr.send();
-    };
-    data.append('file', blob);
-    oReq.send(data);
-};
+// btnDownloadRecording.onclick = function() {
+//     if(!recorder || !recorder.getBlob()) return;
+//     var blob = recorder.getBlob();
+//     var data = new FormData();
+//     var oReq = new XMLHttpRequest();
+//     oReq.open("POST", 'https://kosmo.sevn.pro/encode', true);
+//     oReq.onload = function (oEvent) {
+//       var xhr = new XMLHttpRequest();
+//       xhr.open('GET', 'https://kosmo.sevn.pro/track.flac', true);
+//       xhr.responseType = 'arraybuffer';
+//       xhr.onload = function(e) {
+//         if (this.status == 200) {
+//           var myBlob = this.response;
+//           window.sendASRRequest(new Blob([new Uint8Array(myBlob)]));
+//         }
+//       };
+//       xhr.send();
+//     };
+//     data.append('file', blob);
+//     oReq.send(data);
+// };
 jQuery(document).ready(function(){
   if(window.isFirefox) {
     jQuery('.microphone-button-taphold').css('margin-top', '-70%');
