@@ -272,4 +272,7 @@ body{
 		height: 90%;
 		width: auto;
 	}
+	.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader{
+		padding: 0px!important;
+	}
 }
