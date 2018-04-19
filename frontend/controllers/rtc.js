@@ -520,8 +520,6 @@ window.sendASRRequest = function(blob) {
     var reader = new window.FileReader();
     reader.readAsDataURL(blob);
     reader.onloadend = function() {
-    //only use base64-encoded data, i.e. remove meta-data from beginning:
-    // var audioData = reader.result.replace(/^data:audio\/flac;base64,/,'');
     if(window.isFirefox) {
       var audioData = reader.result.replace(/^data:application\/octet-stream;base64,/,'');
     }
