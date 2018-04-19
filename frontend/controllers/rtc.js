@@ -388,6 +388,7 @@ var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 var btnDownloadRecording = document.getElementById('btn-download-recording');
 
 btnStartRecording.ontouchstart = function() {
+  console.log('before addclass 1');
   if(!isRecording){ 
     if (!microphone || (isExplorer && !FWRecorder.isMicrophoneAccessible() ) ) {
         captureMicrophone(function(mic) {
@@ -412,6 +413,7 @@ btnStartRecording.ontouchstart = function() {
     }else{
       $('#microphone-button-taphold').addClass('holded-edge');
     }
+
     $('.loader-wrapp>img').addClass('visibleLoader');
     $('.loader-wrapp>span').removeClass('visibleText');
     $('#timer').text('');
@@ -439,9 +441,10 @@ btnStartRecording.ontouchstart = function() {
     if(!isExplorer){
       recorder = RecordRTC(microphone, options);
       recorder.startRecording();
-    }else{
-      FWRecorder.record('audio', 'audio.wav');
     }
+    // else{
+    //   FWRecorder.record('audio', 'audio.wav');
+    // }
     holdTime = 0;
     clearInterval(holdInterval);
     holdInterval = setInterval(function(){
