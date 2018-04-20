@@ -44,8 +44,8 @@ app.get('/log', function(req, res){
 	        	res.sendStatus(500);
 	            return console.log(err);
 	        }
-	        console.log(results);
-	        res.send(JSON.stringify(results));
+	        var logInfo = results.reverse();
+	        res.send(JSON.stringify(logInfo));
 	        db.close();
 	    });
 	});
