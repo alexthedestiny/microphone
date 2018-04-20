@@ -31,7 +31,6 @@ app.post('/log', function(req, res){
 	            return console.log(err);
 	        }
 	        console.log('inserted');
-	        console.log(result.ops);
 	        res.sendStatus(200);
 	        db.close();
 	    });
@@ -58,14 +57,28 @@ app.post('/log', function(req, res){
 });
 
 app.get('/log', function(req, res){
-	fs.readFile('./log.json', 'utf8', function(err, contents) {
-		if(!err){
-			res.send(contents);
-		}else{
-			res.send('some error occured or log is empty');
-		}
-	    
+	MongoClient.connect(url, function(err, db) {
+	  	if (err) throw err;
+	  	console.log("Database connected log");
+	  	var log = db.collection("log");
+	  	log.find().toArray(function(err, results){
+	  		 if(err){ 
+	        	res.sendStatus(500);
+	            return console.log(err);
+	        }
+	        console.log(results);
+	        res.send(JSON.stringify(results));
+	        db.close();
+	    });
 	});
+	// fs.readFile('./log.json', 'utf8', function(err, contents) {
+	// 	if(!err){
+	// 		res.send(contents);
+	// 	}else{
+	// 		res.send('some error occured or log is empty');
+	// 	}
+	    
+	// });
 });
 
 app.get('/clearlog', function(req, res){
