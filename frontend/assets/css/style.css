@@ -163,11 +163,11 @@ div.microphone-button-taphold{
 	border-radius: 50%;
 	position: absolute;
 	transition: 0.5s;
-	/*left: 0;
+	left: 0;
     right: 0;
     bottom: 0;
     top: 0;
-    margin: auto;*/
+    margin: auto;
 }
 .microphone-button-taphold.holded{
 	/*animation-name: mic-holded;*/
@@ -179,7 +179,7 @@ div.microphone-button-taphold{
 .microphone-button-taphold.holded::after{
 	width: 80px;
 	height: 80px;
-	margin-left: -40px;
+	/*margin-left: -40px;*/
 }
 .microphone-button-taphold.holded-edge{
 	animation-name: mic-holded;
