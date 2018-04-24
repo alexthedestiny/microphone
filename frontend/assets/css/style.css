@@ -87,12 +87,12 @@ body{
 	display: none;
 }
 .loader-wrapp>img{
-	width: auto;
-	height: 90px;
-	margin-top: 15px;
+	width: 90%;
+	height: 100%;
 	transition: 0.3s;
 	opacity: 0;
 	display: none!important;
+	object-fit: contain;
 }
 .loader-wrapp>span{
 	transition: 0.3s;
@@ -103,7 +103,7 @@ body{
 }
 .allLoader>img{
 	height: 60px;
-	margin-top: 30px;
+	margin-top: 50px;
 }
 .loader-wrapp>img.visibleLoader{
 	opacity: 1;
@@ -177,9 +177,9 @@ div.microphone-button-taphold{
 	animation-iteration-count: infinite;
 }
 .microphone-button-taphold.holded::after{
-	width: 90px;
-	height: 90px;
-	margin-left: -45px;
+	width: 80px;
+	height: 80px;
+	margin-left: -40px;
 }
 .microphone-button-taphold.holded-edge{
 	animation-name: mic-holded;
@@ -321,12 +321,10 @@ div.microphone-button-taphold{
 		align-items: center;
     	justify-content: center;
 	}
-	
-	.loader-wrapp>img{
-		height: 90%;
-		width: auto;
-	}
 	.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader{
 		padding: 0px!important;
+	}
+	.allLoader>img{
+		margin-top: 18px!important;
 	}
 }
