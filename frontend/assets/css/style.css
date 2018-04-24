@@ -206,7 +206,7 @@ div.microphone-button-taphold{
     -ms-flex-align: center;
     align-items: center;
 }
-.custom-input-wrapp>textarea{
+.custom-input-wrapp>input{
 	background-color: transparent;
     border-color: transparent;
     height: 46px;
@@ -220,34 +220,33 @@ div.microphone-button-taphold{
     width: 100%;
     outline: none;
     color: #3d3f43;
-    resize: none;
 }
-.custom-input-wrapp>textarea::-webkit-input-placeholder{
+.custom-input-wrapp>input::-webkit-input-placeholder{
 	font-family: Open Sans,Arial,Helvetica,sans-serif;
 	font-size: 13.5px;
 }
-.custom-input-wrapp>textarea::-moz-placeholder{
+.custom-input-wrapp>input::-moz-placeholder{
 	font-family: Open Sans,Arial,Helvetica,sans-serif;
 	font-size: 13.5px;
 }
-.custom-input-wrapp>textarea:-moz-placeholder{
+.custom-input-wrapp>input:-moz-placeholder{
 	font-family: Open Sans,Arial,Helvetica,sans-serif;
 	font-size: 13.5px;
 }
-.custom-input-wrapp>textarea:-ms-input-placeholder{
+.custom-input-wrapp>input:-ms-input-placeholder{
 	font-family: Open Sans,Arial,Helvetica,sans-serif;
 	font-size: 13.5px;
 }
-.custom-input-wrapp>textarea:focus::-webkit-input-placeholder{
+.custom-input-wrapp>input:focus::-webkit-input-placeholder{
 	color: lightgray;
 }
-.custom-input-wrapp>textarea:focus::-moz-placeholder{
+.custom-input-wrapp>input:focus::-moz-placeholder{
 	color: lightgray;
 }
-.custom-input-wrapp>textarea:focus:-moz-placeholder{
+.custom-input-wrapp>input:focus:-moz-placeholder{
 	color: lightgray;
 }
-.custom-input-wrapp>textarea:focus:-ms-input-placeholder{
+.custom-input-wrapp>input:focus:-ms-input-placeholder{
 	color: lightgray;
 }
 .custom-input-wrapp>button{
