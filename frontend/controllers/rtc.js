@@ -44,8 +44,13 @@ if(isSafari && $(window).width()<768) {
     jQuery('#microphone-button-taphold').trigger('touchstart');
   }, 1000);
 }
-
+function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight)+"px";
+  }
 $(function(){
+    //custom textarea start
+     //custom textarea end
     //start custom input
     $(document).on('click', '#custom-send', function(){
       window.customData = jQuery("#custom-input").val();
@@ -475,6 +480,7 @@ window.sendASRRequest = function(blob) {
           jQuery("#inbenta-bot-input").val(result.results[0].alternatives[0].transcript);
           jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
           $('#custom-input').val(result.results[0].alternatives[0].transcript);
+          auto_grow(document.getElementById('custom-input'));
           if(window.responseFromEncode){
             var params = {
               text: result.results[0].alternatives[0].transcript,

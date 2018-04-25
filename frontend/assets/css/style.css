@@ -209,7 +209,7 @@ div.microphone-button-taphold{
 .custom-input-wrapp>textarea{
 	background-color: transparent;
     border-color: transparent;
-    height: 46px;
+    min-height: 46px;
     border-radius: 0;
     font-size: 13.5px;
     padding: 0 0 0 16px;
@@ -221,22 +221,35 @@ div.microphone-button-taphold{
     outline: none;
     color: #3d3f43;
     resize: none;
+    overflow: scroll;
+    max-height: 64px;
+    height: 46px;
+  /*  padding-top: 15px !important;
+    padding-bottom: 16px !important;
+    height: 20px;*/
+}
+.custom-input-wrapp>textarea.centered{
+	padding-top: 11px;
 }
 .custom-input-wrapp>textarea::-webkit-input-placeholder{
 	font-family: Open Sans,Arial,Helvetica,sans-serif;
 	font-size: 13.5px;
+	/*line-height: 46px;*/
 }
 .custom-input-wrapp>textarea::-moz-placeholder{
 	font-family: Open Sans,Arial,Helvetica,sans-serif;
 	font-size: 13.5px;
+	/*line-height: 46px;*/
 }
 .custom-input-wrapp>textarea:-moz-placeholder{
 	font-family: Open Sans,Arial,Helvetica,sans-serif;
 	font-size: 13.5px;
+	/*line-height: 46px;*/
 }
 .custom-input-wrapp>textarea:-ms-input-placeholder{
 	font-family: Open Sans,Arial,Helvetica,sans-serif;
 	font-size: 13.5px;
+	/*line-height: 46px;*/
 }
 .custom-input-wrapp>textarea:focus::-webkit-input-placeholder{
 	color: lightgray;

@@ -220,7 +220,7 @@ function launchNLEsclationForm(escalateNLForm, rejectedEscalation, noAgentsAvail
     	setTimeout(function(){
     		if(!$('#inbenta-bot-input+div').is('.custom-input-wrapp')){
     			$('#inbenta-bot-input, .inbenta-bot-button.footer__form__button').css('display','none');
-    			$('#inbenta-bot-input').after('<div class="custom-input-wrapp"><textarea type="text" class="custom-input" autocomplete="off" placeholder="Ask me" id="custom-input" rows="3"></textarea><button id="custom-send"><span class="custom-icon"></span></button></div>');
+    			$('#inbenta-bot-input').after('<div class="custom-input-wrapp"><textarea type="text" class="custom-input centered" autocomplete="off" placeholder="Ask me" id="custom-input" onkeyup="auto_grow(this)"></textarea><button id="custom-send"><span class="custom-icon"></span></button></div>');
 
           if(lastInputText && lastInputText!==undefined){
             $('#custom-input').val(lastInputText);
