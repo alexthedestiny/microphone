@@ -51,8 +51,7 @@ function auto_grow(element) {
 $(function(){
     //custom textarea start
     $(document).on('keydown', '#custom-input', function(e){
-      if( (e.keyCode == 13 || e.keyCode == 10) && !e.ctrlKey){
-        console.log('ll');
+      if( (e.keyCode == 13 || e.keyCode == 10) && !(e.ctrlKey || e.metaKey)){
         e.preventDefault();
         window.customData = jQuery("#custom-input").val();
         let messageData = {
@@ -67,11 +66,9 @@ $(function(){
           }, 500);
         }
       }
-      if (e.ctrlKey && (e.keyCode == 13 || e.keyCode == 10 )){
-        console.log('ctrl + enter');
-        $('#custom-input').html($('#custom-input').val()+'\n');
+      if ( (e.ctrlKey || e.metaKey) && (e.keyCode == 13 || e.keyCode == 10 )){
+        document.getElementById('custom-input').value += "\r\n";
       }
-      console.log('l');
     });
      //custom textarea end
     //start custom input
