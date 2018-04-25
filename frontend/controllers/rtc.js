@@ -50,6 +50,29 @@ function auto_grow(element) {
   }
 $(function(){
     //custom textarea start
+    $(document).on('keydown', '#custom-input', function(e){
+      if( (e.keyCode == 13 || e.keyCode == 10) && !e.ctrlKey){
+        console.log('ll');
+        e.preventDefault();
+        window.customData = jQuery("#custom-input").val();
+        let messageData = {
+          message: window.customData
+        }
+        if(window.customData && window.customData.length>0){
+          window.chatbot.actions.displayUserMessage(messageData);
+          window.chatbot.actions.sendMessage(messageData);
+          setTimeout(function(){
+            $('#custom-input').val('');
+            auto_grow(document.getElementById('custom-input'));
+          }, 500);
+        }
+      }
+      if (e.ctrlKey && (e.keyCode == 13 || e.keyCode == 10 )){
+        console.log('ctrl + enter');
+        $('#custom-input').html($('#custom-input').val()+'\n');
+      }
+      console.log('l');
+    });
      //custom textarea end
     //start custom input
     $(document).on('click', '#custom-send', function(){
@@ -62,6 +85,7 @@ $(function(){
         window.chatbot.actions.sendMessage(messageData);
         setTimeout(function(){
           $('#custom-input').val('');
+          auto_grow(document.getElementById('custom-input'));
         }, 500);
       }
     });
@@ -496,6 +520,7 @@ window.sendASRRequest = function(blob) {
           }
         }else{
           $('#custom-input').val('');
+          auto_grow(document.getElementById('custom-input'));
           jQuery("#inbenta-bot-input").val("");
           jQuery("#inbenta-bot-input").attr('data-value', "");
           document.getElementById('inbenta-bot-input').setAttribute("value", "");
