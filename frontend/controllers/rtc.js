@@ -63,7 +63,7 @@ $(function(){
           setTimeout(function(){
             $('#custom-input').val('');
             auto_grow(document.getElementById('custom-input'));
-          }, 500);
+          }, 0);
         }
       }
       if ( (e.ctrlKey || e.metaKey) && (e.keyCode == 13 || e.keyCode == 10 )){
@@ -83,7 +83,7 @@ $(function(){
         setTimeout(function(){
           $('#custom-input').val('');
           auto_grow(document.getElementById('custom-input'));
-        }, 500);
+        }, 0);
       }
     });
     // end custom input
