@@ -502,6 +502,7 @@ window.sendASRRequest = function(blob) {
           jQuery("#inbenta-bot-input").attr('data-value', result.results[0].alternatives[0].transcript);
           $('#custom-input').val(result.results[0].alternatives[0].transcript);
           auto_grow(document.getElementById('custom-input'));
+          $('#custom-input').scrollTop($('#custom-input')[0].scrollHeight);
           if(window.responseFromEncode){
             var params = {
               text: result.results[0].alternatives[0].transcript,
