@@ -134,6 +134,7 @@ body{
 	opacity: 0;
 	display: none!important;
 	object-fit: contain;
+	max-height: 120px;
 }
 .loader-wrapp>span{
 	transition: 0.3s;
@@ -189,8 +190,12 @@ div.microphone-button-taphold{
 	background-position: center;
 	background-repeat: no-repeat;
 	display: block;
-	margin: auto;
 	z-index: 2;
+	left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: 0px;
 }
 .microphone-button-taphold::after{
 	background-color: #2dc88b;
