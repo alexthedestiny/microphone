@@ -53,6 +53,7 @@ body{
 
 .control-panel.visibleCP{
 	display: inline-block;
+	z-index: 99999;
 }
 .ui-draggeble {
 	bottom: 40% !important;
@@ -60,6 +61,44 @@ body{
 .ui-draggable-handle{
 	pointer-events: none!important;
 	cursor: auto!important;
+}
+.mic-wrapper{
+	position: relative;
+}
+.mic-wrapper>.userTip{
+	position: absolute;
+	display: flex!important;
+	align-items: center;
+	justify-content: center;
+	font-size: 13.5px;
+	font-family: Open Sans,Arial,Helvetica,sans-serif;
+	font-weight: 400;
+	color: #fff;
+	background-color: rgba(45, 200, 139, 0.7);
+	width: 200px;
+	height: 70px;
+	border-radius: 5px;
+	right: 5px;
+	top: -60px;
+	padding: 15px;
+	visibility: hidden;
+	opacity: 0;
+	transition: 0.5s;
+}
+.mic-wrapper>.userTip::after{
+	position: absolute;
+	content: " ";
+	display: inline-block;
+	right: 10px;
+	bottom: -14px;
+	border: 7px solid transparent;	
+	border-top: 7px solid rgba(45, 200, 139, 0.7);
+	width: 10px;
+	height: 8px;
+}
+.mic-wrapper>.userTip.open{
+	visibility: visible;
+	opacity: 1;
 }
 .mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader{
 	display: table;

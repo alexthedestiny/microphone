@@ -121,6 +121,9 @@ $(function(){
       }
     });
   }
+  // $('#microphone-button-taphold').click(function(){
+  //   $('.mic-wrapper>.userTip').addClass('open');
+  // });
 });
 
 var mSeconds = 0;
@@ -296,6 +299,14 @@ function replaceAudio(src) {
 
     audio = newAudio;
 }
+var removeTipTimeout;
+function showTip(){
+  clearTimeout(removeTipTimeout);
+  $('.mic-wrapper>.userTip').addClass('open');
+  removeTipTimeout = setTimeout(function(){
+      $('.mic-wrapper>.userTip').removeClass('open');
+  },3000);
+}
 
 function stopRecordingCallback() {
     replaceAudio(URL.createObjectURL(recorder.getBlob()));
@@ -312,15 +323,14 @@ function stopRecordingCallback() {
 
     var data = new FormData();
     var oReq = new XMLHttpRequest();
-    console.log('stop callback');
     $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('visibleCol').addClass('hiddenCol');
     $('.allLoader').removeClass('hiddenCol').addClass('visibleCol');
     if(holdTime<500){
-      console.log(holdTime);
       clearInterval(holdInterval);
       $('#timer').text('');
       $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
       $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
+      showTip();
       return;
     }
     oReq.open("POST", 'https://kosmo.sevn.pro/encodeLatest', true);
@@ -358,6 +368,7 @@ function stopRecordingCallbackExplorer() {
       $('#timer').text('');
       $('.mic-wrapper, .timer-wrap, .loader-wrapp').removeClass('hiddenCol').addClass('visibleCol');
       $('.allLoader').removeClass('visibleCol').addClass('hiddenCol');
+      showTip();
       return;
     }
     else {
@@ -394,7 +405,6 @@ var btnStopRecording = document.getElementById('btn-stop-recording');
 var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
 
 btnStartRecording.ontouchstart = function() {
-  console.log('before addclass 1');
   if(!isRecording){ 
     if (!microphone || (isExplorer && !FWRecorder.isMicrophoneAccessible() ) ) {
         captureMicrophone(function(mic) {
@@ -460,7 +470,6 @@ btnStartRecording.ontouchstart = function() {
 };
 
 btnStartRecording.ontouchend = function() {
-    console.log('end isExplorer: ', isExplorer);
     isRecording = false;
     if(!isExplorer){
       recorder.stopRecording(stopRecordingCallback);
