@@ -102,10 +102,17 @@ body{
 	visibility: visible;
 	opacity: 1;
 }
-.mic-wrapper, .timer-wrap, .loader-wrapp, .allLoader{
+.mic-wrapper, .timer-wrap, .loader-wrapp{
 	display: table;
 	transition: 0.3s;
 	vertical-align: middle;
+	height: 100%;
+}
+.allLoader{
+	display: none;
+	align-items: center;
+	justify-content: center;
+	transition: 0.3s;
 	height: 100%;
 }
 .mic-wrapper>img, .timer-wrap>span, .loader-wrapp>img, .loader-wrapp>span, .mic-wrapper>div{
@@ -115,7 +122,15 @@ body{
 }
 .allLoader>img{
 	display: inline-block;
-	height: 70%;
+	height: 60px;
+	top:0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+.allLoader.visibleCol{
+	display: flex!important;
 }
 .visibleCol{
 	visibility: visible;
@@ -142,10 +157,6 @@ body{
 	display: none!important;
 	font-family: Open Sans,Arial,Helvetica,sans-serif;
 	font-size: 13.5px;
-}
-.allLoader>img{
-	height: 60px;
-	margin-top: 50px;
 }
 .loader-wrapp>img.visibleLoader{
 	opacity: 1;
