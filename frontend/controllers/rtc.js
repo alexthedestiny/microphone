@@ -6,6 +6,10 @@ var isExplorer = false;
 var holdTime = 0;
 var holdInterval;
 
+var isTablet = false;
+if( $(window).width()<=1200 ){
+  isTablet = true;
+}
 
 if( $(window).width()>768 ){
   setTimeout(function(){
@@ -51,7 +55,7 @@ function auto_grow(element) {
 $(function(){
     //custom textarea start
     $(document).on('keydown', '#custom-input', function(e){
-      if( (e.keyCode == 13 || e.keyCode == 10) && !(e.ctrlKey || e.metaKey)){
+      if( (e.keyCode == 13 || e.keyCode == 10) && !(e.ctrlKey || e.metaKey) && !isTablet ){
         e.preventDefault();
         window.customData = jQuery("#custom-input").val();
         let messageData = {
@@ -66,7 +70,7 @@ $(function(){
           }, 0);
         }
       }
-      if ( (e.ctrlKey || e.metaKey) && (e.keyCode == 13 || e.keyCode == 10 )){
+      if ( (e.ctrlKey || e.metaKey) && (e.keyCode == 13 || e.keyCode == 10 ) && !isTablet ){
         document.getElementById('custom-input').value += "\r\n";
       }
     });
