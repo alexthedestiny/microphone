@@ -12,24 +12,24 @@
     </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.18/jquery.touchSwipe.min.js"></script>
     <script type="text/javascript" src="/vendor/FlashWavRecorder/html/js/swfobject.js"></script>
     <script type="text/javascript" src="/vendor/FlashWavRecorder/html/js/recorder.js"></script>
     <script type="text/javascript" src="/vendor/FlashWavRecorder/html/js/main.js"></script>
   </head>
   <body>
-     <div class="hideMe">
-        <button id="btn-start-recording"></button>
-        <button id="btn-stop-recording" disabled></button>
-        <button id="btn-release-microphone" disabled></button>
-        <hr>
-        <div><audio controls autoplay></audio></div> 
+  <div class="screen1">
+    <div class="hideMe">
+      <button id="btn-start-recording"></button>
+      <button id="btn-stop-recording" disabled></button>
+      <button id="btn-release-microphone" disabled></button>
+      <hr>
+      <div><audio controls autoplay></audio></div> 
    </div>
    <div class="container">
     <div class="description">
-      <h2>Welcome to Nextlevel. <br> Ai cross-browser Speech To Text service v 1.0!</h2> 
+      <h2>Welcome to Nextlevel.Ai cross-browser Speech To Text service v 1.0!</h2> 
 
       <b>Basic principals of work:</b> 
 
@@ -114,6 +114,47 @@
             <img src="assets/img/bars.svg" alt="load">
         </div>
     </div>
+  </div>
+  <div class="screen2 hiddenScreen">
+    <h2>Welcome to Nextlevel.Ai cross-browser Speech To Text service v 1.0!</h2> 
+
+      <b>Basic principals of work:</b> 
+
+      <p>Available as SaaS paid by the hour of voice->text translation, brands now can make it possible for their users to interact with web pages through voice (for ex entering search queries, or chatting via web chat).  Recording a voice for translation is very easy - just press and hold the button to capture your voice and release when finished.</p>
+
+      <p>Recognized voice will appear in the demo web chat text area.</p>
+
+      <b>Current release supports all modern browsers:</b>
+      <br>
+      <p>
+        <span class="lighten">Desktop: </span><br>
+        -Google Chrome <br>
+        -Mozilla Firefox <br>
+        -Opera <br>
+        -Edge<br>
+        -Safari<br>
+        -Internet Explorer<br>
+        <br>
+        <span class="lighten">Mobile Android:</span> <br>
+        -Google Chrome <br> 
+        -Mozilla Firefox <br>
+        -Opera<br> 
+        <br>
+        <span class="lighten">Mobile iOS: </span><br>
+        -Safari <br>  
+      </p>
+      <b>Next release features:</b> <br>
+
+      - Real time streaming recognition <br> 
+      - Start speech recognition by a key word (similar to amazon alexa) <br> 
+      - automatic stop voice recording when silent <br>  
+      <br>
+      For pricing and integration contact us at <a href="mailto:contact@nextlevel.ai">contact@nextlevel.ai</a>
+  </div>
+  <div class="indicator">
+    <div class="ind1 active"></div>
+    <div class="ind2"></div>
+  </div>
     <script src="/assets/in.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="/controllers/nl-escalation-adapter-babel.js"></script>

@@ -384,7 +384,9 @@ div.microphone-button-taphold{
 	color: #333;
 	font-style: italic;
 }
-
+.screen2, .indicator{
+	display: none;
+}
 
 @media all and (max-width: 768px){
 	body{
@@ -425,5 +427,68 @@ div.microphone-button-taphold{
 	}
 	.allLoader>img{
 		margin-top: 18px!important;
+	}
+	.screen1, .screen2{
+		width: 100vw;
+		height: 100vh;
+		-webkit-overflow-scrolling: touch !important;
+		float: left;
+		transition: 1s;
+	}
+	.screen2{
+		display: block;
+		overflow-y: scroll;
+		top: 0px;
+	    position: absolute;
+	    left: 0px;
+	    padding: 0px 20px;
+	    visibility: visible;
+	    height: 85vh;
+	}
+	.screen2.hiddenScreen{
+		transform: translateX(100vw);
+		visibility: hidden;
+	}
+	.screen1.hiddenScreen{
+		transform: translateX(-100vw);
+	}
+	.inbenta .inbenta-bot .ui-draggable{
+		transition: 1s;
+	}
+	.inbenta .inbenta-bot .ui-draggable.hiddenScreen{
+		transform: translateX(-100vw);
+	}
+	.inbenta-bot__launcher{
+		transition-duration: 1s;
+		transition-delay: 0.5s;
+	}
+	.inbenta-bot__launcher.hiddenScreen{
+		transform: translateX(-100vw);
+	}
+	.indicator{
+		position: fixed;
+		height: 20px;
+		bottom: 0px;
+		left: 0px;
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+		width: 20%;
+		left:50%;
+		margin-left: -10%;
+	}
+	.screen2 h2{
+		margin: 0px!important;
+	}
+	.indicator>div{
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background-color: rgba(45, 200, 139, 0.7);
+		margin: 0px 10px;
+		transition: 0.5s;
+	}
+	.indicator>div.active{
+		transform: scale(1.5);
 	}
 }

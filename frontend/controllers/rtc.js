@@ -48,6 +48,29 @@ function auto_grow(element) {
     element.style.height = (element.scrollHeight)+"px";
   }
 $(function(){
+    $( window ).swipe({
+      swipeLeft: function(event){
+        event.preventDefault();
+        console.log('left');
+        if( $('.screen2').hasClass('hiddenScreen') ){
+          $('.screen2').removeClass('hiddenScreen');
+          $('.screen1, .inbenta .inbenta-bot .ui-draggable, .inbenta-bot__launcher').addClass('hiddenScreen');
+          $('.ind1').removeClass('active');
+          $('.ind2').addClass('active');
+        }
+      },
+      swipeRight: function(event){
+        event.preventDefault();
+        console.log('right');
+        if( $('.screen1').hasClass('hiddenScreen') ){
+          $('.screen1, .inbenta .inbenta-bot .ui-draggable, .inbenta-bot__launcher').removeClass('hiddenScreen');
+          $('.screen2').addClass('hiddenScreen');
+          $('.ind2').removeClass('active');
+          $('.ind1').addClass('active');
+        }
+      }
+    });
+
     //custom textarea start
     $(document).on('keydown', '#custom-input', function(e){
       if( (e.keyCode == 13 || e.keyCode == 10) && !(e.ctrlKey || e.metaKey) ){
