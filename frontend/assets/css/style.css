@@ -1,7 +1,7 @@
 body{
 	margin: 0!important;
     padding: 0!important;
-    overflow: hidden!important;
+    /*overflow: hidden!important;*/
     width: 100%;
 }
 *{
@@ -13,7 +13,12 @@ body{
 	margin-left: 40% !important;
 }
 .details {
-	margin-top: 20% !important;
+	/*margin-top: 20% !important;*/
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -290px;
+	margin-top: -80px;
 }
 .custom-input::-ms-clear {
 	display: none;
@@ -368,7 +373,26 @@ div.microphone-button-taphold{
 		transform: scale(1);
     }
 }
+
+.description{
+	width: 70%;
+	font-family: Open Sans,Arial,Helvetica,sans-serif;
+	font-size: 13.5px;
+}
+.lighten{
+	font-size: 15px;
+	color: #333;
+	font-style: italic;
+}
+
+
 @media all and (max-width: 768px){
+	body{
+		overflow: hidden!important;
+	}
+	.description{
+		display: none;
+	}
 	.inbenta .inbenta-bot .ui-draggable{
 		bottom: auto!important;
 		right: auto!important;
