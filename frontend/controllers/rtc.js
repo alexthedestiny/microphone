@@ -44,10 +44,11 @@ if(isSafari && $(window).width()<768) {
   }, 1000);
 }
 function auto_grow(element) {
-    element.style.height = "5px";
-    element.style.height = (element.scrollHeight)+"px";
-  }
+  element.style.height = "5px";
+  element.style.height = (element.scrollHeight)+"px";
+}
 $(function(){
+  if( $( window ).width()<=768 ){
     $( window ).swipe({
       swipeLeft: function(event){
         event.preventDefault();
@@ -70,9 +71,10 @@ $(function(){
         }
       }
     });
-
-    //custom textarea start
+  }
+    
     $(document).on('keydown', '#custom-input', function(e){
+      console.log('kd');
       if( (e.keyCode == 13 || e.keyCode == 10) && !(e.ctrlKey || e.metaKey) ){
         e.preventDefault();
         window.customData = jQuery("#custom-input").val();
