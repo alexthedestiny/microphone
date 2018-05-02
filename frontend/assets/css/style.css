@@ -145,7 +145,7 @@ body{
 .hiddenCol{
 	visibility: hidden;
 	opacity: 0;
-	display: none;
+	display: none!important;
 }
 .loader-wrapp>img{
 	width: 90%;
@@ -184,13 +184,13 @@ div.microphone-button-taphold{
 	background-size: contain;
 	min-height: 70%;
 	display: flex!important;
+	display: -webkit-flex;
 	align-items: center;
 	align-content: center;
 	flex-basis: auto;
 	justify-content: center;
     -webkit-align-content: stretch;
     -ms-flex-line-pack: stretch;
-    align-content: stretch;
     -webkit-box-align: center;
     -moz-box-align: center;
     -webkit-align-items: center;
@@ -211,7 +211,8 @@ div.microphone-button-taphold{
     right: 0;
     bottom: 0;
     top: 0;
-    margin: 0px;
+    margin: auto;
+    position: absolute;
 }
 .microphone-button-taphold::after{
 	background-color: #2dc88b;
