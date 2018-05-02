@@ -72,9 +72,10 @@ $(function(){
       }
     });
   }
-    
+    $(document).on('paste',"#custom-input",function(){
+      auto_grow(document.getElementById('custom-input'));
+    });
     $(document).on('keydown', '#custom-input', function(e){
-      console.log('kd');
       if( (e.keyCode == 13 || e.keyCode == 10) && !(e.ctrlKey || e.metaKey) ){
         e.preventDefault();
         window.customData = jQuery("#custom-input").val();
