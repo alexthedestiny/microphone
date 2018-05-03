@@ -48,6 +48,9 @@ function auto_grow(element) {
     element.style.height = (element.scrollHeight)+"px";
   }
 $(function(){
+    $(document).on('paste',"#custom-input",function(){ 
+      auto_grow(document.getElementById('custom-input')); 
+    });
     //custom textarea start
     $(document).on('keydown', '#custom-input', function(e){
       if( (e.keyCode == 13 || e.keyCode == 10) && !(e.ctrlKey || e.metaKey) ){
