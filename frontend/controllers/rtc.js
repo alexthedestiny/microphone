@@ -246,8 +246,10 @@ function captureMicrophone(callback) {
     if(typeof navigator.mediaDevices === 'undefined' || !navigator.mediaDevices.getUserMedia) {
         // alert('This browser does not supports WebRTC getUserMedia API.');
         isExplorer = true;
-        console.log('sorry, you are using ie');
         setTimeout(function(){
+          if(!FWRecorder.isMicrophoneAccessible()){ 
+            FWRecorder.showPermissionWindow(); 
+          } 
           if(FWRecorder && !FWRecorder.isMicrophoneAccessible()){
             FWRecorder.record('audio', 'audio.wav');
           }else{
