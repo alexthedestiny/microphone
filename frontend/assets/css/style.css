@@ -156,6 +156,7 @@ body{
 	display: none!important;
 	object-fit: contain;
 	max-height: 120px;
+	position: absolute;
 }
 .loader-wrapp>span{
 	transition: 0.3s;
